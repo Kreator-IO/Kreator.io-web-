@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState, useContext } from 'react';
+import { signOut } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
+import { auth } from '../firebase';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +19,16 @@ export default function Header() {
 
   const { user, updateUser } = useContext(UserContext);
 
-  const handleLogout = () => updateUser(null);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch {
+      // Local/demo sessions do not always have a Firebase user to sign out.
+    }
+
+    updateUser(null);
+    localStorage.removeItem('token');
+  };
 
   return (
     <header className="fixed w-full z-50 bg-slate-900/70 backdrop-blur-xl border-b border-slate-800">

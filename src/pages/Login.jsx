@@ -1,7 +1,10 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Lock, Mail } from 'lucide-react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
+import GoogleLogin from '../components/Login';
+import { auth } from '../firebase';
 
 const API_BASE = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 const ROLE_OPTIONS = [
@@ -79,12 +82,31 @@ export default function Login() {
     navigate(roleOption.path);
   };
 
+  const handleGoogleLogin = (firebaseUser) => {
+    updateUser({
+      name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'Google User',
+      email: firebaseUser.email,
+      role: selectedRole.role,
+    });
+    navigate(getRedirectPath(selectedRole.role));
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setMessage('');
     setIsSubmitting(true);
 
     try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const firebaseUser = userCredential.user;
+      updateUser({
+        name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+        email: firebaseUser.email,
+        role: selectedRole.role,
+      });
+      navigate(getRedirectPath(selectedRole.role));
+    } catch (firebaseError) {
+      try {
       const response = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -112,9 +134,10 @@ export default function Login() {
       if (!loginWithLocalUser()) {
         setMessage(data.message || data.error || 'Invalid email or password.');
       }
-    } catch (error) {
-      if (!loginWithLocalUser()) {
-        setMessage('Unable to reach the login server. Please try again.');
+      } catch (apiError) {
+        if (!loginWithLocalUser()) {
+          setMessage(firebaseError.message || 'Unable to reach the login server. Please try again.');
+        }
       }
     } finally {
       setIsSubmitting(false);
@@ -214,6 +237,17 @@ export default function Login() {
               <Link to="/register" className="text-sm text-slate-400 hover:text-white">Create account</Link>
             </div>
           </form>
+
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-white/10"></div>
+            <span className="text-xs uppercase tracking-widest text-slate-500">or</span>
+            <div className="h-px flex-1 bg-white/10"></div>
+          </div>
+
+          <GoogleLogin
+            onSuccess={handleGoogleLogin}
+            onError={() => setMessage('Google login failed. Please try again.')}
+          />
 
           {message && <p className="mt-4 text-sm text-red-300">{message}</p>}
         </div>

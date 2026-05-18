@@ -1,7 +1,9 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
 import { User, Mail, Lock } from 'lucide-react';
+import { auth } from '../firebase';
 
 export default function Register() {
   const { updateUser } = useContext(UserContext);
@@ -15,16 +17,25 @@ export default function Register() {
 
   const saveUsers = (arr) => localStorage.setItem('users', JSON.stringify(arr));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const users = loadUsers();
     if (!form.name || !form.email || !form.password) { setMessage('Fill all fields'); return; }
-    if (users.find(u => u.email === form.email)) { setMessage('Email already used'); return; }
-    const newUser = { name: form.name, email: form.email, password: form.password, role: 'client' };
-    users.push(newUser);
-    saveUsers(users);
-    updateUser({ name: newUser.name, email: newUser.email, role: newUser.role });
-    navigate('/portfolio');
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
+      await updateProfile(userCredential.user, { displayName: form.name });
+
+      updateUser({ name: form.name, email: form.email, role: 'Client' });
+      navigate('/portals/client');
+    } catch (error) {
+      const users = loadUsers();
+      if (users.find(u => u.email === form.email)) { setMessage('Email already used'); return; }
+      const newUser = { name: form.name, email: form.email, password: form.password, role: 'Client' };
+      users.push(newUser);
+      saveUsers(users);
+      updateUser({ name: newUser.name, email: newUser.email, role: newUser.role });
+      navigate('/portals/client');
+    }
   };
 
   return (
