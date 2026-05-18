@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Check, Linkedin, Github, Twitter } from 'lucide-react';
+import { addData } from '../firebase';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -20,6 +21,11 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
+      await addData('consultations', {
+        ...formData,
+        status: 'initialized',
+      });
+
       const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/contact`, {
         method: 'POST',
         headers: {
@@ -28,16 +34,15 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Submission successful:', data);
       }
 
-      const data = await response.json();
-      console.log('Submission successful:', data);
       setIsSubmitted(true);
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Your consultation has been sent to the Project Manager team. You will receive a response within 24 hours. Your portal will be opened after approval.');
+      setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -59,8 +64,8 @@ export default function Contact() {
            <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
              <Check className="text-green-500" size={48} />
            </div>
-           <h2 className="text-4xl font-bold text-white mb-4">Message Sent Successfully!</h2>
-           <p className="text-slate-400 text-lg mb-12">Thank you, {formData.name.split(' ')[0]}. One of our solution architects will reach out to you within 24 hours.</p>
+           <h2 className="text-4xl font-bold text-white mb-4">Consultation Initialized!</h2>
+           <p className="text-slate-400 text-lg mb-12">Thank you, {formData.name.split(' ')[0]}. Your detailed brief has been sent to the Project Manager team.</p>
            <button 
              onClick={() => setIsSubmitted(false)}
              className="px-10 py-4 bg-white text-blue-900 font-bold rounded-2xl hover:bg-slate-100 transition-all"

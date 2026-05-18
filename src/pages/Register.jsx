@@ -1,13 +1,21 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
-import { User, Mail, Lock } from 'lucide-react';
-import { auth } from '../firebase';
+import { User, Mail, Lock, ShieldCheck } from 'lucide-react';
+import { addData, auth } from '../firebase';
+
+const ROLE_OPTIONS = [
+  { id: 'admin', label: 'Admin', role: 'Admin', path: '/portals/admin' },
+  { id: 'client', label: 'Client', role: 'Client', path: '/portals/client' },
+  { id: 'manager', label: 'Manager', role: 'Manager', path: '/portals/project' },
+  { id: 'team', label: 'Team', role: 'Team', path: '/portals/employee' },
+];
 
 export default function Register() {
   const { updateUser } = useContext(UserContext);
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: ROLE_OPTIONS[1].role });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -19,35 +27,59 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.password) { setMessage('Fill all fields'); return; }
+    if (!form.name || !form.email || !form.password || !form.role) { setMessage('Fill all fields'); return; }
+
+    const selectedRole = ROLE_OPTIONS.find(option => option.role === form.role) || ROLE_OPTIONS[1];
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
       await updateProfile(userCredential.user, { displayName: form.name });
 
-      updateUser({ name: form.name, email: form.email, role: 'Client' });
-      navigate('/portals/client');
+      await addData('users', {
+        uid: userCredential.user.uid,
+        name: form.name,
+        email: form.email,
+        role: selectedRole.role,
+      });
+
+      updateUser({ name: form.name, email: form.email, role: selectedRole.role });
+      navigate(selectedRole.path);
     } catch (error) {
       const users = loadUsers();
       if (users.find(u => u.email === form.email)) { setMessage('Email already used'); return; }
-      const newUser = { name: form.name, email: form.email, password: form.password, role: 'Client' };
+      const newUser = { name: form.name, email: form.email, password: form.password, role: selectedRole.role };
       users.push(newUser);
       saveUsers(users);
       updateUser({ name: newUser.name, email: newUser.email, role: newUser.role });
-      navigate('/portals/client');
+      navigate(selectedRole.path);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#071028] to-[#020617]">
-      <div className="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
-        <div className="hidden md:flex flex-col justify-center px-8 rounded-2xl bg-gradient-to-br from-green-700 to-teal-500 shadow-xl text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 28, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 p-8"
+      >
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="hidden md:flex flex-col justify-center px-8 rounded-2xl bg-gradient-to-br from-green-700 to-teal-500 shadow-xl text-white"
+        >
           <h2 className="text-4xl font-extrabold mb-2">Create Account</h2>
           <p className="text-slate-100/90">Join Kreator to manage projects, access portals, and start consultations.</p>
           <div className="mt-6 text-sm text-white/80">Already registered? Login to continue.</div>
-        </div>
+        </motion.div>
 
-        <div className="bg-slate-900/70 backdrop-blur p-8 rounded-2xl shadow-lg border border-white/5">
+        <motion.div
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="bg-slate-900/70 backdrop-blur p-8 rounded-2xl shadow-lg border border-white/5"
+        >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 font-bold">K</div>
             <div>
@@ -78,6 +110,29 @@ export default function Register() {
               </div>
             </label>
 
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm text-slate-300">
+                <ShieldCheck size={18} className="text-slate-300" />
+                <span>Select account type</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {ROLE_OPTIONS.map(option => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    onClick={() => setForm({ ...form, role: option.role })}
+                    className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                      form.role === option.role
+                        ? 'bg-green-500 text-slate-950'
+                        : 'bg-white/5 text-slate-300 hover:bg-white/10'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="flex items-center justify-between">
               <button className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 rounded text-slate-900 font-semibold">Register & Login</button>
               <Link to="/login" className="text-sm text-slate-400 hover:text-white">Already have an account?</Link>
@@ -85,8 +140,8 @@ export default function Register() {
           </form>
 
           {message && <p className="mt-4 text-sm text-blue-300">{message}</p>}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

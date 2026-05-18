@@ -193,7 +193,7 @@ function App() {
           <Route 
             path="/portals/billing" 
             element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
+              <ProtectedRoute allowedRoles={['Client']}>
                 <BillingPortal />
               </ProtectedRoute>
             } 

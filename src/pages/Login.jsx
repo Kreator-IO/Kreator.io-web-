@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Lock, Mail } from 'lucide-react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
@@ -42,7 +43,7 @@ function getAuthErrorMessage(error) {
     case 'auth/invalid-credential':
     case 'auth/user-not-found':
     case 'auth/wrong-password':
-      return 'Invalid email or password. Create the user in Firebase Authentication first, or use Demo access.';
+      return 'Invalid email or password. Create the user in Firebase Authentication first.';
     case 'auth/operation-not-allowed':
       return 'Email/Password login is not enabled in Firebase Authentication.';
     case 'auth/too-many-requests':
@@ -90,18 +91,7 @@ export default function Login() {
 
   const handleRoleSelect = (roleOption) => {
     setSelectedRole(roleOption);
-    setEmail(roleOption.email);
-    setPassword(roleOption.password);
     setMessage('');
-  };
-
-  const handleDemoLogin = (roleOption = selectedRole) => {
-    updateUser({
-      name: `${roleOption.label} User`,
-      email: roleOption.email,
-      role: roleOption.role,
-    });
-    navigate(roleOption.path);
   };
 
   const handleGoogleLogin = (firebaseUser) => {
@@ -174,25 +164,29 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#071028] to-[#020617] px-4">
-      <div className="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
-        <div className="hidden md:flex flex-col justify-center px-8 rounded-2xl bg-gradient-to-br from-blue-700 to-cyan-500 shadow-xl text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 28, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 p-8"
+      >
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="hidden md:flex flex-col justify-center px-8 rounded-2xl bg-gradient-to-br from-blue-700 to-cyan-500 shadow-xl text-white"
+        >
           <h2 className="text-4xl font-extrabold mb-2">Welcome Back</h2>
           <p className="text-slate-100/90">Sign in to manage projects, review work, and access your workspace.</p>
-          <div className="mt-6 grid grid-cols-2 gap-2">
-            {ROLE_OPTIONS.map(roleOption => (
-              <button
-                key={roleOption.id}
-                type="button"
-                onClick={() => handleDemoLogin(roleOption)}
-                className="rounded-lg bg-white/15 px-3 py-2 text-left text-sm font-semibold text-white hover:bg-white/25 transition-colors"
-              >
-                {roleOption.label}
-              </button>
-            ))}
-          </div>
-        </div>
+          <p className="mt-6 text-sm text-white/80">Choose your role, then sign in with your own account credentials.</p>
+        </motion.div>
 
-        <div className="bg-slate-900/70 backdrop-blur p-8 rounded-2xl shadow-lg border border-white/5">
+        <motion.div
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="bg-slate-900/70 backdrop-blur p-8 rounded-2xl shadow-lg border border-white/5"
+        >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 font-bold">K</div>
             <div>
@@ -255,13 +249,6 @@ export default function Login() {
               >
                 {isSubmitting ? 'Signing in...' : 'Login'}
               </button>
-              <button
-                type="button"
-                onClick={() => handleDemoLogin()}
-                className="text-sm font-semibold text-cyan-300 hover:text-white"
-              >
-                Demo access
-              </button>
               <Link to="/register" className="text-sm text-slate-400 hover:text-white">Create account</Link>
             </div>
           </form>
@@ -278,8 +265,8 @@ export default function Login() {
           />
 
           {message && <p className="mt-4 text-sm text-red-300">{message}</p>}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
