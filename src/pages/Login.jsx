@@ -37,6 +37,21 @@ function getRedirectPath(role) {
   return '/portfolio';
 }
 
+function getAuthErrorMessage(error) {
+  switch (error.code) {
+    case 'auth/invalid-credential':
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+      return 'Invalid email or password. Create the user in Firebase Authentication first, or use Demo access.';
+    case 'auth/operation-not-allowed':
+      return 'Email/Password login is not enabled in Firebase Authentication.';
+    case 'auth/too-many-requests':
+      return 'Too many login attempts. Please wait a moment and try again.';
+    default:
+      return error.message || 'Login failed. Please try again.';
+  }
+}
+
 export default function Login() {
   const { updateUser } = useContext(UserContext);
   const [email, setEmail] = useState('');
@@ -64,6 +79,13 @@ export default function Login() {
     });
     navigate(getRedirectPath(localUser.role));
     return true;
+  };
+
+  const hasLocalUser = () => {
+    return Boolean(
+      getLocalUsers().find(user => user.email === email && user.password === password) ||
+      ROLE_OPTIONS.find(user => user.email === email && user.password === password)
+    );
   };
 
   const handleRoleSelect = (roleOption) => {
@@ -95,6 +117,12 @@ export default function Login() {
     e.preventDefault();
     setMessage('');
     setIsSubmitting(true);
+
+    if (hasLocalUser()) {
+      loginWithLocalUser();
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -136,7 +164,7 @@ export default function Login() {
       }
       } catch (apiError) {
         if (!loginWithLocalUser()) {
-          setMessage(firebaseError.message || 'Unable to reach the login server. Please try again.');
+          setMessage(getAuthErrorMessage(firebaseError));
         }
       }
     } finally {
