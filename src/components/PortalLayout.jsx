@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  Settings, Users, User, Briefcase, 
-  Target, LifeBuoy, DollarSign, CreditCard, 
-  FileText, Database, MessageSquare, 
-  BarChart2, TrendingUp, 
-  Shield, Share2, Monitor, UserPlus,
+  Settings, Users, User, Briefcase,
   ChevronLeft, Menu, X, Bell, Search, LogOut
 } from 'lucide-react';
 import { useContext } from 'react';
@@ -13,21 +9,9 @@ import { UserContext } from '../context/UserContext';
 
 const portalLinks = [
   { id: 'admin', name: 'Admin', icon: <Settings size={20} />, path: '/portals/admin', roles: ['admin', 'administrator'] },
-  { id: 'client', name: 'Client', icon: <User size={20} />, path: '/portals/client', roles: ['admin', 'administrator', 'client'] },
-  { id: 'employee', name: 'Employee', icon: <Users size={20} />, path: '/portals/employee', roles: ['admin', 'administrator', 'manager', 'team'] },
-  { id: 'project', name: 'Projects', icon: <Briefcase size={20} />, path: '/portals/project', roles: ['admin', 'administrator', 'manager', 'team'] },
-  { id: 'crm', name: 'CRM', icon: <Target size={20} />, path: '/portals/crm', roles: ['admin', 'administrator', 'manager'] },
-  { id: 'support', name: 'Support', icon: <LifeBuoy size={20} />, path: '/portals/support', roles: ['admin', 'administrator', 'client', 'manager'] },
-  { id: 'finance', name: 'Finance', icon: <DollarSign size={20} />, path: '/portals/finance', roles: ['admin', 'administrator', 'manager'] },
-  { id: 'billing', name: 'Billing', icon: <CreditCard size={20} />, path: '/portals/billing', roles: ['admin', 'administrator', 'client', 'manager'] },
-  { id: 'hr', name: 'HR', icon: <UserPlus size={20} />, path: '/portals/hr', roles: ['admin', 'administrator', 'manager'] },
-  { id: 'docs', name: 'Documents', icon: <FileText size={20} />, path: '/portals/docs', roles: ['admin', 'administrator', 'client', 'manager', 'team'] },
-  { id: 'communication', name: 'Chat', icon: <MessageSquare size={20} />, path: '/portals/communication', roles: ['admin', 'administrator', 'manager', 'team'] },
-  { id: 'analytics', name: 'Analytics', icon: <BarChart2 size={20} />, path: '/portals/analytics', roles: ['admin', 'administrator', 'manager'] },
-  { id: 'marketing', name: 'Marketing', icon: <TrendingUp size={20} />, path: '/portals/marketing', roles: ['admin', 'administrator', 'manager'] },
-  { id: 'partner', name: 'Partners', icon: <Share2 size={20} />, path: '/portals/partner', roles: ['admin', 'administrator', 'manager'] },
-  { id: 'security', name: 'Security', icon: <Shield size={20} />, path: '/portals/security', roles: ['admin', 'administrator'] },
-  { id: 'monitor', name: 'System', icon: <Monitor size={20} />, path: '/portals/monitor', roles: ['admin', 'administrator'] },
+  { id: 'client', name: 'Client', icon: <User size={20} />, path: '/portals/client', roles: ['client'] },
+  { id: 'employee', name: 'Team', icon: <Users size={20} />, path: '/portals/employee', roles: ['team'] },
+  { id: 'project', name: 'Manager', icon: <Briefcase size={20} />, path: '/portals/project', roles: ['manager'] },
 ];
 
 const PortalLayout = ({ children, title }) => {

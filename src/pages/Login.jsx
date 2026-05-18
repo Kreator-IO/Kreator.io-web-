@@ -8,7 +8,7 @@ import { auth } from '../firebase';
 
 const API_BASE = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 const ROLE_OPTIONS = [
-  { id: 'admin', label: 'Admin', role: 'Admin', email: 'admin@kreator.com', password: 'admin123', path: '/portals' },
+  { id: 'admin', label: 'Admin', role: 'Admin', email: 'admin@kreator.com', password: 'admin123', path: '/portals/admin' },
   { id: 'client', label: 'Client', role: 'Client', email: 'client@kreator.com', password: 'client123', path: '/portals/client' },
   { id: 'manager', label: 'Manager', role: 'Manager', email: 'manager@kreator.com', password: 'manager123', path: '/portals/project' },
   { id: 'team', label: 'Team', role: 'Team', email: 'team@kreator.com', password: 'team123', path: '/portals/employee' },
@@ -31,7 +31,7 @@ function getRedirectPath(role) {
   }
 
   if (normalizedRole === 'administrator') {
-    return '/portals';
+    return '/portals/admin';
   }
 
   return '/portfolio';

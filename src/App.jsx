@@ -127,7 +127,7 @@ function App() {
           <Route 
             path="/portals" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['Admin', 'Administrator', 'Client', 'Manager', 'Team']}>
                 <PageLayout>
                   <PortalDashboard />
                 </PageLayout>
@@ -137,7 +137,7 @@ function App() {
           <Route 
             path="/portals/admin" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['Admin', 'Administrator']}>
                 <AdminPortal />
               </ProtectedRoute>
             } 
@@ -145,7 +145,7 @@ function App() {
           <Route 
             path="/portals/client" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['Client']}>
                 <ClientPortal />
               </ProtectedRoute>
             } 
@@ -153,7 +153,7 @@ function App() {
           <Route 
             path="/portals/employee" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['Team']}>
                 <EmployeePortal />
               </ProtectedRoute>
             } 
@@ -161,7 +161,7 @@ function App() {
           <Route 
             path="/portals/project" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['Manager']}>
                 <ProjectManagementPortal />
               </ProtectedRoute>
             } 
@@ -169,7 +169,7 @@ function App() {
           <Route 
             path="/portals/crm" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <CRMPortal />
               </ProtectedRoute>
             } 
@@ -177,7 +177,7 @@ function App() {
           <Route 
             path="/portals/support" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <SupportPortal />
               </ProtectedRoute>
             } 
@@ -185,7 +185,7 @@ function App() {
           <Route 
             path="/portals/finance" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <FinancePortal />
               </ProtectedRoute>
             } 
@@ -193,7 +193,7 @@ function App() {
           <Route 
             path="/portals/billing" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <BillingPortal />
               </ProtectedRoute>
             } 
@@ -201,7 +201,7 @@ function App() {
           <Route 
             path="/portals/hr" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <HRPortal />
               </ProtectedRoute>
             } 
@@ -209,7 +209,7 @@ function App() {
           <Route 
             path="/portals/marketing" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <MarketingPortal />
               </ProtectedRoute>
             } 
@@ -217,7 +217,7 @@ function App() {
           <Route 
             path="/portals/partner" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <PartnerPortal />
               </ProtectedRoute>
             } 
@@ -225,7 +225,7 @@ function App() {
           <Route 
             path="/portals/security" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <SecurityPortal />
               </ProtectedRoute>
             } 
@@ -233,7 +233,7 @@ function App() {
           <Route 
             path="/portals/monitor" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <SystemMonitorPortal />
               </ProtectedRoute>
             } 
@@ -241,7 +241,7 @@ function App() {
           <Route 
             path="/portals/learning" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <LearningPortal />
               </ProtectedRoute>
             } 
@@ -249,7 +249,7 @@ function App() {
           <Route 
             path="/portals/docs" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <DocumentManagementPortal />
               </ProtectedRoute>
             } 
@@ -257,7 +257,7 @@ function App() {
           <Route 
             path="/portals/communication" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <CommunicationPortal />
               </ProtectedRoute>
             } 
@@ -265,7 +265,7 @@ function App() {
           <Route 
             path="/portals/analytics" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['__disabled__']}>
                 <AnalyticsDashboard />
               </ProtectedRoute>
             } 
