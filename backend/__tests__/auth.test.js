@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 
 beforeAll(async () => {
-  await mongoose.connect('mongodb://localhost:27017/testdb', {
+  await mongoose.connect('mongodb://kreater-backend.onrender.com:27017/testdb', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

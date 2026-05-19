@@ -1,26 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PortalLayout from '../../components/PortalLayout';
 import { 
   Plus, MoreVertical, Calendar, 
   MessageSquare, Paperclip, Users,
   List, Layout, CheckCircle2
 } from 'lucide-react';
+import axios from 'axios';
 
-const columns = [
-  { id: 'todo', name: 'To Do', count: 4, tasks: [
-    { id: 101, title: 'UI Mockups for Mobile App', priority: 'High', tags: ['Design'], members: 2 },
-    { id: 102, title: 'Market Research Analysis', priority: 'Medium', tags: ['Research'], members: 1 },
-  ]},
-  { id: 'inprogress', name: 'In Progress', count: 3, tasks: [
-    { id: 201, title: 'Backend API Integration', priority: 'High', tags: ['Dev'], members: 3 },
-  ]},
-  { id: 'review', name: 'In Review', count: 2, tasks: [
-    { id: 301, title: 'Landing Page Copy', priority: 'Low', tags: ['Content'], members: 1 },
-  ]},
-  { id: 'done', name: 'Completed', count: 12, tasks: [
-    { id: 401, title: 'Sprint 4 Planning', priority: 'Medium', tags: ['Mgmt'], members: 4 },
-  ]},
-];
+const [columns, setColumns] = useState([]);
+
+useEffect(() => {
+  axios.get('/api/tasks')
+    .then(response => setColumns(response.data))
+    .catch(error => console.error('Error fetching tasks:', error));
+}, []);
 
 const ProjectManagementPortal = () => {
   return (

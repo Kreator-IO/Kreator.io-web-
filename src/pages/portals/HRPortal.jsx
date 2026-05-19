@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PortalLayout from '../../components/PortalLayout';
 import { 
   Users, UserPlus, ClipboardList, Wallet, 
@@ -6,6 +6,7 @@ import {
   Filter, Plus, MoreHorizontal, Briefcase,
   TrendingUp, Clock
 } from 'lucide-react';
+import axios from 'axios';
 
 const employeeStats = [
   { label: 'Total Employees', value: '148', change: '+12', icon: <Users size={20} />, color: 'blue' },
@@ -14,11 +15,13 @@ const employeeStats = [
   { label: 'Avg. Retention', value: '94%', change: '+1.2%', icon: <TrendingUp size={20} />, color: 'rose' },
 ];
 
-const leaveRequests = [
-  { id: 1, name: 'Alice Freeman', type: 'Sick Leave', duration: '2 days', status: 'Pending', date: 'Today' },
-  { id: 2, name: 'Robert Fox', type: 'Annual Leave', duration: '5 days', status: 'Approved', date: 'Yesterday' },
-  { id: 3, name: 'Jane Cooper', type: 'Maternity', duration: '3 months', status: 'Pending', date: '2 days ago' },
-];
+const [leaveRequests, setLeaveRequests] = useState([]);
+
+useEffect(() => {
+  axios.get('/api/leave-requests')
+    .then(response => setLeaveRequests(response.data))
+    .catch(error => console.error('Error fetching leave requests:', error));
+}, []);
 
 const HRPortal = () => {
   return (

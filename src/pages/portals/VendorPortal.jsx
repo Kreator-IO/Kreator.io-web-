@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PortalLayout from '../../components/PortalLayout';
 import { 
   Truck, Package, FileText, DollarSign, 
@@ -6,13 +6,15 @@ import {
   MoreHorizontal, MapPin, Clock, CheckCircle2,
   AlertCircle, Building2
 } from 'lucide-react';
+import axios from 'axios';
 
-const purchaseOrders = [
-  { id: 'PO-9401', vendor: 'TechSupply Co.', item: 'Laptops & Monitors', status: 'In Transit', total: '$12,450', date: 'May 04' },
-  { id: 'PO-9402', vendor: 'Global Office', item: 'Office Furniture', status: 'Delivered', total: '$3,200', date: 'May 02' },
-  { id: 'PO-9403', vendor: 'Cloud Services Inc', item: 'Server Hardware', status: 'Pending', total: '$45,000', date: 'May 06' },
-  { id: 'PO-9404', vendor: 'Stationery Hub', item: 'Printing Supplies', status: 'Cancelled', total: '$450', date: 'Apr 28' },
-];
+const [purchaseOrders, setPurchaseOrders] = useState([]);
+
+useEffect(() => {
+  axios.get('/api/purchase-orders')
+    .then(response => setPurchaseOrders(response.data))
+    .catch(error => console.error('Error fetching purchase orders:', error));
+}, []);
 
 const VendorPortal = () => {
   return (
@@ -131,7 +133,7 @@ const VendorPortal = () => {
                 <div className="absolute -left-2.5 top-0 w-4 h-4 rounded-full bg-blue-500 border-2 border-slate-900 shadow-lg shadow-blue-500/20"></div>
                 <div>
                   <p className="text-sm font-bold text-white">Out for Delivery</p>
-                  <p className="text-xs text-slate-500">TechSupply Co. • PO-9401</p>
+                  <p className="text-[10px] text-slate-500">TechSupply Co. • PO-9401</p>
                   <p className="text-[10px] text-blue-400 font-bold uppercase mt-1">Expected today</p>
                 </div>
               </div>

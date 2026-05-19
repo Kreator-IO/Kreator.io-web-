@@ -21,7 +21,7 @@ export default function Services() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/services`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://kreater-backend.onrender.com/api'}/services`);
         if (response.ok) {
           const result = await response.json();
           if (result.success && result.data) {

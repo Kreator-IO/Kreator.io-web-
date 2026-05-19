@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PortalLayout from '../../components/PortalLayout';
 import { 
   DollarSign, TrendingUp, TrendingDown, 
   PieChart, Download, Plus, Filter,
   ArrowUpRight, ArrowDownRight, Calendar
 } from 'lucide-react';
+import axios from 'axios';
 
-const transactions = [
-  { id: 1, type: 'Income', category: 'Project Payment', amount: '$12,500.00', status: 'Completed', date: 'May 05, 2024' },
-  { id: 2, type: 'Expense', category: 'Cloud Infrastructure', amount: '$1,240.00', status: 'Pending', date: 'May 04, 2024' },
-  { id: 3, type: 'Income', category: 'Service Subscription', amount: '$450.00', status: 'Completed', date: 'May 04, 2024' },
-  { id: 4, type: 'Expense', category: 'Marketing Campaign', amount: '$3,800.00', status: 'Completed', date: 'May 02, 2024' },
-];
+const [transactions, setTransactions] = useState([]);
+
+useEffect(() => {
+  axios.get('/api/transactions')
+    .then(response => setTransactions(response.data))
+    .catch(error => console.error('Error fetching transactions:', error));
+}, []);
 
 const FinancePortal = () => {
   return (
