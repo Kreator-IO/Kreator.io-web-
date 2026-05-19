@@ -15,15 +15,15 @@ const employeeStats = [
   { label: 'Avg. Retention', value: '94%', change: '+1.2%', icon: <TrendingUp size={20} />, color: 'rose' },
 ];
 
-const [leaveRequests, setLeaveRequests] = useState([]);
-
-useEffect(() => {
-  axios.get('/api/leave-requests')
-    .then(response => setLeaveRequests(response.data))
-    .catch(error => console.error('Error fetching leave requests:', error));
-}, []);
-
 const HRPortal = () => {
+  const [leaveRequests, setLeaveRequests] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/leave-requests')
+      .then(response => setLeaveRequests(response.data))
+      .catch(error => console.error('Error fetching leave requests:', error));
+  }, []);
+
   return (
     <PortalLayout title="HR Management">
       <div className="space-y-8 animate-fade-in-up">

@@ -8,15 +8,15 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
-const [purchaseOrders, setPurchaseOrders] = useState([]);
-
-useEffect(() => {
-  axios.get('/api/purchase-orders')
-    .then(response => setPurchaseOrders(response.data))
-    .catch(error => console.error('Error fetching purchase orders:', error));
-}, []);
-
 const VendorPortal = () => {
+  const [purchaseOrders, setPurchaseOrders] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/purchase-orders')
+      .then(response => setPurchaseOrders(response.data))
+      .catch(error => console.error('Error fetching purchase orders:', error));
+  }, []);
+
   return (
     <PortalLayout title="Vendor Management">
       <div className="space-y-8 animate-fade-in-up">

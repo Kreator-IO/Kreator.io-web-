@@ -7,15 +7,15 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
-const [transactions, setTransactions] = useState([]);
-
-useEffect(() => {
-  axios.get('/api/transactions')
-    .then(response => setTransactions(response.data))
-    .catch(error => console.error('Error fetching transactions:', error));
-}, []);
-
 const FinancePortal = () => {
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/transactions')
+      .then(response => setTransactions(response.data))
+      .catch(error => console.error('Error fetching transactions:', error));
+  }, []);
+
   return (
     <PortalLayout title="Financial Dashboard">
       <div className="space-y-8 animate-fade-in-up">

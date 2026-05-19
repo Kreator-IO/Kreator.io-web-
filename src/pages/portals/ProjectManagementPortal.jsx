@@ -7,15 +7,15 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
-const [columns, setColumns] = useState([]);
-
-useEffect(() => {
-  axios.get('/api/tasks')
-    .then(response => setColumns(response.data))
-    .catch(error => console.error('Error fetching tasks:', error));
-}, []);
-
 const ProjectManagementPortal = () => {
+  const [columns, setColumns] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/tasks')
+      .then(response => setColumns(response.data))
+      .catch(error => console.error('Error fetching tasks:', error));
+  }, []);
+
   return (
     <PortalLayout title="Project Management">
       <div className="space-y-8 animate-fade-in-up">
