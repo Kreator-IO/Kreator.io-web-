@@ -1,23 +1,38 @@
 const request = require('supertest');
-const app = require('../server'); // Assuming server.js initializes the app
+const app = require('../server'); 
 const mongoose = require('mongoose');
-const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
-beforeAll(async () => {
-  await mongoose.connect('mongodb://kreater-backend.onrender.com:27017/testdb', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+// Mock the User model so tests don't require a running MongoDB instance
+jest.mock('../models/User', () => {
+  const mockUserInstance = {
+    save: jest.fn().mockResolvedValue(true),
+    email: 'test@example.com',
+    password: 'hashedpassword',
+    role: 'Client',
+    _id: 'mockuserid'
+  };
+  
+  const mockUserClass = jest.fn().mockImplementation(() => mockUserInstance);
+  mockUserClass.findOne = jest.fn().mockImplementation(async ({ email }) => {
+    if (email === 'test@example.com') {
+      return {
+        _id: 'mockuserid',
+        email: 'test@example.com',
+        password: await require('bcrypt').hash('password123', 10),
+        role: 'Client',
+        save: jest.fn().mockResolvedValue(true)
+      };
+    }
+    return null;
   });
-});
-
-afterAll(async () => {
-  await mongoose.connection.db.dropDatabase();
-  await mongoose.connection.close();
+  
+  return mockUserClass;
 });
 
 describe('Authentication Tests', () => {
   test('Register a new user', async () => {
-    const res = await request(app).post('/auth/register').send({
+    const res = await request(app).post('/api/auth/register').send({
       email: 'test@example.com',
       password: 'password123',
       role: 'Client',
@@ -27,7 +42,7 @@ describe('Authentication Tests', () => {
   });
 
   test('Login with valid credentials', async () => {
-    const res = await request(app).post('/auth/login').send({
+    const res = await request(app).post('/api/auth/login').send({
       email: 'test@example.com',
       password: 'password123',
     });
@@ -36,14 +51,14 @@ describe('Authentication Tests', () => {
   });
 
   test('Access protected route with valid token', async () => {
-    const loginRes = await request(app).post('/auth/login').send({
+    const loginRes = await request(app).post('/api/auth/login').send({
       email: 'test@example.com',
       password: 'password123',
     });
     const token = loginRes.body.token;
 
     const res = await request(app)
-      .get('/auth/dashboard')
+      .get('/api/auth/dashboard')
       .set('Authorization', token);
     expect(res.statusCode).toBe(200);
     expect(res.body.message).toContain('Client dashboard');
