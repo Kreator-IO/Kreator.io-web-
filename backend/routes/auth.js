@@ -1,8 +1,8 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../models/User');
-const authMiddleware = require('../middlewares/authMiddleware');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import User from '../models/User.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -40,4 +40,4 @@ router.get('/dashboard', authMiddleware, (req, res) => {
   res.json({ message: `Welcome to the ${req.user.role} dashboard` });
 });
 
-module.exports = router;
+export default router;
