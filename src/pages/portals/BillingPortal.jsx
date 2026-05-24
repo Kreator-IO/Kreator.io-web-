@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PortalLayout from '../../components/PortalLayout';
 import {
   AlertCircle,
+  ArrowLeft,
   CheckCircle2,
   CreditCard,
   Download,
@@ -40,7 +42,7 @@ const planCatalog = [
   },
   {
     id: 'enterprise',
-    name: 'Enterprise',
+    name: 'Kreator.io',
     price: 199,
     period: 'month',
     description: 'For larger teams that need hands-on account coverage.',
@@ -320,6 +322,14 @@ const BillingPortal = () => {
   return (
     <PortalLayout title="Billing Portal">
       <div className="space-y-8 animate-fade-in-up">
+        <Link
+          to="/portals/client"
+          className="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/70 px-4 py-2 text-sm font-bold text-slate-300 transition-all hover:border-blue-500/50 hover:text-white"
+        >
+          <ArrowLeft size={16} />
+          Back to Overview
+        </Link>
+
         {notice && (
           <div className="fixed right-6 top-24 z-50 flex items-center gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-950/90 px-5 py-3 text-sm font-semibold text-emerald-100 shadow-2xl shadow-emerald-950/40 backdrop-blur">
             <CheckCircle2 size={18} className="text-emerald-300" />

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PortalLayout from '../../../components/PortalLayout';
 import { 
-  FileText, Clock, CheckCircle, AlertCircle, 
+  ArrowLeft,
+  FileText, Clock,
   Download, MessageSquare, ExternalLink, CreditCard,
   MessageCircle
 } from 'lucide-react';
@@ -133,6 +134,15 @@ const ClientPortal = () => {
       case 'chat':
         return (
           <div className="space-y-8 animate-fade-in-up">
+            <button
+              type="button"
+              onClick={() => setActiveTab('overview')}
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/70 px-4 py-2 text-sm font-bold text-slate-300 transition-all hover:border-blue-500/50 hover:text-white"
+            >
+              <ArrowLeft size={16} />
+              Back to Overview
+            </button>
+
             <div className="glass-dark rounded-3xl p-8 border border-slate-800">
               <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
                 <MessageCircle size={24} className="text-cyan-500" />
