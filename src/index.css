@@ -68,3 +68,45 @@ body {
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-in-out forwards;
 }
+
+/* Background floating objects */
+.bg-obj {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.12;
+  filter: blur(20px);
+  transform-origin: center;
+}
+
+@keyframes floatA {
+  0% { transform: translate3d(-10%, 0, 0) scale(1); }
+  50% { transform: translate3d(10%, -20%, 0) scale(1.08); }
+  100% { transform: translate3d(-10%, 0, 0) scale(1); }
+}
+
+@keyframes floatB {
+  0% { transform: translate3d(10%, 0, 0) scale(1); }
+  50% { transform: translate3d(-12%, 18%, 0) scale(0.95); }
+  100% { transform: translate3d(10%, 0, 0) scale(1); }
+}
+
+.obj-1 { width: 360px; height: 360px; left: -6%; top: 6%; background: linear-gradient(135deg,#0ea5e9,#8b5cf6); animation: floatA 18s ease-in-out infinite; }
+.obj-2 { width: 260px; height: 260px; right: -8%; top: 12%; background: linear-gradient(135deg,#06b6d4,#7c3aed); animation: floatB 22s ease-in-out infinite; }
+.obj-3 { width: 180px; height: 180px; left: 8%; bottom: 8%; background: linear-gradient(135deg,#60a5fa,#34d399); animation: floatB 26s ease-in-out infinite; }
+.obj-4 { width: 220px; height: 220px; right: 6%; bottom: 18%; background: linear-gradient(135deg,#a78bfa,#06b6d4); animation: floatA 20s ease-in-out infinite; }
+.obj-5 { width: 120px; height: 120px; left: 45%; top: -6%; background: linear-gradient(135deg,#f97316,#f472b6); animation: floatA 16s ease-in-out infinite; }
+.obj-6 { width: 90px; height: 90px; left: 60%; bottom: 6%; background: linear-gradient(135deg,#fb7185,#60a5fa); animation: floatB 14s ease-in-out infinite; }
+
+.bg-animation-wrapper {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-animation-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

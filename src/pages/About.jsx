@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Target, Eye, Heart, ShieldCheck, Github, Linkedin, Twitter } from 'lucide-react';
+import { Target, Eye, Heart, ShieldCheck, Github, Linkedin, Twitter, Rocket, Shield, Code, Globe } from 'lucide-react';
 
 export default function About() {
   const values = [
@@ -196,15 +196,23 @@ export default function About() {
               Our team consists of senior architects, talented designers, and strategic thinkers
               who collaborate across time zones to bring your vision to life.
             </p>
-            <div className="grid grid-cols-2 gap-8 text-white">
-              <div>
-                <p className="text-4xl font-bold mb-2">100+</p>
-                <p className="text-slate-400 font-medium tracking-wide">Projects Delivered</p>
-              </div>
-              <div>
-                <p className="text-4xl font-bold mb-2">98%</p>
-                <p className="text-slate-400 font-medium tracking-wide">Client Satisfaction</p>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-white">
+              {[
+                { icon: Rocket, label: 'Fast Growth' },
+                { icon: Shield, label: 'Secure Systems' },
+                { icon: Code, label: 'Clean Development' },
+                { icon: Globe, label: 'Worldwide Services' },
+              ].map((s, i) => {
+                const Icon = s.icon;
+                return (
+                  <div key={i} className="text-center px-4">
+                    <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-500/10 rounded-2xl mb-4 mx-auto">
+                      <Icon className="text-blue-400" size={22} />
+                    </div>
+                    <p className="text-slate-400 font-medium tracking-wide uppercase text-sm mt-1">{s.label}</p>
+                  </div>
+                );
+              })}
             </div>
           </motion.div>
         </div>

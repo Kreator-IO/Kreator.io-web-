@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import BackgroundAnimation from './components/BackgroundAnimation';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -44,7 +45,8 @@ function ScrollToTop() {
 
 function PageLayout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-600 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-600 selection:text-white relative">
+      <BackgroundAnimation />
       <Header />
       <main className="flex-grow">
         {children}

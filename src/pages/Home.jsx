@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Code2, Brain, Smartphone, Cloud, ArrowRight, CheckCircle, Zap, Users, TrendingUp, Award } from 'lucide-react';
+import { Code2, Brain, Smartphone, Cloud, ArrowRight, CheckCircle, Zap, Users, TrendingUp, Award, Rocket, Shield, Code, Globe } from 'lucide-react';
 import ServiceCard from '../components/ServiceCard';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   const stats = [
-    { number: '100+', label: 'Projects Delivered', icon: Award },
-    { number: '50+', label: 'Team Members', icon: Users },
-    { number: '15+', label: 'Years Experience', icon: TrendingUp },
-    { number: '98%', label: 'Client Satisfaction', icon: Zap },
+    { number: '', label: 'Fast Growth', icon: Rocket },
+    { number: '', label: 'Secure Systems', icon: Shield },
+    { number: '', label: 'Clean Development', icon: Code },
+    { number: '', label: 'Worldwide Services', icon: Globe },
   ];
 
   const testimonials = [
@@ -48,15 +48,7 @@ export default function Home() {
 
         <div className="container relative z-10 mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-2 bg-blue-500/10 backdrop-blur-md border border-blue-400/20 rounded-full px-6 py-2 mb-8"
-            >
-              <Zap size={16} className="text-blue-400" />
-              <span className="text-sm font-semibold text-blue-200">🚀 Pioneering Digital Innovation</span>
-            </motion.div>
+            {/* Hero tagline removed as requested */}
 
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
@@ -83,7 +75,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex gap-4 justify-center flex-wrap"
+              className="flex gap-8 justify-center flex-wrap items-center"
             >
               <Link 
                 to="/services" 
@@ -94,9 +86,10 @@ export default function Home() {
               </Link>
               <Link 
                 to="/contact" 
-                className="px-8 py-4 rounded-xl font-bold text-white glass hover:bg-white/20 transition-all duration-300"
+                className="group relative px-8 py-4 rounded-xl font-bold text-white bg-white/5 hover:bg-white/20 transition-all duration-300 border border-white/10 flex flex-col items-center shadow-[0_4px_20px_rgba(2,6,23,0.6)]"
               >
-                Get a Quote
+                <span className="text-base md:text-lg">Book a Call</span>
+                <span className="text-xs text-slate-300 mt-1 font-medium">Free Consultation</span>
               </Link>
             </motion.div>
           </div>
@@ -113,7 +106,7 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-20 border-y border-slate-800 bg-[#020617]/50 backdrop-blur-sm">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-16">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -123,13 +116,13 @@ export default function Home() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center group"
+                  className="text-center group px-6"
                 >
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/10 rounded-2xl mb-6 group-hover:scale-110 transition-transform">
                     <Icon className="text-blue-400" size={32} />
                   </div>
-                  <div className="text-4xl md:text-6xl font-bold text-white mb-2">{stat.number}</div>
-                  <p className="text-slate-400 font-medium tracking-wide uppercase text-sm">{stat.label}</p>
+                  <div className="text-4xl md:text-6xl font-bold text-white mb-4">{stat.number}</div>
+                  <p className="text-slate-400 font-medium tracking-wide uppercase text-sm mt-2">{stat.label}</p>
                 </motion.div>
               );
             })}
