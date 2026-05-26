@@ -163,7 +163,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#071028] to-[#020617] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-slate-50 px-4 transition-colors dark:from-[#071028] dark:to-[#020617]">
       <motion.div
         initial={{ opacity: 0, y: 28, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -185,13 +185,13 @@ export default function Login() {
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.25, duration: 0.5 }}
-          className="bg-slate-900/70 backdrop-blur p-8 rounded-2xl shadow-lg border border-white/5"
+          className="bg-white/85 backdrop-blur p-8 rounded-2xl shadow-lg border border-slate-200 dark:bg-slate-900/70 dark:border-white/5"
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 font-bold">K</div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Login</h1>
-              <p className="text-sm text-slate-400">Access your Kreator account</p>
+              <h1 className="text-2xl font-bold text-slate-950 dark:text-white">Login</h1>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Access your Kreator account</p>
             </div>
           </div>
 
@@ -204,7 +204,7 @@ export default function Login() {
                 className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                   selectedRole.id === roleOption.id
                     ? 'bg-blue-500 text-white'
-                    : 'bg-white/5 text-slate-300 hover:bg-white/10'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
                 }`}
               >
                 {roleOption.label}
@@ -213,29 +213,29 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
-            <label className="block text-sm text-slate-300">
-              <div className="flex items-center gap-2 bg-white/5 rounded p-2">
-                <Mail className="text-slate-300" size={18} />
+            <label className="block text-sm text-slate-700 dark:text-slate-300">
+              <div className="flex items-center gap-2 bg-slate-100 rounded p-2 dark:bg-white/5">
+                <Mail className="text-slate-500 dark:text-slate-300" size={18} />
                 <input
                   type="email"
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-transparent outline-none text-white placeholder:text-slate-500"
+                  className="w-full bg-transparent outline-none text-slate-950 placeholder:text-slate-500 dark:text-white"
                   required
                 />
               </div>
             </label>
 
-            <label className="block text-sm text-slate-300">
-              <div className="flex items-center gap-2 bg-white/5 rounded p-2">
-                <Lock className="text-slate-300" size={18} />
+            <label className="block text-sm text-slate-700 dark:text-slate-300">
+              <div className="flex items-center gap-2 bg-slate-100 rounded p-2 dark:bg-white/5">
+                <Lock className="text-slate-500 dark:text-slate-300" size={18} />
                 <input
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-transparent outline-none text-white placeholder:text-slate-500"
+                  className="w-full bg-transparent outline-none text-slate-950 placeholder:text-slate-500 dark:text-white"
                   required
                 />
               </div>
@@ -249,14 +249,14 @@ export default function Login() {
               >
                 {isSubmitting ? 'Signing in...' : 'Login'}
               </button>
-              <Link to="/register" className="text-sm text-slate-400 hover:text-white">Create account</Link>
+              <Link to="/register" className="text-sm text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white">Create account</Link>
             </div>
           </form>
 
           <div className="my-5 flex items-center gap-3">
-            <div className="h-px flex-1 bg-white/10"></div>
+            <div className="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
             <span className="text-xs uppercase tracking-widest text-slate-500">or</span>
-            <div className="h-px flex-1 bg-white/10"></div>
+            <div className="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
           </div>
 
           <GoogleLogin

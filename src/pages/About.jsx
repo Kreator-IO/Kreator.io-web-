@@ -16,6 +16,7 @@ export default function About() {
       bio: 'Visionary technologist and entrepreneur who founded kreator.io with a mission to deliver world-class digital innovation.',
       gradient: 'from-blue-600 to-cyan-500',
       initials: 'VB',
+      photo: '',
       social: {
         linkedin: 'https://www.linkedin.com/in/vansh-bhushan-vats-b5bb94250/',
         github: 'https://github.com/Bhushanvatsji',
@@ -28,6 +29,7 @@ export default function About() {
       bio: 'Full-stack architect and engineering leader driving the technical strategy and product roadmap at kreator.io.',
       gradient: 'from-purple-600 to-indigo-500',
       initials: 'AS',
+      photo: '',
       social: {
         linkedin: '#',
         github: '#',
@@ -40,6 +42,7 @@ export default function About() {
       bio: 'Dedicated operations lead ensuring every project is delivered on time, within scope, and beyond client expectations.',
       gradient: 'from-emerald-600 to-teal-500',
       initials: 'AA',
+      photo: '',
       social: {
         linkedin: 'https://www.linkedin.com/in/ashish-sarswat-a5b522255/',
         github: '#',
@@ -49,7 +52,7 @@ export default function About() {
   ];
 
   return (
-    <div className="pt-32 bg-[#020617] pb-32">
+    <div className="pt-32 bg-slate-50 pb-32 transition-colors dark:bg-[#020617]">
       <div className="container mx-auto px-4">
         {/* Hero */}
         <motion.div
@@ -58,11 +61,11 @@ export default function About() {
           className="text-center mb-24"
         >
           <span className="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-4 inline-block">Our Story</span>
-          <h1 className="text-5xl md:text-8xl font-bold text-white mb-8">
+          <h1 className="text-5xl md:text-8xl font-bold text-slate-950 mb-8 dark:text-white">
             Pioneering Technology <br />
             <span className="text-blue-500">Since Day One</span>
           </h1>
-          <p className="text-slate-400 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-xl max-w-3xl mx-auto leading-relaxed dark:text-slate-400">
             Founded with a bold dream, kreator.io has grown into a powerhouse of digital innovation,
             serving clients across the globe with cutting-edge software engineering.
           </p>
@@ -84,8 +87,8 @@ export default function About() {
                 <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8">
                   <Icon className="text-blue-400" size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">{v.title}</h3>
-                <p className="text-slate-400 leading-relaxed">{v.text}</p>
+                <h3 className="text-2xl font-bold text-slate-950 mb-4 dark:text-white">{v.title}</h3>
+                <p className="text-slate-600 leading-relaxed dark:text-slate-400">{v.text}</p>
               </motion.div>
             );
           })}
@@ -100,10 +103,10 @@ export default function About() {
             className="text-center mb-20"
           >
             <span className="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-4 inline-block">The Minds Behind It</span>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-slate-950 mb-6 dark:text-white">
               Meet the <span className="text-blue-500">Founding Team</span>
             </h2>
-            <p className="text-slate-400 text-xl max-w-2xl mx-auto">
+            <p className="text-slate-600 text-xl max-w-2xl mx-auto dark:text-slate-400">
               The passionate leaders who built kreator.io from the ground up.
             </p>
           </motion.div>
@@ -122,8 +125,16 @@ export default function About() {
                 <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-10 blur-[80px] rounded-full transition-opacity duration-700`}></div>
 
                 {/* Avatar */}
-                <div className={`w-24 h-24 bg-gradient-to-br ${member.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-500`}>
-                  <span className="text-white font-black text-2xl">{member.initials}</span>
+                <div className={`w-24 h-24 bg-gradient-to-br ${member.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-500 overflow-hidden`}>
+                  {member.photo ? (
+                    <img
+                      src={member.photo}
+                      alt={`${member.name} profile`}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-white font-black text-2xl">{member.initials}</span>
+                  )}
                 </div>
 
                 {/* Role badge */}
@@ -131,8 +142,8 @@ export default function About() {
                   {member.role}
                 </span>
 
-                <h3 className="text-2xl font-black text-white mb-3">{member.name}</h3>
-                <p className="text-slate-400 leading-relaxed text-sm mb-8">{member.bio}</p>
+                <h3 className="text-2xl font-black text-slate-950 mb-3 dark:text-white">{member.name}</h3>
+                <p className="text-slate-600 leading-relaxed text-sm mb-8 dark:text-slate-400">{member.bio}</p>
 
                 {/* Social links */}
                 <div className="flex justify-center gap-4">
@@ -188,15 +199,15 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-4xl font-bold text-slate-950 mb-6 leading-tight dark:text-white">
               World-Class Engineers Focused on One Goal: <span className="text-blue-500">Your Success</span>
             </h2>
-            <p className="text-slate-400 mb-8 text-lg">
+            <p className="text-slate-600 mb-8 text-lg dark:text-slate-400">
               At kreator.io, we believe that the best products are built by people who care.
               Our team consists of senior architects, talented designers, and strategic thinkers
               who collaborate across time zones to bring your vision to life.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-white">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-slate-950 dark:text-white">
               {[
                 { icon: Rocket, label: 'Fast Growth' },
                 { icon: Shield, label: 'Secure Systems' },
@@ -209,7 +220,7 @@ export default function About() {
                     <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-500/10 rounded-2xl mb-4 mx-auto">
                       <Icon className="text-blue-400" size={22} />
                     </div>
-                    <p className="text-slate-400 font-medium tracking-wide uppercase text-sm mt-1">{s.label}</p>
+                    <p className="text-slate-600 font-medium tracking-wide uppercase text-sm mt-1 dark:text-slate-400">{s.label}</p>
                   </div>
                 );
               })}

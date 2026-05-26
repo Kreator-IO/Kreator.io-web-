@@ -36,7 +36,7 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <div className="pt-32 pb-40 bg-[#020617]">
+    <div className="pt-32 pb-40 bg-slate-50 transition-colors dark:bg-[#020617]">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -44,11 +44,11 @@ export default function Portfolio() {
           className="text-center mb-32"
         >
           <span className="text-blue-500 font-bold tracking-[0.25em] uppercase text-sm mb-6 inline-block">Our Portfolio</span>
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-8">
+          <h1 className="text-6xl md:text-8xl font-black text-slate-950 mb-8 dark:text-white">
             Masterpieces Of <br />
             <span className="text-blue-500">Digital Craftsmanship</span>
           </h1>
-          <p className="text-slate-400 text-2xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-2xl max-w-2xl mx-auto leading-relaxed dark:text-slate-400">
             Take a look at some of our most innovative projects that have transformed industries.
           </p>
         </motion.div>
@@ -93,9 +93,9 @@ export default function Portfolio() {
           viewport={{ once: true }}
           className="mt-40 text-center p-20 glass rounded-[60px] border-blue-500/10"
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Ready to Add Your Vision?</h2>
-          <p className="text-slate-400 text-xl max-w-xl mx-auto mb-12">
-            We treat every project as a flagship. Let's make yours next.
+          <h2 className="text-4xl md:text-6xl font-bold text-slate-950 mb-8 dark:text-white">Ready to Add Your Vision?</h2>
+          <p className="text-slate-600 text-xl max-w-xl mx-auto mb-12 dark:text-slate-400">
+            We treat every project as a flagship. Let&apos;s make yours next.
           </p>
           <a
             href="/contact"

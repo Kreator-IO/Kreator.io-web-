@@ -9,7 +9,7 @@ export default function Pricing() {
   ];
 
   return (
-    <div className="pt-32 pb-40 bg-[#020617]">
+    <div className="pt-32 pb-40 bg-slate-50 transition-colors dark:bg-[#020617]">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div 
@@ -18,11 +18,11 @@ export default function Pricing() {
           className="text-center mb-32"
         >
           <span className="text-blue-500 font-bold tracking-[0.25em] uppercase text-sm mb-6 inline-block">Transparent Pricing</span>
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-8">
+          <h1 className="text-6xl md:text-8xl font-black text-slate-950 mb-8 dark:text-white">
             Engineered To <br />
             <span className="text-blue-500">Provide Value</span>
           </h1>
-          <p className="text-slate-400 text-2xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-2xl max-w-2xl mx-auto leading-relaxed dark:text-slate-400">
             Flexible pricing models for every stage of your digital transformation journey.
           </p>
         </motion.div>
@@ -50,9 +50,9 @@ export default function Pricing() {
                    <Icon className="text-blue-400" size={40} />
                  </div>
 
-                 <h3 className="text-3xl font-black text-white mb-4 group-hover:text-blue-500 transition-colors uppercase tracking-tight">{t.name}</h3>
+                 <h3 className="text-3xl font-black text-slate-950 mb-4 group-hover:text-blue-500 transition-colors uppercase tracking-tight dark:text-white">{t.name}</h3>
                  <div className="flex items-baseline gap-2 mb-10">
-                   <span className="text-5xl font-black text-white">{t.price}</span>
+                   <span className="text-5xl font-black text-slate-950 dark:text-white">{t.price}</span>
                    {t.price !== 'Custom' && <span className="text-slate-500 text-lg">/ project</span>}
                  </div>
 
@@ -62,7 +62,7 @@ export default function Pricing() {
                        <div className="w-6 h-6 bg-blue-500/10 rounded-full flex items-center justify-center group-hover/item:bg-blue-600 transition-all">
                          <Check size={14} className="text-blue-400 group-hover/item:text-white" />
                        </div>
-                       <span className="text-slate-400 font-medium group-hover/item:text-white transition-colors">{f}</span>
+                       <span className="text-slate-600 font-medium group-hover/item:text-slate-950 transition-colors dark:text-slate-400 dark:group-hover/item:text-white">{f}</span>
                      </li>
                    ))}
                  </ul>
@@ -82,13 +82,13 @@ export default function Pricing() {
           viewport={{ once: true }}
           className="mt-40 text-center p-20 glass rounded-[60px] border-blue-500/10 bg-gradient-to-r from-blue-950/20 to-purple-950/20"
         >
-           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Need a Custom Blueprint?</h2>
-           <p className="text-slate-400 text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-             We specialize in highly complex, large-scale systems that require a unique approach. Let's discuss your custom architecture today.
+           <h2 className="text-4xl md:text-6xl font-bold text-slate-950 mb-8 dark:text-white">Need a Custom Blueprint?</h2>
+           <p className="text-slate-600 text-xl max-w-2xl mx-auto mb-12 leading-relaxed dark:text-slate-400">
+             We specialize in highly complex, large-scale systems that require a unique approach. Let&apos;s discuss your custom architecture today.
            </p>
            <a 
             href="/contact" 
-            className="px-16 py-6 border-2 border-white/20 hover:border-white text-white font-bold rounded-full transition-all text-xl"
+            className="px-16 py-6 border-2 border-slate-300 hover:border-blue-500 text-slate-950 font-bold rounded-full transition-all text-xl dark:border-white/20 dark:hover:border-white dark:text-white"
            >
              Schedule Consultation
            </a>

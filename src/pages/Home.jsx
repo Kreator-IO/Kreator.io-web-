@@ -1,7 +1,23 @@
 import { Link } from 'react-router-dom';
-import { Code2, Brain, Smartphone, Cloud, ArrowRight, CheckCircle, Zap, Users, TrendingUp, Award, Rocket, Shield, Code, Globe } from 'lucide-react';
+import { Code2, Brain, Smartphone, Cloud, ArrowRight, CheckCircle, Users, Rocket, Shield, Code, Globe } from 'lucide-react';
 import ServiceCard from '../components/ServiceCard';
 import { motion } from 'framer-motion';
+import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
+
+function RiveOverlay() {
+  const { RiveComponent } = useRive({
+    src: 'https://public.rive.app/community/runtime-files/2195-4346-mesh-gradient.riv',
+    autoplay: true,
+    layout: new Layout({
+      fit: Fit.Cover,
+      alignment: Alignment.Center,
+    }),
+  });
+
+  return (
+    <RiveComponent className="absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-screen" />
+  );
+}
 
 export default function Home() {
   const stats = [
@@ -35,18 +51,27 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-[#020617]">
-          {/* Gradients */}
-          <div className="absolute top-0 -left-[10%] w-[50%] h-[50%] bg-blue-500/20 rounded-full mix-blend-screen filter blur-[120px] animate-pulse"></div>
-          <div className="absolute bottom-0 -right-[10%] w-[50%] h-[50%] bg-purple-500/20 rounded-full mix-blend-screen filter blur-[120px] animate-pulse delay-1000"></div>
-          
-          {/* Tech Grid */}
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
+      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden bg-black">
+        {/* Cinematic Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        {/* Subtle flowing Rive animation overlay */}
+        <div className="absolute inset-0 z-10 pointer-events-none">
+          <RiveOverlay />
         </div>
 
-        <div className="container relative z-10 mx-auto px-4">
+        <div className="container relative z-20 mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             {/* Hero tagline removed as requested */}
 
@@ -104,7 +129,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 border-y border-slate-800 bg-[#020617]/50 backdrop-blur-sm">
+      <section className="py-20 border-y border-slate-200 bg-white/70 backdrop-blur-sm transition-colors dark:border-slate-800 dark:bg-[#020617]/50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-16">
             {stats.map((stat, index) => {
@@ -121,8 +146,8 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/10 rounded-2xl mb-6 group-hover:scale-110 transition-transform">
                     <Icon className="text-blue-400" size={32} />
                   </div>
-                  <div className="text-4xl md:text-6xl font-bold text-white mb-4">{stat.number}</div>
-                  <p className="text-slate-400 font-medium tracking-wide uppercase text-sm mt-2">{stat.label}</p>
+                  <div className="text-4xl md:text-6xl font-bold text-slate-950 mb-4 dark:text-white">{stat.number}</div>
+                  <p className="text-slate-600 font-medium tracking-wide uppercase text-sm mt-2 dark:text-slate-400">{stat.label}</p>
                 </motion.div>
               );
             })}
@@ -131,7 +156,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-32 relative bg-[#020617]">
+      <section className="py-32 relative bg-slate-50 transition-colors dark:bg-[#020617]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
             <motion.span 
@@ -146,7 +171,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              className="text-4xl md:text-6xl font-bold text-slate-950 mb-6 dark:text-white"
             >
               Enterprise-Grade Solutions
             </motion.h2>
@@ -154,7 +179,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-slate-400 text-xl max-w-2xl mx-auto"
+              className="text-slate-600 text-xl max-w-2xl mx-auto dark:text-slate-400"
             >
               We combine deep technical expertise with industry insights to deliver scalable digital products.
             </motion.p>
@@ -202,12 +227,12 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-32 border-t border-slate-900 bg-[#020617]">
+      <section className="py-32 border-t border-slate-200 bg-white transition-colors dark:border-slate-900 dark:bg-[#020617]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
               <span className="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-4 inline-block">Values</span>
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">
+              <h2 className="text-4xl md:text-6xl font-bold text-slate-950 mb-8 dark:text-white">
                 Why Industry Leaders <br />
                 <span className="text-blue-500">Trust kretor.Io</span>
               </h2>
@@ -232,8 +257,8 @@ export default function Home() {
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                      <p className="text-slate-400 leading-relaxed">{item.desc}</p>
+                      <h3 className="text-xl font-bold text-slate-950 mb-2 dark:text-white">{item.title}</h3>
+                      <p className="text-slate-600 leading-relaxed dark:text-slate-400">{item.desc}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -248,8 +273,8 @@ export default function Home() {
                   <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-400 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
                     <Users className="text-white" size={48} />
                   </div>
-                  <h4 className="text-2xl font-bold text-white mb-2">Team of 50+ Experts</h4>
-                  <p className="text-slate-400">Committed to your success</p>
+                  <h4 className="text-2xl font-bold text-slate-950 mb-2 dark:text-white">Team of 50+ Experts</h4>
+                  <p className="text-slate-600 dark:text-slate-400">Committed to your success</p>
                 </div>
               </div>
             </div>
@@ -258,17 +283,17 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-32 bg-[#020617] border-t border-slate-900">
+      <section className="py-32 bg-slate-50 border-t border-slate-200 transition-colors dark:bg-[#020617] dark:border-slate-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
             <span className="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-4 inline-block">
               Clients
             </span>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-slate-950 mb-6 dark:text-white">
               Trusted by Innovators
             </h2>
-            <p className="text-slate-400 text-xl max-w-2xl mx-auto">
-              Don't just take our word for it — hear what our partners say.
+            <p className="text-slate-600 text-xl max-w-2xl mx-auto dark:text-slate-400">
+              Don&apos;t just take our word for it - hear what our partners say.
             </p>
           </div>
 
@@ -282,13 +307,13 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 className="p-10 rounded-[32px] glass border-white/5 hover:border-blue-500/20 transition-all"
               >
-                <p className="text-slate-300 text-lg leading-relaxed mb-8 italic">"{t.text}"</p>
+                <p className="text-slate-700 text-lg leading-relaxed mb-8 italic dark:text-slate-300">&quot;{t.text}&quot;</p>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center font-bold text-white text-lg">
                     {t.name[0]}
                   </div>
                   <div>
-                    <p className="text-white font-bold">{t.name}</p>
+                    <p className="text-slate-950 font-bold dark:text-white">{t.name}</p>
                     <p className="text-slate-500 text-sm">{t.role} · {t.company}</p>
                   </div>
                 </div>
@@ -310,7 +335,7 @@ export default function Home() {
                 Ready to Build the Future?
               </h2>
               <p className="text-xl text-blue-100 mb-12 leading-relaxed">
-                Let's collaborate to build software that defines the next generation of your industry.
+                Let&apos;s collaborate to build software that defines the next generation of your industry.
               </p>
               <div className="flex gap-6 justify-center flex-wrap">
                 <Link 

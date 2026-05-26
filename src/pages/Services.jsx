@@ -43,7 +43,7 @@ export default function Services() {
   }, []);
 
   return (
-    <div className="pt-32 bg-[#020617] pb-40">
+    <div className="pt-32 bg-slate-50 pb-40 transition-colors dark:bg-[#020617]">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div 
@@ -52,11 +52,11 @@ export default function Services() {
           className="text-center mb-32"
         >
           <span className="text-blue-500 font-bold tracking-[0.25em] uppercase text-sm mb-6 inline-block">Our Solutions</span>
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-8">
+          <h1 className="text-6xl md:text-8xl font-black text-slate-950 mb-8 dark:text-white">
             Advanced Engineering <br />
             <span className="gradient-text bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">For the Modern Web</span>
           </h1>
-          <p className="text-slate-400 text-2xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-2xl max-w-2xl mx-auto leading-relaxed dark:text-slate-400">
             We solve hard technical problems so you can focus on building your business. 
             From AI to Cloud, we have the team to lead your project.
           </p>
@@ -73,14 +73,14 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="group relative h-80 p-10 rounded-[32px] glass hover:bg-white/10 transition-all border-white/5 overflow-hidden border border-transparent hover:border-blue-500/20"
+                className="group relative h-80 p-10 rounded-[32px] glass hover:bg-white transition-all border-slate-200 overflow-hidden border hover:border-blue-500/20 dark:border-white/5 dark:hover:bg-white/10"
                >
                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[60px] rounded-full group-hover:bg-blue-500/20 transition-all"></div>
                  <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8 shadow-xl">
                    <Icon className="text-blue-400" size={32} />
                  </div>
-                 <h3 className="text-2xl font-bold text-white mb-4">{s.title}</h3>
-                 <p className="text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">{s.desc}</p>
+                 <h3 className="text-2xl font-bold text-slate-950 mb-4 dark:text-white">{s.title}</h3>
+                 <p className="text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors dark:text-slate-400 dark:group-hover:text-slate-300">{s.desc}</p>
                </motion.div>
              );
            })}
@@ -96,7 +96,7 @@ export default function Services() {
            <h4 className="text-slate-500 font-bold tracking-[0.2em] uppercase text-sm mb-12">Built with Industry Standards</h4>
            <div className="flex flex-wrap justify-center gap-12 opacity-40 hover:opacity-100 transition-opacity">
               {['React', 'Next.js', 'Typescript', 'Node.js', 'Python', 'AWS', 'TensorFlow', 'PostgreSQL'].map(tech => (
-                <span key={tech} className="text-3xl font-black text-white">{tech}</span>
+                <span key={tech} className="text-3xl font-black text-slate-950 dark:text-white">{tech}</span>
               ))}
            </div>
         </motion.div>

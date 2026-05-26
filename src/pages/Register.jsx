@@ -56,7 +56,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#071028] to-[#020617]">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-emerald-50 to-slate-50 transition-colors dark:from-[#071028] dark:to-[#020617]">
       <motion.div
         initial={{ opacity: 0, y: 28, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -78,41 +78,41 @@ export default function Register() {
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.25, duration: 0.5 }}
-          className="bg-slate-900/70 backdrop-blur p-8 rounded-2xl shadow-lg border border-white/5"
+          className="bg-white/85 backdrop-blur p-8 rounded-2xl shadow-lg border border-slate-200 dark:bg-slate-900/70 dark:border-white/5"
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 font-bold">K</div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Create your account</h1>
-              <p className="text-sm text-slate-400">Sign up to get started with Kreator</p>
+              <h1 className="text-2xl font-bold text-slate-950 dark:text-white">Create your account</h1>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Sign up to get started with Kreator</p>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <label className="block text-sm text-slate-300">
-              <div className="flex items-center gap-2 bg-white/5 rounded p-2">
-                <User className="text-slate-300" size={18} />
-                <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Full name" className="w-full bg-transparent outline-none text-white placeholder:text-slate-500" />
+            <label className="block text-sm text-slate-700 dark:text-slate-300">
+              <div className="flex items-center gap-2 bg-slate-100 rounded p-2 dark:bg-white/5">
+                <User className="text-slate-500 dark:text-slate-300" size={18} />
+                <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Full name" className="w-full bg-transparent outline-none text-slate-950 placeholder:text-slate-500 dark:text-white" />
               </div>
             </label>
 
-            <label className="block text-sm text-slate-300">
-              <div className="flex items-center gap-2 bg-white/5 rounded p-2">
-                <Mail className="text-slate-300" size={18} />
-                <input value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="Email" className="w-full bg-transparent outline-none text-white placeholder:text-slate-500" />
+            <label className="block text-sm text-slate-700 dark:text-slate-300">
+              <div className="flex items-center gap-2 bg-slate-100 rounded p-2 dark:bg-white/5">
+                <Mail className="text-slate-500 dark:text-slate-300" size={18} />
+                <input value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="Email" className="w-full bg-transparent outline-none text-slate-950 placeholder:text-slate-500 dark:text-white" />
               </div>
             </label>
 
-            <label className="block text-sm text-slate-300">
-              <div className="flex items-center gap-2 bg-white/5 rounded p-2">
-                <Lock className="text-slate-300" size={18} />
-                <input value={form.password} onChange={e=>setForm({...form,password:e.target.value})} placeholder="Password" type="password" className="w-full bg-transparent outline-none text-white placeholder:text-slate-500" />
+            <label className="block text-sm text-slate-700 dark:text-slate-300">
+              <div className="flex items-center gap-2 bg-slate-100 rounded p-2 dark:bg-white/5">
+                <Lock className="text-slate-500 dark:text-slate-300" size={18} />
+                <input value={form.password} onChange={e=>setForm({...form,password:e.target.value})} placeholder="Password" type="password" className="w-full bg-transparent outline-none text-slate-950 placeholder:text-slate-500 dark:text-white" />
               </div>
             </label>
 
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-slate-300">
-                <ShieldCheck size={18} className="text-slate-300" />
+              <div className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                <ShieldCheck size={18} className="text-slate-500 dark:text-slate-300" />
                 <span>Select account type</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
@@ -124,7 +124,7 @@ export default function Register() {
                     className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                       form.role === option.role
                         ? 'bg-green-500 text-slate-950'
-                        : 'bg-white/5 text-slate-300 hover:bg-white/10'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
                     }`}
                   >
                     {option.label}
@@ -135,7 +135,7 @@ export default function Register() {
 
             <div className="flex items-center justify-between">
               <button className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 rounded text-slate-900 font-semibold">Register & Login</button>
-              <Link to="/login" className="text-sm text-slate-400 hover:text-white">Already have an account?</Link>
+              <Link to="/login" className="text-sm text-slate-600 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-white">Already have an account?</Link>
             </div>
           </form>
 

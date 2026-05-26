@@ -58,7 +58,7 @@ export default function Contact() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-[#020617]">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 transition-colors dark:bg-[#020617]">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -67,8 +67,8 @@ export default function Contact() {
           <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
             <Check className="text-green-500" size={48} />
           </div>
-          <h2 className="text-4xl font-bold text-white mb-4">Consultation Initialized!</h2>
-          <p className="text-slate-400 text-lg mb-12">Thank you, {formData.name.split(' ')[0]}. Your detailed brief has been sent to the Project Manager team.</p>
+          <h2 className="text-4xl font-bold text-slate-950 mb-4 dark:text-white">Consultation Initialized!</h2>
+          <p className="text-slate-600 text-lg mb-12 dark:text-slate-400">Thank you, {formData.name.split(' ')[0]}. Your detailed brief has been sent to the Project Manager team.</p>
           <button
             onClick={() => {
               setIsSubmitted(false);
@@ -91,7 +91,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="pt-32 pb-40 bg-[#020617]">
+    <div className="pt-32 pb-40 bg-slate-50 transition-colors dark:bg-[#020617]">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-20">
           {/* Info */}
@@ -101,10 +101,10 @@ export default function Contact() {
             className="flex flex-col justify-center"
           >
             <span className="text-blue-500 font-bold tracking-[0.2em] uppercase text-sm mb-6 inline-block">Get In Touch</span>
-            <h1 className="text-5xl md:text-8xl font-black text-white mb-12">Let's Build <br /> <span className="text-blue-500">Something Great</span></h1>
-            <p className="text-slate-400 text-xl max-w-lg mb-16 leading-relaxed">
+            <h1 className="text-5xl md:text-8xl font-black text-slate-950 mb-12 dark:text-white">Let&apos;s Build <br /> <span className="text-blue-500">Something Great</span></h1>
+            <p className="text-slate-600 text-xl max-w-lg mb-16 leading-relaxed dark:text-slate-400">
               Have a vision for a complex AI project or a next-gen web app?
-              Drop us a line and let's discuss how we can bring it to life.
+              Drop us a line and let&apos;s discuss how we can bring it to life.
             </p>
 
             <div className="grid gap-10">
@@ -114,7 +114,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-slate-500 font-bold text-sm uppercase mb-1 tracking-wider">Email Us</h4>
-                  <p className="text-2xl font-bold text-white">Kreator_IO@proton.me</p>
+                  <p className="text-2xl font-bold text-slate-950 dark:text-white">Kreator_IO@proton.me</p>
                 </div>
               </div>
               <div className="flex gap-6 items-center group">
@@ -123,7 +123,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-slate-500 font-bold text-sm uppercase mb-1 tracking-wider">Call Directly</h4>
-                  <p className="text-2xl font-bold text-white">+91 7535977315</p>
+                  <p className="text-2xl font-bold text-slate-950 dark:text-white">+91 7535977315</p>
                 </div>
               </div>
               <div className="flex gap-6 items-center group">
@@ -132,12 +132,12 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-slate-500 font-bold text-sm uppercase mb-1 tracking-wider">Visit Studio</h4>
-                  <p className="text-2xl font-bold text-white">Mohali , Punjab</p>
+                  <p className="text-2xl font-bold text-slate-950 dark:text-white">Mohali , Punjab</p>
                 </div>
               </div>
 
               {/* Social Links Section */}
-              <div className="mt-10 pt-10 border-t border-white/5 flex gap-6">
+              <div className="mt-10 pt-10 border-t border-slate-200 flex gap-6 dark:border-white/5">
                 <a href="https://www.linkedin.com/in/kreator-io-a97621400/" target="_blank" rel="noopener noreferrer" className="w-14 h-14 glass rounded-xl flex items-center justify-center hover:bg-[#0077B5] hover:scale-110 transition-all">
                   <Linkedin className="text-white" size={24} />
                 </a>
@@ -159,7 +159,7 @@ export default function Contact() {
           >
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/10 blur-[100px] rounded-full"></div>
 
-            <h2 className="text-2xl font-bold text-white mb-10 relative z-10">Send a Detailed Brief</h2>
+            <h2 className="text-2xl font-bold text-slate-950 mb-10 relative z-10 dark:text-white">Send a Detailed Brief</h2>
             <form onSubmit={handleSubmit} className="relative z-10 space-y-8">
               {error && (
                 <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-4 rounded-xl text-sm">
@@ -169,7 +169,7 @@ export default function Contact() {
 
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <label className="text-slate-400 font-bold text-xs uppercase tracking-widest pl-2">Full Name</label>
+                  <label className="text-slate-600 font-bold text-xs uppercase tracking-widest pl-2 dark:text-slate-400">Full Name</label>
                   <input
                     type="text"
                     name="name"
@@ -177,11 +177,11 @@ export default function Contact() {
                     required
                     onChange={handleChange}
                     placeholder="Jane Cooper"
-                    className="w-full bg-slate-900 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-blue-500 transition-all shadow-inner"
+                    className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-slate-950 focus:outline-none focus:border-blue-500 transition-all shadow-inner dark:bg-slate-900 dark:border-white/10 dark:text-white"
                   />
                 </div>
                 <div className="space-y-4">
-                  <label className="text-slate-400 font-bold text-xs uppercase tracking-widest pl-2">Email Address</label>
+                  <label className="text-slate-600 font-bold text-xs uppercase tracking-widest pl-2 dark:text-slate-400">Email Address</label>
                   <input
                     type="email"
                     name="email"
@@ -189,42 +189,42 @@ export default function Contact() {
                     required
                     onChange={handleChange}
                     placeholder="jane@company.com"
-                    className="w-full bg-slate-900 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-blue-500 transition-all shadow-inner"
+                    className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-slate-950 focus:outline-none focus:border-blue-500 transition-all shadow-inner dark:bg-slate-900 dark:border-white/10 dark:text-white"
                   />
                 </div>
               </div>
 
               <div className="space-y-4">
-                <label className="text-slate-400 font-bold text-xs uppercase tracking-widest pl-2">Phone (Optional)</label>
+                <label className="text-slate-600 font-bold text-xs uppercase tracking-widest pl-2 dark:text-slate-400">Phone (Optional)</label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="+91 XXXXXXXXXX"
-                  className="w-full bg-slate-900 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-blue-500 transition-all shadow-inner"
+                  className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-slate-950 focus:outline-none focus:border-blue-500 transition-all shadow-inner dark:bg-slate-900 dark:border-white/10 dark:text-white"
                 />
               </div>
 
               <div className="space-y-4">
-                <label className="text-slate-400 font-bold text-xs uppercase tracking-widest pl-2">Company (Optional)</label>
+                <label className="text-slate-600 font-bold text-xs uppercase tracking-widest pl-2 dark:text-slate-400">Company (Optional)</label>
                 <input
                   type="text"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Your Company Name"
-                  className="w-full bg-slate-900 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-blue-500 transition-all shadow-inner"
+                  className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-slate-950 focus:outline-none focus:border-blue-500 transition-all shadow-inner dark:bg-slate-900 dark:border-white/10 dark:text-white"
                 />
               </div>
 
               <div className="space-y-4">
-                <label className="text-slate-400 font-bold text-xs uppercase tracking-widest pl-2">Inquiry Subject</label>
+                <label className="text-slate-600 font-bold text-xs uppercase tracking-widest pl-2 dark:text-slate-400">Inquiry Subject</label>
                 <select
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full bg-slate-900 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-blue-500 transition-all shadow-inner appearance-none"
+                  className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-slate-950 focus:outline-none focus:border-blue-500 transition-all shadow-inner appearance-none dark:bg-slate-900 dark:border-white/10 dark:text-white"
                 >
                   <option value="">Select a subject...</option>
                   <option value="AI/ML Development">AI/ML Development</option>
@@ -235,7 +235,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-4">
-                <label className="text-slate-400 font-bold text-xs uppercase tracking-widest pl-2">Brief Discussion</label>
+                <label className="text-slate-600 font-bold text-xs uppercase tracking-widest pl-2 dark:text-slate-400">Brief Discussion</label>
                 <textarea
                   name="message"
                   value={formData.message}
@@ -243,7 +243,7 @@ export default function Contact() {
                   onChange={handleChange}
                   rows="6"
                   placeholder="Tell us about the project scope, timeline, and goals..."
-                  className="w-full bg-slate-900 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-blue-500 transition-all shadow-inner resize-none"
+                  className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-slate-950 focus:outline-none focus:border-blue-500 transition-all shadow-inner resize-none dark:bg-slate-900 dark:border-white/10 dark:text-white"
                 ></textarea>
               </div>
 

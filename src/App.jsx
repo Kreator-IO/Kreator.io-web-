@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { UserProvider } from './context/UserContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -45,7 +46,7 @@ function ScrollToTop() {
 
 function PageLayout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-600 selection:text-white relative">
+    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white relative transition-colors duration-300 dark:bg-[#020617] dark:text-slate-100">
       <BackgroundAnimation />
       <Header />
       <main className="flex-grow">
@@ -58,10 +59,11 @@ function PageLayout({ children }) {
 
 function App() {
   return (
-    <UserProvider>
-      <Router>
-        <ScrollToTop />
-        <Routes>
+    <ThemeProvider>
+      <UserProvider>
+        <Router>
+          <ScrollToTop />
+          <Routes>
           <Route 
             path="/" 
             element={
@@ -277,17 +279,18 @@ function App() {
             element={
               <PageLayout>
                 <div className="pt-60 pb-80 text-center">
-                  <h1 className="text-9xl font-black text-white/5 absolute left-1/2 -top-20 -translate-x-1/2 select-none pointer-events-none">404</h1>
-                  <h2 className="text-6xl font-bold text-white mb-6 relative z-10">Lost in the Matrix?</h2>
-                  <p className="text-slate-400 text-xl mb-12 relative z-10">The digital coordinate you're looking for doesn't exist.</p>
+                  <h1 className="text-9xl font-black text-slate-900/5 absolute left-1/2 -top-20 -translate-x-1/2 select-none pointer-events-none dark:text-white/5">404</h1>
+                  <h2 className="text-6xl font-bold text-slate-950 mb-6 relative z-10 dark:text-white">Lost in the Matrix?</h2>
+                  <p className="text-slate-600 text-xl mb-12 relative z-10 dark:text-slate-400">The digital coordinate you&apos;re looking for doesn&apos;t exist.</p>
                   <a href="/" className="px-12 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-xl relative z-10">Back to Origin</a>
                 </div>
               </PageLayout>
             } 
           />
-        </Routes>
-      </Router>
-    </UserProvider>
+          </Routes>
+        </Router>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 
