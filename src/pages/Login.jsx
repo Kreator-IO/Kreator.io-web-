@@ -24,18 +24,7 @@ function getLocalUsers() {
 }
 
 function getRedirectPath(role) {
-  const normalizedRole = role?.toLowerCase();
-  const roleOption = ROLE_OPTIONS.find(option => option.id === normalizedRole || option.role.toLowerCase() === normalizedRole);
-
-  if (roleOption) {
-    return roleOption.path;
-  }
-
-  if (normalizedRole === 'administrator') {
-    return '/portals/admin';
-  }
-
-  return '/portfolio';
+  return '/portals';
 }
 
 function getAuthErrorMessage(error) {

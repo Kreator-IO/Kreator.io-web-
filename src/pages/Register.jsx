@@ -43,7 +43,7 @@ export default function Register() {
       });
 
       updateUser({ name: form.name, email: form.email, role: selectedRole.role });
-      navigate(selectedRole.path);
+      navigate('/portals');
     } catch (error) {
       const users = loadUsers();
       if (users.find(u => u.email === form.email)) { setMessage('Email already used'); return; }
@@ -51,7 +51,7 @@ export default function Register() {
       users.push(newUser);
       saveUsers(users);
       updateUser({ name: newUser.name, email: newUser.email, role: newUser.role });
-      navigate(selectedRole.path);
+      navigate('/portals');
     }
   };
 

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-import { 
-  Settings, Users, User, Briefcase, 
+import {
+  Settings, Users, User, Briefcase,
   ArrowUpRight
 } from 'lucide-react';
 
@@ -137,7 +137,7 @@ const PortalDashboard = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-12 animate-fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Enterprise Ecosystem</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4"> Kreator.IO Ecosystem</h1>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
             Access all company portals from a single unified dashboard. Secure, integrated, and efficient.
           </p>
@@ -145,8 +145,8 @@ const PortalDashboard = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {visiblePortals.map((portal, index) => (
-            <Link 
-              key={portal.id} 
+            <Link
+              key={portal.id}
               to={`/portals/${portal.id}`}
               className="group relative glass-dark rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:bg-slate-800/40 border border-slate-700/50 hover:border-blue-500/50 animate-fade-in-up"
               style={{ animationDelay: `${index * 50}ms` }}
@@ -156,7 +156,7 @@ const PortalDashboard = () => {
               </div>
               <h3 className="text-xl font-semibold text-white mb-2">{portal.name}</h3>
               <p className="text-slate-400 text-sm">{portal.description}</p>
-              
+
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                 <div className="w-8 h-8 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-400">
                   <ArrowUpRight size={16} />
