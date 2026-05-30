@@ -24,7 +24,8 @@ function getLocalUsers() {
 }
 
 function getRedirectPath(role) {
-  return '/portals';
+  const match = ROLE_OPTIONS.find(o => o.role.toLowerCase() === (role || '').toLowerCase());
+  return match?.path || '/portals';
 }
 
 function getAuthErrorMessage(error) {
@@ -63,7 +64,7 @@ export default function Login() {
     }
 
     updateUser({
-      name: localUser.name,
+      name: localUser.name || localUser.label || email.split('@')[0],
       email: localUser.email,
       role: localUser.role,
     });

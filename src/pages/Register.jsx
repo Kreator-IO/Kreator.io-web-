@@ -70,7 +70,7 @@ export default function Register() {
           className="hidden md:flex flex-col justify-center px-8 rounded-2xl bg-gradient-to-br from-green-700 to-teal-500 shadow-xl text-white"
         >
           <h2 className="text-4xl font-extrabold mb-2">Create Account</h2>
-          <p className="text-slate-100/90">Join Kreator to manage projects, access portals, and start consultations.</p>
+          <p className="text-slate-100/90">Join Kreonix to manage projects, access portals, and start consultations.</p>
           <div className="mt-6 text-sm text-white/80">Already registered? Login to continue.</div>
         </motion.div>
 
@@ -84,7 +84,7 @@ export default function Register() {
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 font-bold">K</div>
             <div>
               <h1 className="text-2xl font-bold text-slate-950 dark:text-white">Create your account</h1>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Sign up to get started with Kreator</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Sign up to get started with Kreonix</p>
             </div>
           </div>
 

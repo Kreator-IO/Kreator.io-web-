@@ -36,7 +36,7 @@ export default function Header() {
     <header className="fixed w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200 transition-colors dark:bg-slate-900/70 dark:border-slate-800">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="inline-flex items-center gap-2 text-slate-950 font-extrabold text-2xl tracking-wider dark:text-white">
-          <span className="px-3 py-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded">kreator.io</span>
+          <span className="px-3 py-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded">kreonix.io</span>
         </Link>
 
         {/* Desktop Nav */}

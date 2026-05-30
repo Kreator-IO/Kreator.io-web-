@@ -137,7 +137,7 @@ const PortalDashboard = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-12 animate-fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4"> Kreator.IO Ecosystem</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4"> Kreonix.io Ecosystem</h1>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
             Access all company portals from a single unified dashboard. Secure, integrated, and efficient.
           </p>

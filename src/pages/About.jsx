@@ -37,7 +37,7 @@ export default function About() {
       },
     },
     {
-      name: 'Aashish',
+      name: 'Ashish Here ',
       role: 'CTO  & Project Manager ',
       bio: 'Dedicated operations lead ensuring every project is delivered on time, within scope, and beyond client expectations.',
       gradient: 'from-emerald-600 to-teal-500',

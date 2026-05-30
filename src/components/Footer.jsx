@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* About */}
           <div>
-            <h3 className="text-xl font-bold mb-4">kreator.io</h3>
+            <h3 className="text-xl font-bold mb-4">kreonix.io</h3>
             <p className="text-slate-600 dark:text-blue-100">
               Leading provider of AI/ML, Web, Android, and Cloud Database solutions.
             </p>
@@ -91,7 +91,7 @@ export default function Footer() {
 
         <div className="border-t border-blue-200 pt-8 dark:border-blue-800">
           <div className="flex flex-col md:flex-row justify-between items-center text-slate-600 dark:text-blue-100">
-            <p>&copy; 2025 kreator.io. All rights reserved.</p>
+            <p>&copy; 2026 kreonix.io. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-blue-600 dark:hover:text-white transition">
                 Privacy Policy
