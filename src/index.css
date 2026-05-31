@@ -108,12 +108,245 @@ body {
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(14, 165, 233, 0.22), transparent 34%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.96), rgba(2, 6, 23, 0.88) 48%, rgba(2, 6, 23, 0.96));
+  transition: background 900ms ease, opacity 600ms ease;
 }
 
 .bg-animation-content {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.kreonix-environment-layer,
+.kreonix-lighting-layer,
+.kreonix-particle-layer,
+.kreonix-readability-layer,
+.kreonix-evolution-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.kreonix-environment-layer {
+  overflow: hidden;
+}
+
+.kreonix-lighting-layer {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(56, 189, 248, 0.16), transparent 26%),
+    radial-gradient(circle at 84% 18%, rgba(99, 102, 241, 0.13), transparent 30%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.05), transparent 38%, rgba(34, 211, 238, 0.05));
+  mix-blend-mode: screen;
+}
+
+.kreonix-particle-layer {
+  opacity: 0.26;
+  background-image:
+    radial-gradient(circle, rgba(186, 230, 253, 0.72) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(125, 211, 252, 0.48) 0 1px, transparent 1.5px);
+  background-position: 0 0, 34px 58px;
+  background-size: 128px 128px, 184px 184px;
+  animation: kreonixParticleDrift 34s linear infinite;
+}
+
+.kreonix-readability-layer {
+  background:
+    radial-gradient(circle at center, transparent 0%, rgba(2, 6, 23, 0.12) 52%, rgba(2, 6, 23, 0.36) 100%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.12), rgba(2, 6, 23, 0.28));
+}
+
+.kreonix-evolution-canvas {
+  width: 100%;
+  height: 100%;
+  opacity: 0.88;
+}
+
+.kreonix-genesis-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.18) 1px, transparent 1px);
+  background-size: 86px 86px;
+  mask-image: radial-gradient(circle at center, black, transparent 72%);
+}
+
+.kreonix-mode-genesis {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(14, 165, 233, 0.28), transparent 32%),
+    radial-gradient(circle at 10% 72%, rgba(37, 99, 235, 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.98), rgba(8, 13, 28, 0.94) 48%, rgba(2, 6, 23, 0.98));
+}
+
+.kreonix-mode-aurora {
+  background:
+    radial-gradient(circle at 40% 0%, rgba(34, 211, 238, 0.28), transparent 34%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.96), rgba(12, 10, 34, 0.92) 52%, rgba(2, 6, 23, 0.98));
+}
+
+.kreonix-aurora-ribbon {
+  position: absolute;
+  left: -14%;
+  width: 128%;
+  height: 34%;
+  border-radius: 999px;
+  filter: blur(32px);
+  opacity: 0.54;
+  transform-origin: center;
+  mix-blend-mode: screen;
+}
+
+.ribbon-a {
+  top: 8%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), rgba(34, 211, 238, 0.42), transparent);
+  animation: kreonixAuroraA 19s ease-in-out infinite;
+}
+
+.ribbon-b {
+  top: 28%;
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.3), rgba(14, 165, 233, 0.28), transparent);
+  animation: kreonixAuroraB 24s ease-in-out infinite;
+}
+
+.ribbon-c {
+  top: 52%;
+  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.18), rgba(99, 102, 241, 0.32), transparent);
+  animation: kreonixAuroraC 28s ease-in-out infinite;
+}
+
+.kreonix-light-ray {
+  position: absolute;
+  top: -20%;
+  width: 18%;
+  height: 150%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 70%);
+  filter: blur(28px);
+  opacity: 0.2;
+  transform: rotate(18deg);
+  mix-blend-mode: screen;
+}
+
+.ray-a {
+  left: 18%;
+  animation: kreonixRay 22s ease-in-out infinite;
+}
+
+.ray-b {
+  right: 10%;
+  animation: kreonixRay 26s ease-in-out infinite reverse;
+}
+
+.kreonix-mode-neural {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(14, 165, 233, 0.26), transparent 30%),
+    radial-gradient(circle at 84% 24%, rgba(20, 184, 166, 0.14), transparent 32%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.98), rgba(3, 12, 28, 0.95));
+}
+
+.kreonix-mode-cosmos {
+  background:
+    radial-gradient(circle at 52% 38%, rgba(30, 64, 175, 0.3), transparent 34%),
+    radial-gradient(circle at 50% 100%, rgba(8, 145, 178, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(1, 3, 12, 0.98), rgba(3, 7, 18, 0.98));
+}
+
+.kreonix-mode-holographic {
+  background:
+    radial-gradient(circle at 70% 16%, rgba(103, 232, 249, 0.22), transparent 30%),
+    radial-gradient(circle at 14% 62%, rgba(129, 140, 248, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.96), rgba(8, 17, 34, 0.95));
+}
+
+.kreonix-holo-sphere {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(165, 243, 252, 0.34);
+  background:
+    radial-gradient(circle at 32% 22%, rgba(255, 255, 255, 0.26), transparent 18%),
+    radial-gradient(circle at center, rgba(34, 211, 238, 0.1), rgba(99, 102, 241, 0.05) 48%, transparent 72%);
+  box-shadow: inset 0 0 42px rgba(34, 211, 238, 0.12), 0 0 44px rgba(34, 211, 238, 0.1);
+  filter: blur(0.2px);
+  opacity: 0.76;
+}
+
+.sphere-a {
+  width: 260px;
+  height: 260px;
+  left: 8%;
+  top: 18%;
+  animation: kreonixHoloFloat 17s ease-in-out infinite;
+}
+
+.sphere-b {
+  width: 180px;
+  height: 180px;
+  right: 12%;
+  bottom: 18%;
+  animation: kreonixHoloFloat 21s ease-in-out infinite reverse;
+}
+
+.kreonix-holo-ring {
+  position: absolute;
+  border: 1px solid rgba(103, 232, 249, 0.32);
+  border-radius: 999px;
+  box-shadow: 0 0 34px rgba(34, 211, 238, 0.14);
+  opacity: 0.68;
+}
+
+.ring-a {
+  width: 360px;
+  height: 108px;
+  left: 52%;
+  top: 22%;
+  transform: rotate(-18deg);
+  animation: kreonixHoloRing 24s linear infinite;
+}
+
+.ring-b {
+  width: 280px;
+  height: 82px;
+  left: 18%;
+  bottom: 16%;
+  transform: rotate(24deg);
+  animation: kreonixHoloRing 28s linear infinite reverse;
+}
+
+@keyframes kreonixParticleDrift {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-128px, 128px, 0); }
+}
+
+@keyframes kreonixAuroraA {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-7deg) scaleY(1); }
+  50% { transform: translate3d(5%, 8%, 0) rotate(4deg) scaleY(1.12); }
+}
+
+@keyframes kreonixAuroraB {
+  0%, 100% { transform: translate3d(3%, -4%, 0) rotate(6deg) scaleY(0.9); }
+  50% { transform: translate3d(-5%, 5%, 0) rotate(-5deg) scaleY(1.16); }
+}
+
+@keyframes kreonixAuroraC {
+  0%, 100% { transform: translate3d(-4%, 0, 0) rotate(-2deg) scaleY(0.92); }
+  50% { transform: translate3d(6%, -6%, 0) rotate(5deg) scaleY(1.08); }
+}
+
+@keyframes kreonixRay {
+  0%, 100% { opacity: 0.12; transform: translateX(-18%) rotate(18deg); }
+  50% { opacity: 0.26; transform: translateX(18%) rotate(23deg); }
+}
+
+@keyframes kreonixHoloFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(18px, -24px, 0) scale(1.04); }
+}
+
+@keyframes kreonixHoloRing {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
 .chat-panel {

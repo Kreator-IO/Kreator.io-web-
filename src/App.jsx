@@ -48,14 +48,18 @@ function ScrollToTop() {
 
 function PageLayout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white relative transition-colors duration-300 dark:bg-[#020617] dark:text-slate-100">
+    <div className="relative isolate flex min-h-screen flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white transition-colors duration-300 dark:bg-[#020617] dark:text-slate-100">
       <BackgroundAnimation />
       <Header />
-      <main className="flex-grow">
+      <main className="relative z-10 flex-grow">
         {children}
       </main>
-      <Footer />
-      <AIAssistantWidget />
+      <div className="relative z-10">
+        <Footer />
+      </div>
+      <div className="relative z-20">
+        <AIAssistantWidget />
+      </div>
     </div>
   );
 }
