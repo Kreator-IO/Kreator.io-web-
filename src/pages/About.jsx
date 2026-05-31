@@ -11,9 +11,9 @@ export default function About() {
 
   const team = [
     {
-      name: 'Vansh Bhushan',
+      name: 'Vansh Bhushan Vats',
       role: 'Founder & MD',
-      bio: 'Visionary technologist and entrepreneur who founded kreator.io with a mission to deliver world-class digital innovation.',
+      bio: 'Visionary technologist and entrepreneur who founded kreonix.io with a mission to deliver world-class digital innovation.',
       gradient: 'from-blue-600 to-cyan-500',
       initials: 'VB',
       photo: '',
@@ -26,7 +26,7 @@ export default function About() {
     {
       name: 'Aaryan Sharma',
       role: 'Co-Founder & CEO',
-      bio: 'Full-stack architect and engineering leader driving the technical strategy and product roadmap at kreator.io.',
+      bio: 'Full-stack architect and engineering leader driving the technical strategy and product roadmap at kreonix.io.',
       gradient: 'from-purple-600 to-indigo-500',
       initials: 'AS',
       photo: '',
@@ -37,7 +37,7 @@ export default function About() {
       },
     },
     {
-      name: 'Ashish Here ',
+      name: 'Ashish Sarswat',
       role: 'CTO  & Project Manager ',
       bio: 'Dedicated operations lead ensuring every project is delivered on time, within scope, and beyond client expectations.',
       gradient: 'from-emerald-600 to-teal-500',
@@ -66,7 +66,7 @@ export default function About() {
             <span className="text-blue-500">Since Day One</span>
           </h1>
           <p className="text-slate-600 text-xl max-w-3xl mx-auto leading-relaxed dark:text-slate-400">
-            Founded with a bold dream, kreator.io has grown into a powerhouse of digital innovation,
+            Founded with a bold dream, kreonix.io has grown into a powerhouse of digital innovation,
             serving clients across the globe with cutting-edge software engineering.
           </p>
         </motion.div>
@@ -203,7 +203,7 @@ export default function About() {
               World-Class Engineers Focused on One Goal: <span className="text-blue-500">Your Success</span>
             </h2>
             <p className="text-slate-600 mb-8 text-lg dark:text-slate-400">
-              At kreator.io, we believe that the best products are built by people who care.
+              At kreonix.io, we believe that the best products are built by people who care.
               Our team consists of senior architects, talented designers, and strategic thinkers
               who collaborate across time zones to bring your vision to life.
             </p>

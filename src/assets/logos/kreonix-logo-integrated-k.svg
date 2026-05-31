@@ -1,0 +1,48 @@
+<svg width="1600" height="520" viewBox="0 0 1600 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Kreonix.io integrated K chrome logo</title>
+  <desc id="desc">A chrome K monogram with the Kreonix orbital cube integrated into the letterform.</desc>
+  <defs>
+    <filter id="glow" x="-35%" y="-60%" width="170%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 .02 0 0 0 0 .72 0 0 0 0 1 0 0 0 .68 0"/>
+      <feBlend in="SourceGraphic" mode="screen"/>
+    </filter>
+    <linearGradient id="chrome" x1="84" y1="88" x2="420" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/><stop offset=".18" stop-color="#dce8f4"/><stop offset=".46" stop-color="#74879c"/><stop offset=".66" stop-color="#f8fcff"/><stop offset="1" stop-color="#7f8fa2"/>
+    </linearGradient>
+    <linearGradient id="faceA" x1="180" y1="180" x2="315" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d4e4f1"/><stop offset=".24" stop-color="#1b3042"/><stop offset="1" stop-color="#020711"/>
+    </linearGradient>
+    <linearGradient id="faceB" x1="304" y1="172" x2="430" y2="376" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eef8ff"/><stop offset=".34" stop-color="#415468"/><stop offset="1" stop-color="#020916"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="48" y1="194" x2="536" y2="282" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06101b"/><stop offset=".16" stop-color="#f3fbff"/><stop offset=".44" stop-color="#435768"/><stop offset=".78" stop-color="#ffffff"/><stop offset="1" stop-color="#06101b"/>
+    </linearGradient>
+    <linearGradient id="cyanArc" x1="126" y1="324" x2="454" y2="324" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#02c7ff" stop-opacity="0"/><stop offset=".16" stop-color="#46e8ff"/><stop offset=".5" stop-color="#c6fbff"/><stop offset=".84" stop-color="#37ddff"/><stop offset="1" stop-color="#02c7ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wordChrome" x1="542" y1="184" x2="1380" y2="333" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/><stop offset=".18" stop-color="#d8e2ee"/><stop offset=".5" stop-color="#7d8da1"/><stop offset=".72" stop-color="#f9fdff"/><stop offset="1" stop-color="#8a99aa"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#glow)">
+    <path d="M96 116h32v288H96z" fill="url(#chrome)"/>
+    <path d="M132 256 326 91l28 33-151 128 157 142-31 34-197-172Z" fill="url(#chrome)"/>
+    <ellipse cx="292" cy="244" rx="246" ry="70" stroke="url(#ring)" stroke-width="16" opacity=".92"/>
+    <path d="M130 326c38 54 286 54 326 0" stroke="url(#cyanArc)" stroke-width="18" stroke-linecap="round"/>
+    <path d="M292 104 402 168v128L292 360 182 296V168l110-64Z" fill="#010712"/>
+    <path d="m292 104 110 64-110 64-110-64 110-64Z" fill="url(#chrome)"/>
+    <path d="M402 168v128l-110 64V232l110-64Z" fill="url(#faceB)"/>
+    <path d="M182 168v128l110 64V232l-110-64Z" fill="url(#faceA)"/>
+    <path d="M292 104v128M182 168l110 64 110-64M292 232v128" stroke="#ecf9ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".72"/>
+    <path d="m401 169-109 65" stroke="#020711" stroke-width="17" stroke-linecap="round" opacity=".9"/>
+    <path d="m183 169 109 65" stroke="#020711" stroke-width="14" stroke-linecap="round" opacity=".82"/>
+  </g>
+  <g filter="url(#glow)">
+    <text x="512" y="295" fill="url(#wordChrome)" font-family="Inter, Sora, Orbitron, Arial, sans-serif" font-size="118" font-weight="800" letter-spacing="28">REONIX</text>
+    <text x="1064" y="295" fill="url(#wordChrome)" font-family="Inter, Sora, Orbitron, Arial, sans-serif" font-size="103" font-weight="800" letter-spacing="16">.IO</text>
+    <path d="M516 326h492" stroke="#dbeafe" stroke-width="2" stroke-linecap="round" opacity=".36"/>
+    <path d="M1045 326h152" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity=".56"/>
+  </g>
+</svg>

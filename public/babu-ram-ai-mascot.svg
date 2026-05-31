@@ -1,0 +1,67 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Babu Ram AI robot mascot</title>
+  <desc id="desc">Cute futuristic AI robot mascot with a white face, camera eye, blue oval eyes, antenna, and blue circular badge.</desc>
+  <defs>
+    <radialGradient id="badgeGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(168 120) rotate(52) scale(392)">
+      <stop stop-color="#8ff5ff"/>
+      <stop offset="0.32" stop-color="#3b82f6"/>
+      <stop offset="0.72" stop-color="#1857d6"/>
+      <stop offset="1" stop-color="#0f2f83"/>
+    </radialGradient>
+    <linearGradient id="face" x1="163" y1="132" x2="362" y2="339" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="0.58" stop-color="#eaf5ff"/>
+      <stop offset="1" stop-color="#c9ddf5"/>
+    </linearGradient>
+    <linearGradient id="blueStroke" x1="158" y1="150" x2="364" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#76d9ff"/>
+      <stop offset="0.55" stop-color="#2f7bed"/>
+      <stop offset="1" stop-color="#1852c8"/>
+    </linearGradient>
+    <linearGradient id="camera" x1="110" y1="173" x2="214" y2="276" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="0.48" stop-color="#dff1ff"/>
+      <stop offset="1" stop-color="#9cc7fb"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#062158" flood-opacity="0.28"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#38bdf8" flood-opacity="0.35"/>
+    </filter>
+    <filter id="tipGlow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 .4 0 0 0 0 .9 0 0 0 0 1 0 0 0 .9 0"/>
+      <feBlend in="SourceGraphic" mode="screen"/>
+    </filter>
+  </defs>
+
+  <circle cx="256" cy="256" r="216" fill="url(#badgeGlow)"/>
+  <circle cx="256" cy="256" r="199" stroke="#9beafe" stroke-width="14" opacity="0.32"/>
+  <circle cx="256" cy="256" r="214" stroke="#0b3ca4" stroke-width="10" opacity="0.58"/>
+
+  <g filter="url(#softShadow)">
+    <path d="M247 108c-2-27 8-45 27-54" stroke="#eaf7ff" stroke-width="17" stroke-linecap="round"/>
+    <path d="M274 54c11-7 26-2 33 10s3 27-9 34-27 3-34-9-3-28 10-35Z" fill="#f7fcff" filter="url(#tipGlow)"/>
+    <circle cx="286" cy="75" r="18" fill="#dff7ff"/>
+
+    <path d="M137 368c16-73 61-111 119-111s104 38 119 111v36H137v-36Z" fill="#eff7ff"/>
+    <path d="M167 383c9-38 37-69 89-69s80 31 89 69" stroke="#2f7bed" stroke-width="18" stroke-linecap="round" opacity="0.82"/>
+    <path d="M204 330l-20 73M308 330l20 73" stroke="#b8d8fb" stroke-width="20" stroke-linecap="round"/>
+    <path d="M232 354h48l-8 43h-32l-8-43Z" fill="#1f69df"/>
+
+    <path d="M256 112c88 0 143 56 143 137 0 84-58 139-143 139s-143-55-143-139c0-81 55-137 143-137Z" fill="url(#face)"/>
+    <path d="M256 112c88 0 143 56 143 137 0 84-58 139-143 139s-143-55-143-139c0-81 55-137 143-137Z" stroke="url(#blueStroke)" stroke-width="15"/>
+
+    <g>
+      <circle cx="154" cy="240" r="45" fill="url(#camera)" stroke="#2f7bed" stroke-width="10"/>
+      <circle cx="154" cy="240" r="31" fill="#f9fdff" stroke="#b5d9ff" stroke-width="7"/>
+      <circle cx="143" cy="229" r="12" fill="#ffffff" opacity="0.86"/>
+    </g>
+
+    <path d="M224 238c6-27 22-42 43-42 19 0 30 12 32 37" stroke="#2f7bed" stroke-width="14" stroke-linecap="round"/>
+    <rect x="216" y="203" width="34" height="68" rx="17" fill="#2f7bed"/>
+    <rect x="316" y="203" width="34" height="68" rx="17" fill="#2f7bed"/>
+    <rect x="226" y="216" width="14" height="32" rx="7" fill="#bfe9ff" opacity="0.85"/>
+    <rect x="326" y="216" width="14" height="32" rx="7" fill="#bfe9ff" opacity="0.85"/>
+    <path d="M248 260c22 16 51 16 72 0" stroke="#2f7bed" stroke-width="13" stroke-linecap="round"/>
+  </g>
+</svg>

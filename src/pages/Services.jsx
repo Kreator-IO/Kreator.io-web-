@@ -1,9 +1,17 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Brain, Code2, Smartphone, Cloud, Layers, Database, Palette, Settings } from 'lucide-react';
+import { Brain, Code2, Smartphone, Cloud, Layers, Database, Palette, Settings, FileSearch } from 'lucide-react';
 
 const iconMap = {
-  Brain, Code2, Smartphone, Cloud, Layers, Database, Palette, Settings
+  Brain, Code2, Smartphone, Cloud, Layers, Database, Palette, Settings, FileSearch
+};
+
+const slopScannerService = {
+  icon: FileSearch,
+  title: 'AI Slop Scanner',
+  desc: 'Audit websites for generic AI-builder patterns, weak copy, repeated layouts, missing UX states, and brand drift.',
+  href: '/slop-scanner',
 };
 
 export default function Services() {
@@ -16,6 +24,7 @@ export default function Services() {
     { icon: Database, title: 'Big Data Processing', desc: 'Real-time data streaming and processing using industry-standard tools like Spark, Flink, and Kafka.' },
     { icon: Palette, title: 'UX/UI Design Systems', desc: 'High-fidelity design systems and user-centric interfaces built with Figma and meticulous attention to detail.' },
     { icon: Settings, title: 'DevOps & CI/CD', desc: 'Automating the software lifecycle with zero-downtime deployments and robust monitoring systems.' },
+    slopScannerService,
   ]);
 
   useEffect(() => {
@@ -31,7 +40,7 @@ export default function Services() {
               icon: iconMap[s.icon] || Code2,
               desc: s.description // backend uses description
             }));
-            setAllServices(mapped);
+            setAllServices([...mapped, slopScannerService]);
           }
         }
       } catch (error) {
@@ -66,21 +75,26 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
            {allServices.map((s, i) => {
              const Icon = s.icon;
+             const CardTag = s.href ? Link : 'div';
              return (
-               <motion.div 
+               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="group relative h-80 p-10 rounded-[32px] glass hover:bg-white transition-all border-slate-200 overflow-hidden border hover:border-blue-500/20 dark:border-white/5 dark:hover:bg-white/10"
                >
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[60px] rounded-full group-hover:bg-blue-500/20 transition-all"></div>
-                 <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8 shadow-xl">
-                   <Icon className="text-blue-400" size={32} />
-                 </div>
-                 <h3 className="text-2xl font-bold text-slate-950 mb-4 dark:text-white">{s.title}</h3>
-                 <p className="text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors dark:text-slate-400 dark:group-hover:text-slate-300">{s.desc}</p>
+                 <CardTag
+                  to={s.href}
+                  className="group relative block h-80 overflow-hidden rounded-[32px] border border-slate-200 p-10 glass transition-all hover:border-blue-500/20 hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-white/5 dark:hover:bg-white/10 dark:focus:ring-offset-[#020617]"
+                 >
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[60px] rounded-full group-hover:bg-blue-500/20 transition-all"></div>
+                   <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8 shadow-xl">
+                     <Icon className="text-blue-400" size={32} />
+                   </div>
+                   <h3 className="text-2xl font-bold text-slate-950 mb-4 dark:text-white">{s.title}</h3>
+                   <p className="text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors dark:text-slate-400 dark:group-hover:text-slate-300">{s.desc}</p>
+                 </CardTag>
                </motion.div>
              );
            })}

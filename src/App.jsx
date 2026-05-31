@@ -6,12 +6,14 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import BackgroundAnimation from './components/BackgroundAnimation';
+import AIAssistantWidget from './components/AIAssistantWidget';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
+import SlopScanner from './pages/SlopScanner';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import PortalDashboard from './pages/portals/PortalDashboard';
@@ -53,6 +55,7 @@ function PageLayout({ children }) {
         {children}
       </main>
       <Footer />
+      <AIAssistantWidget />
     </div>
   );
 }
@@ -125,6 +128,14 @@ function App() {
             element={
               <PageLayout>
                 <Contact />
+              </PageLayout>
+            } 
+          />
+          <Route 
+            path="/slop-scanner" 
+            element={
+              <PageLayout>
+                <SlopScanner />
               </PageLayout>
             } 
           />

@@ -5,6 +5,7 @@ import { signOut } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
 import { useTheme } from '../context/ThemeContext';
 import { auth } from '../firebase';
+import KreonixLogo from './KreonixLogo';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,8 +36,12 @@ export default function Header() {
   return (
     <header className="fixed w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200 transition-colors dark:bg-slate-900/70 dark:border-slate-800">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="inline-flex items-center gap-2 text-slate-950 font-extrabold text-2xl tracking-wider dark:text-white">
-          <span className="px-3 py-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded">kreonix.io</span>
+        <Link
+          to="/"
+          className="inline-flex items-center text-lg transition duration-300 hover:drop-shadow-[0_0_18px_rgba(34,211,238,0.35)] sm:text-xl"
+          aria-label="kreonix.io home"
+        >
+          <KreonixLogo />
         </Link>
 
         {/* Desktop Nav */}

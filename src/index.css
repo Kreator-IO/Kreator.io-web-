@@ -115,3 +115,28 @@ body {
   width: 100%;
   height: 100%;
 }
+
+.chat-panel {
+  transform-origin: bottom right;
+}
+
+@keyframes assistantFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.fixed.bottom-5.right-5 > button,
+.fixed.bottom-7.right-7 > button {
+  animation: assistantFloat 4.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fixed.bottom-5.right-5 > button,
+  .fixed.bottom-7.right-7 > button {
+    animation: none;
+  }
+}
