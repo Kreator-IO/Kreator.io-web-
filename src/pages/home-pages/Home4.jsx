@@ -661,99 +661,50 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 }
 
 .h4-process-body {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  align-items: center;
-  gap: 18px;
-  margin-top: 14px;
+  margin-top: 18px;
 }
 
 .h4-steps {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .h4-step {
   display: grid;
-  grid-template-columns: 40px 1fr;
-  gap: 12px;
-  align-items: start;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  align-items: center;
+  min-height: 58px;
+  border: 1px solid rgba(73, 167, 255, 0.2);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(5, 13, 36, 0.62);
 }
 
 .h4-step-num {
   display: grid;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   place-items: center;
   border-radius: 50%;
   background: linear-gradient(135deg, #8f37ff, #254fff);
   box-shadow: 0 0 18px rgba(137, 62, 255, 0.76);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 950;
 }
 
 .h4-step strong {
   display: block;
-  font-size: 13px;
+  color: #fff;
+  font-size: 15px;
 }
 
 .h4-step span {
   display: block;
   color: #dce6ff;
-  font-size: 11px;
+  margin-top: 3px;
+  font-size: 12px;
   line-height: 1.35;
-}
-
-.h4-process-art {
-  position: relative;
-  min-height: 310px;
-}
-
-.h4-screen {
-  position: absolute;
-  left: 20px;
-  top: 50px;
-  width: 210px;
-  height: 132px;
-  border: 6px solid #0c1738;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #174dff, #020617 66%), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0 2px, transparent 2px 18px);
-  box-shadow: 0 0 38px rgba(31, 187, 255, 0.55);
-}
-
-.h4-screen::before,
-.h4-screen::after {
-  content: '';
-  position: absolute;
-  left: 28px;
-  right: 28px;
-  height: 3px;
-  border-radius: 999px;
-  background: #29d9ff;
-  box-shadow: 0 18px 0 #8f4fff, 0 36px 0 #29d9ff, 0 54px 0 #ff8d27;
-}
-
-.h4-screen::before { top: 28px; }
-.h4-screen::after { top: 88px; width: 92px; right: auto; }
-
-.h4-phone {
-  position: absolute;
-  right: 10px;
-  bottom: 48px;
-  width: 78px;
-  height: 152px;
-  border: 6px solid #102150;
-  border-radius: 20px;
-  background: radial-gradient(circle at 50% 20%, rgba(48, 211, 255, 0.42), transparent 22%), linear-gradient(180deg, #0a2c7d, #05091d);
-  box-shadow: 0 0 28px rgba(52, 202, 255, 0.48);
-}
-
-.h4-rocket {
-  position: absolute;
-  right: 78px;
-  top: 20px;
-  color: #ff8f22;
-  filter: drop-shadow(0 0 16px rgba(255, 143, 34, 0.78));
 }
 
 .h4-showcase-tabs {
@@ -1268,11 +1219,6 @@ function Home4() {
                     <div><strong>{title}</strong><span>{copy}</span></div>
                   </div>
                 ))}
-              </div>
-              <div className="h4-process-art">
-                <div className="h4-screen" />
-                <Smartphone className="h4-phone" size={74} strokeWidth={1.4} />
-                <Rocket className="h4-rocket" size={82} />
               </div>
             </div>
           </article>
