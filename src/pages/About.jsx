@@ -16,7 +16,7 @@ export default function About() {
       bio: 'Visionary technologist and entrepreneur who founded kreonix.io with a mission to deliver world-class digital innovation.',
       gradient: 'from-blue-600 to-cyan-500',
       initials: 'VB',
-      photo: '',
+      photo: '/team/vansh-bhushan-vats.jpeg',
       social: {
         linkedin: 'https://www.linkedin.com/in/vansh-bhushan-vats-b5bb94250/',
         github: 'https://github.com/Bhushanvatsji',
@@ -29,7 +29,7 @@ export default function About() {
       bio: 'Full-stack architect and engineering leader driving the technical strategy and product roadmap at kreonix.io.',
       gradient: 'from-purple-600 to-indigo-500',
       initials: 'AS',
-      photo: '',
+      photo: '/team/aaryan-sharma.jpeg',
       social: {
         linkedin: '#',
         github: '#',
@@ -42,7 +42,7 @@ export default function About() {
       bio: 'Dedicated operations lead ensuring every project is delivered on time, within scope, and beyond client expectations.',
       gradient: 'from-emerald-600 to-teal-500',
       initials: 'AA',
-      photo: '',
+      photo: '/team/ashish-sarswat.jpeg',
       social: {
         linkedin: 'https://www.linkedin.com/in/ashish-sarswat-a5b522255/',
         github: '#',
@@ -125,12 +125,12 @@ export default function About() {
                 <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-10 blur-[80px] rounded-full transition-opacity duration-700`}></div>
 
                 {/* Avatar */}
-                <div className={`w-24 h-24 bg-gradient-to-br ${member.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-500 overflow-hidden`}>
+                <div className={`w-36 h-36 bg-gradient-to-br ${member.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:scale-105 transition-transform duration-500 overflow-hidden`}>
                   {member.photo ? (
                     <img
                       src={member.photo}
                       alt={`${member.name} profile`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   ) : (
                     <span className="text-white font-black text-2xl">{member.initials}</span>
