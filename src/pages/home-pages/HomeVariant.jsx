@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -14,7 +14,6 @@ import {
   Globe2,
   Heart,
   Mail,
-  Menu,
   Phone,
   Rocket,
   Send,
@@ -26,10 +25,6 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
-import { signOut } from 'firebase/auth';
-import KreonixLogo from '../../components/KreonixLogo';
-import { UserContext } from '../../context/UserContext';
-import { auth } from '../../firebase';
 
 const iconMap = {
   ai: Brain,
@@ -56,19 +51,10 @@ const iconMap = {
   users: Users,
 };
 
-const navItems = [
-  { label: 'Services', href: '/services' },
-  { label: 'About', href: '/about' },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Portals', href: '/portals' },
-  { label: 'Contact', href: '/contact' },
-];
-
 const variantStyles = `
 html[data-kreonix-home-variant='active'] body { background: #020617; }
 html[data-kreonix-home-variant='active'] { scroll-behavior: smooth; }
 html[data-kreonix-home-variant='active'] .bg-animation-wrapper { opacity: 0; }
-html[data-kreonix-home-variant='active'] header { display: none; }
 
 .hpv-page {
   position: relative;
@@ -266,7 +252,7 @@ html[data-kreonix-home-variant='active'] header { display: none; }
   align-items: center;
   min-height: 500px;
   gap: 24px;
-  padding: 30px 0 16px;
+  padding: 120px 0 16px;
 }
 
 .hpv-eyebrow {
@@ -1156,39 +1142,6 @@ function CountUp({ value }) {
   return <strong ref={ref}>{display}</strong>;
 }
 
-function AuthControl() {
-  const { user, updateUser } = useContext(UserContext);
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch {
-      // Demo/local auth sessions may not always have a Firebase user.
-    }
-    updateUser(null);
-    localStorage.removeItem('token');
-  };
-
-  if (!user) {
-    return (
-      <div className="hpv-auth">
-        <Link to="/login">Login</Link>
-        <Link to="/register">Sign Up</Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className="hpv-auth">
-      <span className="hpv-auth-avatar">{(user.name || 'U')[0]}</span>
-      <span>{user.name || 'User'}</span>
-      <button type="button" onClick={handleLogout}>
-        Logout
-      </button>
-    </div>
-  );
-}
-
 function handleCardTilt(event) {
   const card = event.currentTarget;
   const rect = card.getBoundingClientRect();
@@ -1253,8 +1206,6 @@ function SectionHead({ kicker, title, copy }) {
 }
 
 export default function HomeVariant({ config }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   useEffect(() => {
     document.documentElement.dataset.kreonixHomeVariant = 'active';
     return () => {
@@ -1265,32 +1216,6 @@ export default function HomeVariant({ config }) {
   return (
     <div className={`hpv-page ${config.className}`}>
       <style>{variantStyles}</style>
-
-      <nav className="hpv-nav hpv-shell">
-        <KreonixLogo className="hpv-logo" />
-        <div className={`hpv-menu ${isMenuOpen ? 'is-open' : ''}`}>
-          <Link className="hpv-home-trigger" to="/" onClick={() => setIsMenuOpen(false)}>
-            Home
-          </Link>
-          {navItems.map((item) => (
-            <Link key={item.label} to={item.href} onClick={() => setIsMenuOpen(false)}>
-              {item.label}
-            </Link>
-          ))}
-        </div>
-        <div className="hpv-nav-action">
-          <AuthControl />
-          <button
-            type="button"
-            className="hpv-icon-button"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((current) => !current)}
-          >
-            <Menu size={22} />
-          </button>
-        </div>
-      </nav>
 
       <section className="hpv-hero hpv-shell">
         <div className="hpv-hero-copy">

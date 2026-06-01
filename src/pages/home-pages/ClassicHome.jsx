@@ -276,8 +276,8 @@ export default function ClassicHome() {
                   <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-400 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
                     <Users className="text-white" size={48} />
                   </div>
-                  <h4 className="text-2xl font-bold text-slate-950 mb-2 dark:text-white">Team of 50+ Experts</h4>
-                  <p className="text-slate-600 dark:text-slate-400">Committed to your success</p>
+                  <h4 className="text-2xl font-bold text-slate-950 mb-2 dark:text-white">Focused Product Team</h4>
+                  <p className="text-slate-600 dark:text-slate-400">Committed to careful discovery, clean execution, and steady support.</p>
                 </div>
               </div>
             </div>

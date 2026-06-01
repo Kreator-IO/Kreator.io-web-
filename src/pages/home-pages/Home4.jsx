@@ -4,31 +4,19 @@ import {
   ArrowRight,
   BarChart3,
   Bot,
-  Briefcase,
   CalendarDays,
   CheckCircle2,
-  ChevronDown,
   Cloud,
   Code2,
   Cpu,
   Database,
-  Heart,
-  Linkedin,
-  Mail,
   MapPin,
   Rocket,
-  Send,
-  ShieldCheck,
   Smartphone,
-  Star,
   TrendingUp,
   Users,
   Workflow,
-  Youtube,
-  Instagram,
-  X,
 } from 'lucide-react';
-import KreonixLogo from '../../components/KreonixLogo';
 
 const services = [
   { title: 'AI Agents & Automation', copy: 'Intelligent AI Agents and workflow automation for your business', icon: Bot, href: '/services' },
@@ -64,28 +52,6 @@ const why = [
   ['24/7 Support & Maintenance', CheckCircle2],
 ];
 
-const solutionLinks = [
-  'Business Automation',
-  'SaaS Development',
-  'E-commerce Solutions',
-  'AI Chatbots',
-  'Workflow Automation',
-  'System Integration',
-].map((label) => ({ label, href: '/services' }));
-
-const footerGroups = [
-  ['Services', services.map((item) => ({ label: item.title.replace('Web & Mobile Development', 'Web & App Development'), href: item.href }))],
-  ['Solutions', solutionLinks],
-  ['Company', [
-    { label: 'About Us', href: '/about' },
-    { label: 'Our Process', href: '#process' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Careers', href: '/contact' },
-    { label: 'Contact Us', href: '/contact' },
-  ]],
-];
-
 const featuredWorks = [
   { tab: 'Websites', title: 'Smart Inventory Management System', copy: 'Responsive business portal with live stock views and reporting.', href: '/portfolio' },
   { tab: 'Apps', title: 'Field Service Mobile App', copy: 'Mobile workflows for teams, tasks, photos, and client updates.', href: '/portfolio' },
@@ -95,10 +61,7 @@ const featuredWorks = [
 
 const styles = `
 html[data-kreonix-home4='active'] body { background: #010716; }
-html[data-kreonix-home4='active'] .bg-animation-wrapper,
-html[data-kreonix-home4='active'] header { display: none; }
-html[data-kreonix-home4='active'] main + div,
-html[data-kreonix-home4='active'] main + div + div { display: none; }
+html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 
 .home4 {
   position: relative;
@@ -271,6 +234,7 @@ html[data-kreonix-home4='active'] main + div + div { display: none; }
   align-items: center;
   min-height: 690px;
   gap: 18px;
+  padding-top: 120px;
 }
 
 .h4-hero > div:first-child {
@@ -1139,22 +1103,6 @@ html[data-kreonix-home4='active'] main + div + div { display: none; }
   font-weight: 800;
 }
 
-.h4-legal {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 18px 0 24px;
-  color: #aebbd4;
-  font-size: 13px;
-}
-
-.h4-legal-links {
-  display: flex;
-  gap: 30px;
-}
-
 .h4-top {
   position: fixed;
   right: 42px;
@@ -1234,10 +1182,7 @@ html[data-kreonix-home4='active'] main + div + div { display: none; }
 `;
 
 function Home4() {
-  const [openMenu, setOpenMenu] = useState(null);
   const [activeWork, setActiveWork] = useState(featuredWorks[0]);
-  const [email, setEmail] = useState('');
-  const [newsletterStatus, setNewsletterStatus] = useState('');
 
   useEffect(() => {
     document.documentElement.dataset.kreonixHome4 = 'active';
@@ -1246,55 +1191,9 @@ function Home4() {
     };
   }, []);
 
-  const submitNewsletter = (event) => {
-    event.preventDefault();
-    setNewsletterStatus(email.trim() ? 'Thanks, we will keep you updated.' : 'Please enter your email address.');
-  };
-
   return (
     <main className="home4" id="top">
       <style>{styles}</style>
-
-      <nav className="h4-nav h4-wrap">
-        <Link to="/" aria-label="Kreonix home">
-          <KreonixLogo className="h4-logo" />
-        </Link>
-        <div className="h4-menu">
-          <Link to="/home4">Home</Link>
-          <div className="h4-menu-item">
-            <button type="button" onClick={() => setOpenMenu(openMenu === 'services' ? null : 'services')}>
-              Services <ChevronDown size={14} />
-            </button>
-            <div className={`h4-dropdown ${openMenu === 'services' ? 'is-open' : ''}`}>
-              {services.map((item) => (
-                <Link to={item.href} key={item.title} onClick={() => setOpenMenu(null)}>
-                  {item.title}
-                  <ArrowRight size={13} />
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="h4-menu-item">
-            <button type="button" onClick={() => setOpenMenu(openMenu === 'solutions' ? null : 'solutions')}>
-              Solutions <ChevronDown size={14} />
-            </button>
-            <div className={`h4-dropdown ${openMenu === 'solutions' ? 'is-open' : ''}`}>
-              {solutionLinks.map((item) => (
-                <Link to={item.href} key={item.label} onClick={() => setOpenMenu(null)}>
-                  {item.label}
-                  <ArrowRight size={13} />
-                </Link>
-              ))}
-            </div>
-          </div>
-          <Link to="/portfolio">Portfolio</Link>
-          <Link to="/about">About Us</Link>
-          <Link to="/blog">Blog</Link>
-        </div>
-        <div className="h4-nav-actions">
-          <Link className="h4-call" to="/contact">Book a Call</Link>
-        </div>
-      </nav>
 
       <section className="h4-hero h4-wrap">
         <div>
@@ -1306,14 +1205,8 @@ function Home4() {
           </h1>
           <p className="h4-lede">AI Agents, Automations, Web & Mobile Apps, Cloud Solutions & More.</p>
 
-          <div className="h4-stats">
-            <div className="h4-stat"><Briefcase size={32} /><div><strong>50+</strong><span>Projects Delivered</span></div></div>
-            <div className="h4-stat"><Heart size={32} /><div><strong>30+</strong><span>Happy Clients</span></div></div>
-            <div className="h4-stat"><ShieldCheck size={32} /><div><strong>99%</strong><span>Client Satisfaction</span></div></div>
-          </div>
-
           <div className="h4-actions">
-            <Link className="h4-primary" to="/services">Explore Our Solutions <ArrowRight size={20} /></Link>
+            <Link className="h4-primary" to="/services">View Services <ArrowRight size={20} /></Link>
             <Link className="h4-secondary" to="/contact">Book Free Consultation <CalendarDays size={19} /></Link>
           </div>
 
@@ -1417,10 +1310,10 @@ function Home4() {
               ))}
             </div>
             <div className="h4-mini-metrics">
-              <div className="h4-mini-metric"><span>Years of Experience</span><strong>5+</strong></div>
-              <div className="h4-mini-metric"><span>Projects Delivered</span><strong>50+</strong></div>
-              <div className="h4-mini-metric"><span>Clients Worldwide</span><strong>30+</strong></div>
-              <div className="h4-mini-metric"><span>Satisfaction Rate</span><strong>99%</strong></div>
+              <div className="h4-mini-metric"><span>Discovery First</span><strong>01</strong></div>
+              <div className="h4-mini-metric"><span>Prototype Sprint</span><strong>02</strong></div>
+              <div className="h4-mini-metric"><span>Launch Support</span><strong>03</strong></div>
+              <div className="h4-mini-metric"><span>Growth Ready</span><strong>04</strong></div>
             </div>
           </article>
         </div>
@@ -1444,47 +1337,10 @@ function Home4() {
           </div>
         </div>
       </section>
-
-      <footer className="h4-footer h4-wrap">
-        <div>
-          <KreonixLogo className="h4-footer-logo" />
-          <p>We build intelligent software, AI agents and automation systems that help businesses grow faster.</p>
-          <div className="h4-socials">
-            <a href="https://www.linkedin.com" aria-label="LinkedIn"><Linkedin size={16} /></a>
-            <a href="https://x.com" aria-label="X"><X size={16} /></a>
-            <a href="https://www.instagram.com" aria-label="Instagram"><Instagram size={16} /></a>
-            <a href="https://www.youtube.com" aria-label="YouTube"><Youtube size={16} /></a>
-          </div>
-        </div>
-        {footerGroups.map(([title, links]) => (
-          <div key={title}>
-            <h3>{title}</h3>
-            {links.map((link) => <Link to={link.href} key={link.label}>{link.label}</Link>)}
-          </div>
-        ))}
-        <div>
-          <h3>Let's Connect</h3>
-          <a className="h4-contact-line" href="mailto:hello@kreonix.io"><Mail size={17} /><span>hello@kreonix.io</span></a>
-          <a className="h4-contact-line" href="tel:+917984936675"><Send size={17} /><span>+91 7984936675</span></a>
-          <Link className="h4-contact-line" to="/contact"><MapPin size={17} /><span>India</span></Link>
-        </div>
-        <form className="h4-newsletter" onSubmit={submitNewsletter}>
-          <h3>Stay Updated</h3>
-          <p>Get latest updates and offers</p>
-          <input aria-label="Email address" placeholder="Your email address" value={email} onChange={(event) => setEmail(event.target.value)} />
-          <button className="h4-subscribe" type="submit">Subscribe</button>
-          {newsletterStatus && <p className="h4-news-status">{newsletterStatus}</p>}
-        </form>
-      </footer>
-
-      <div className="h4-legal h4-wrap">
-        <span>© 2025 Kreonix.io Technologies Pvt. Ltd. All Rights Reserved.</span>
-        <div className="h4-legal-links"><span>Privacy Policy</span><span>Terms & Conditions</span></div>
-      </div>
-
       <a className="h4-top" href="#top" aria-label="Back to top">↑</a>
     </main>
   );
 }
 
 export default Home4;
+

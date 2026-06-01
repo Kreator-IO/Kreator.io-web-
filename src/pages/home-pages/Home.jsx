@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -13,28 +13,13 @@ import {
   Shield,
   Smartphone,
   Sparkles,
-  Star,
   Users,
   Zap,
 } from 'lucide-react';
-import { signOut } from 'firebase/auth';
-import KreonixLogo from '../../components/KreonixLogo';
-import { UserContext } from '../../context/UserContext';
-import { auth } from '../../firebase';
 
 const homeShowcaseStyles = `
 html[data-kreonix-home='showcase'] body { background: #020617; }
 html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
-html[data-kreonix-home='showcase'] header {
-  background: rgba(2, 6, 23, 0.72);
-  border-color: rgba(59, 130, 246, 0.16);
-  box-shadow: none;
-}
-html[data-kreonix-home='showcase'] header nav { color: #f8fafc; }
-html[data-kreonix-home='showcase'] header nav a { font-size: 0.88rem; }
-html[data-kreonix-home='showcase'] header button[aria-label*='Switch'],
-html[data-kreonix-home='showcase'] header a[href='/login'],
-html[data-kreonix-home='showcase'] header a[href='/register'] { display: none; }
 
 .kreonix-home-showcase {
   position: relative;
@@ -546,32 +531,6 @@ html[data-kreonix-home='showcase'] header a[href='/register'] { display: none; }
   color: #a855f7;
 }
 
-html[data-kreonix-home='showcase'] .chat-panel {
-  pointer-events: auto !important;
-  transform: translateY(0) scale(1) !important;
-  opacity: 1 !important;
-  border-color: rgba(96, 165, 250, 0.38);
-  background: rgba(8, 14, 32, 0.96);
-  color: #f8fafc;
-  box-shadow: 0 24px 80px rgba(2, 6, 23, 0.72);
-}
-html[data-kreonix-home='showcase'] .chat-panel input { color: #f8fafc; }
-html[data-kreonix-home='showcase'] .chat-panel > div:first-child {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.72));
-}
-html[data-kreonix-home='showcase'] .chat-panel .flex.flex-wrap.gap-2 {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-html[data-kreonix-home='showcase'] .chat-panel .flex.flex-wrap.gap-2 button {
-  width: 100%;
-  border-radius: 7px;
-  border-color: rgba(96, 165, 250, 0.54);
-  background: rgba(30, 64, 175, 0.28);
-  color: #dbeafe;
-  text-align: left;
-}
-
 @media (max-width: 1024px) {
   .home-hero-grid,
   .home-cta-card { grid-template-columns: 1fr; }
@@ -649,64 +608,8 @@ html[data-kreonix-home='showcase'] { scroll-behavior: smooth; }
   animation: homeCtaLights 9s ease-in-out infinite;
 }
 .home-city-visual span { animation: homeLogoGlow 3.6s ease-in-out infinite; }
-html[data-kreonix-home='showcase'] .chat-panel { animation: homeChatSpring 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
-html[data-kreonix-home='showcase'] .chat-panel .flex.flex-wrap.gap-2 button {
-  transition: transform 180ms ease, background 180ms ease;
-}
-html[data-kreonix-home='showcase'] .chat-panel .flex.flex-wrap.gap-2 button:hover {
-  transform: translateX(4px);
-  background: rgba(37, 99, 235, 0.38);
-}
 html[data-kreonix-home='showcase'] .fixed.bottom-5.right-5 > button,
 html[data-kreonix-home='showcase'] .fixed.bottom-7.right-7 > button { animation: homeBotPulse 2.7s ease-in-out infinite; }
-.home-auth-bar {
-  position: absolute;
-  right: 30px;
-  top: 22px;
-  z-index: 8;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  border-radius: 999px;
-  color: #fff;
-}
-.home-auth-avatar {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #7c3aed, #0ea5e9);
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.48);
-  font-weight: 950;
-}
-.home-auth-bar span,
-.home-auth-bar a,
-.home-auth-bar button { font-size: 1.08rem; font-weight: 900; }
-.home-auth-bar a,
-.home-auth-bar button {
-  display: inline-flex;
-  min-height: 52px;
-  align-items: center;
-  border: 0;
-  border-radius: 999px;
-  padding: 0 22px;
-  line-height: 1;
-}
-.home-auth-bar a:first-child {
-  background: rgba(30, 41, 59, 0.92);
-  color: #fff;
-  box-shadow: 0 14px 30px rgba(2, 6, 23, 0.22);
-}
-.home-auth-bar a:nth-child(2) {
-  background: #38bdf8;
-  color: #020617;
-  box-shadow: 0 14px 34px rgba(56, 189, 248, 0.25);
-}
-.home-auth-bar button {
-  background: rgba(220, 38, 38, 0.92);
-  color: #fff;
-}
 .home-particle {
   position: absolute;
   left: var(--x);
@@ -775,10 +678,6 @@ html[data-kreonix-home='showcase'] .fixed.bottom-7.right-7 > button { animation:
   0%, 100% { filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.7)); transform: translateY(0); }
   50% { filter: drop-shadow(0 0 34px rgba(168, 85, 247, 0.9)); transform: translateY(-6px); }
 }
-@keyframes homeChatSpring {
-  from { opacity: 0; transform: translateY(24px) scale(0.9); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
 @keyframes homeBotPulse {
   0%, 100% { box-shadow: 0 0 28px rgba(56, 189, 248, 0.55); transform: translateY(0); }
   50% { box-shadow: 0 0 48px rgba(168, 85, 247, 0.82); transform: translateY(-5px); }
@@ -799,13 +698,6 @@ const featureChips = [
   { label: 'Secure Systems', icon: Shield },
   { label: 'Clean Development', icon: Code2 },
   { label: 'Worldwide Services', icon: Globe2 },
-];
-
-const metrics = [
-  { number: '50+', label: 'Experts', icon: Users },
-  { number: '200+', label: 'Projects Delivered', icon: Briefcase },
-  { number: '30+', label: 'Global Clients', icon: Globe2 },
-  { number: '99%', label: 'Client Satisfaction', icon: Star },
 ];
 
 const services = [
@@ -848,8 +740,8 @@ const values = [
     icon: Briefcase,
   },
   {
-    title: 'Team of 50+ Experts',
-    description: 'Committed to your success',
+    title: 'Focused Product Team',
+    description: 'Committed to careful discovery, clean execution, and steady support.',
     icon: Users,
   },
 ];
@@ -910,68 +802,6 @@ function useReveal() {
   }, []);
 
   return [ref, visible];
-}
-
-function CountUp({ value }) {
-  const [ref, visible] = useReveal();
-  const [display, setDisplay] = useState('0');
-  const parsed = useMemo(() => {
-    const match = String(value).match(/(\d+)/);
-    return {
-      target: match ? Number(match[1]) : 0,
-      suffix: String(value).replace(match?.[1] || '', ''),
-    };
-  }, [value]);
-
-  useEffect(() => {
-    if (!visible) return undefined;
-    let frame;
-    const start = performance.now();
-    const duration = 1300;
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(`${Math.round(parsed.target * eased)}${parsed.suffix}`);
-      if (progress < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [parsed.suffix, parsed.target, visible]);
-
-  return <strong ref={ref}>{display}</strong>;
-}
-
-function AuthControl() {
-  const { user, updateUser } = useContext(UserContext);
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch {
-      // Demo/local auth sessions may not always have a Firebase user.
-    }
-    updateUser(null);
-    localStorage.removeItem('token');
-  };
-
-  if (!user) {
-    return (
-      <div className="home-auth-bar">
-        <Link to="/login">Login</Link>
-        <Link to="/register">Sign Up</Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className="home-auth-bar">
-      <span className="home-auth-avatar">{(user.name || 'U')[0]}</span>
-      <span>{user.name || 'User'}</span>
-      <button type="button" onClick={handleLogout}>
-        Logout
-      </button>
-    </div>
-  );
 }
 
 function handleCardTilt(event) {
@@ -1045,7 +875,6 @@ export default function Home() {
   return (
     <div className="kreonix-home-showcase">
       <style>{homeShowcaseStyles}</style>
-      <AuthControl />
       <section className="home-hero">
         <div className="home-shell home-hero-grid">
           <div className="home-hero-copy">
@@ -1081,17 +910,6 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="home-metrics">
-            {metrics.map(({ number, label, icon: Icon }) => (
-              <div key={label} className="home-metric-card">
-                <Icon size={36} />
-                <div>
-                  <CountUp value={number} />
-                  <span>{label}</span>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
