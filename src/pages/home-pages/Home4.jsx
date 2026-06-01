@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -16,7 +16,6 @@ import {
   Linkedin,
   Mail,
   MapPin,
-  Menu,
   Rocket,
   Send,
   ShieldCheck,
@@ -32,12 +31,12 @@ import {
 import KreonixLogo from '../../components/KreonixLogo';
 
 const services = [
-  { title: 'AI Agents & Automation', copy: 'Intelligent AI Agents and workflow automation for your business', icon: Bot },
-  { title: 'Web & Mobile Development', copy: 'Modern, responsive websites and powerful mobile applications', icon: Smartphone },
-  { title: 'CRM & ERP Solutions', copy: 'Custom CRM & ERP systems to manage your entire business', icon: Database },
-  { title: 'Cloud & DevOps Solutions', copy: 'Scalable cloud infrastructure & DevOps for high performance', icon: Cloud },
-  { title: 'Analytics & Dashboards', copy: 'Real-time analytics, reports and business intelligence dashboards', icon: BarChart3 },
-  { title: 'Digital Marketing', copy: 'SEO, Social Media, Paid Ads & Growth Marketing', icon: Rocket },
+  { title: 'AI Agents & Automation', copy: 'Intelligent AI Agents and workflow automation for your business', icon: Bot, href: '/services' },
+  { title: 'Web & Mobile Development', copy: 'Modern, responsive websites and powerful mobile applications', icon: Smartphone, href: '/services' },
+  { title: 'CRM & ERP Solutions', copy: 'Custom CRM & ERP systems to manage your entire business', icon: Database, href: '/services' },
+  { title: 'Cloud & DevOps Solutions', copy: 'Scalable cloud infrastructure & DevOps for high performance', icon: Cloud, href: '/services' },
+  { title: 'Analytics & Dashboards', copy: 'Real-time analytics, reports and business intelligence dashboards', icon: BarChart3, href: '/services' },
+  { title: 'Digital Marketing', copy: 'SEO, Social Media, Paid Ads & Growth Marketing', icon: Rocket, href: '/services' },
 ];
 
 const heroBadges = [
@@ -65,16 +64,41 @@ const why = [
   ['24/7 Support & Maintenance', CheckCircle2],
 ];
 
+const solutionLinks = [
+  'Business Automation',
+  'SaaS Development',
+  'E-commerce Solutions',
+  'AI Chatbots',
+  'Workflow Automation',
+  'System Integration',
+].map((label) => ({ label, href: '/services' }));
+
 const footerGroups = [
-  ['Services', ['AI Agents & Automation', 'Web & App Development', 'CRM & ERP Solutions', 'Cloud & DevOps', 'Analytics & Dashboards', 'Digital Marketing']],
-  ['Solutions', ['Business Automation', 'SaaS Development', 'E-commerce Solutions', 'AI Chatbots', 'Workflow Automation', 'System Integration']],
-  ['Company', ['About Us', 'Our Process', 'Portfolio', 'Blog', 'Careers', 'Contact Us']],
+  ['Services', services.map((item) => ({ label: item.title.replace('Web & Mobile Development', 'Web & App Development'), href: item.href }))],
+  ['Solutions', solutionLinks],
+  ['Company', [
+    { label: 'About Us', href: '/about' },
+    { label: 'Our Process', href: '#process' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Careers', href: '/contact' },
+    { label: 'Contact Us', href: '/contact' },
+  ]],
+];
+
+const featuredWorks = [
+  { tab: 'Websites', title: 'Smart Inventory Management System', copy: 'Responsive business portal with live stock views and reporting.', href: '/portfolio' },
+  { tab: 'Apps', title: 'Field Service Mobile App', copy: 'Mobile workflows for teams, tasks, photos, and client updates.', href: '/portfolio' },
+  { tab: 'Dashboards', title: 'Executive Analytics Dashboard', copy: 'KPIs, charts, and business intelligence in one command center.', href: '/portfolio' },
+  { tab: 'Automation', title: 'AI Workflow Automation Suite', copy: 'Automated handoffs, reminders, approvals, and customer responses.', href: '/portfolio' },
 ];
 
 const styles = `
 html[data-kreonix-home4='active'] body { background: #010716; }
 html[data-kreonix-home4='active'] .bg-animation-wrapper,
 html[data-kreonix-home4='active'] header { display: none; }
+html[data-kreonix-home4='active'] main + div,
+html[data-kreonix-home4='active'] main + div + div { display: none; }
 
 .home4 {
   position: relative;
@@ -122,6 +146,7 @@ html[data-kreonix-home4='active'] header { display: none; }
   align-items: center;
   gap: 24px;
   padding: 20px 0 14px;
+  animation: h4SlideDown 700ms ease both;
 }
 
 .h4-logo {
@@ -138,11 +163,16 @@ html[data-kreonix-home4='active'] header { display: none; }
 }
 
 .h4-menu a,
-.h4-menu span {
+.h4-menu span,
+.h4-menu button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  border: 0;
   color: #f8fbff;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
 }
 
 .h4-menu a:first-child {
@@ -168,7 +198,6 @@ html[data-kreonix-home4='active'] header { display: none; }
 }
 
 .h4-call,
-.h4-menu-btn,
 .h4-primary,
 .h4-secondary,
 .h4-subscribe {
@@ -192,12 +221,48 @@ html[data-kreonix-home4='active'] header { display: none; }
   min-height: 52px;
 }
 
-.h4-menu-btn {
-  width: 88px;
-  height: 52px;
-  border: 1px solid rgba(185, 156, 255, 0.36);
+.h4-menu-item {
+  position: relative;
+}
+
+.h4-dropdown {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 16px);
+  z-index: 8;
+  display: grid;
+  min-width: 240px;
+  gap: 6px;
+  border: 1px solid rgba(62, 180, 255, 0.36);
+  border-radius: 16px;
+  padding: 10px;
+  background: rgba(4, 10, 31, 0.96);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38), 0 0 28px rgba(34, 147, 255, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.h4-menu-item:hover .h4-dropdown,
+.h4-menu-item:focus-within .h4-dropdown,
+.h4-dropdown.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.h4-dropdown a {
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #dcecff;
+  font-size: 13px;
+}
+
+.h4-dropdown a:hover {
   color: #fff;
-  background: rgba(4, 8, 24, 0.76);
+  background: rgba(31, 199, 255, 0.12);
 }
 
 .h4-hero {
@@ -206,6 +271,10 @@ html[data-kreonix-home4='active'] header { display: none; }
   align-items: center;
   min-height: 690px;
   gap: 18px;
+}
+
+.h4-hero > div:first-child {
+  animation: h4FadeUp 850ms ease both;
 }
 
 .h4-eyebrow {
@@ -337,6 +406,7 @@ html[data-kreonix-home4='active'] header { display: none; }
   position: relative;
   min-height: 650px;
   isolation: isolate;
+  animation: h4FadeIn 1s ease 160ms both;
 }
 
 .h4-orb {
@@ -355,6 +425,7 @@ html[data-kreonix-home4='active'] header { display: none; }
     linear-gradient(135deg, rgba(35, 86, 255, 0.44), rgba(107, 43, 255, 0.28) 52%, rgba(3, 7, 24, 0.96));
   box-shadow: 0 0 90px rgba(0, 136, 255, 0.86), inset 0 0 80px rgba(40, 198, 255, 0.32);
   transform: translate(-50%, -50%);
+  animation: h4OrbFloat 7s ease-in-out infinite;
 }
 
 .h4-orb::before,
@@ -482,6 +553,7 @@ html[data-kreonix-home4='active'] header { display: none; }
   text-align: center;
   background: linear-gradient(180deg, rgba(17, 58, 145, 0.88), rgba(6, 13, 35, 0.82));
   box-shadow: 0 0 30px rgba(34, 151, 255, 0.62), inset 0 0 18px rgba(129, 68, 255, 0.24);
+  animation: h4BadgeFloat 5.5s ease-in-out infinite;
 }
 
 .h4-badge svg {
@@ -496,16 +568,17 @@ html[data-kreonix-home4='active'] header { display: none; }
 }
 
 .badge-ai { left: 22%; top: 3%; }
-.badge-web { right: 16%; top: 2%; }
-.badge-crm { left: 12%; top: 35%; }
-.badge-cloud { right: 1%; top: 32%; }
-.badge-analytics { left: 21%; bottom: 9%; }
-.badge-auto { right: 11%; bottom: 11%; }
+.badge-web { right: 16%; top: 2%; animation-delay: -0.8s; }
+.badge-crm { left: 12%; top: 35%; animation-delay: -1.5s; }
+.badge-cloud { right: 1%; top: 32%; animation-delay: -2.1s; }
+.badge-analytics { left: 21%; bottom: 9%; animation-delay: -2.8s; }
+.badge-auto { right: 11%; bottom: 11%; animation-delay: -3.4s; }
 
 .h4-section {
   position: relative;
   z-index: 2;
   padding: 14px 0;
+  animation: h4FadeUp 900ms ease both;
 }
 
 .h4-section-head {
@@ -555,6 +628,14 @@ html[data-kreonix-home4='active'] header { display: none; }
   min-height: 194px;
   border-radius: 18px;
   padding: 18px;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.h4-card:hover,
+.h4-panel:hover {
+  border-color: rgba(45, 211, 255, 0.68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 42px rgba(0, 178, 255, 0.24);
+  transform: translateY(-6px);
 }
 
 .h4-card-icon {
@@ -607,6 +688,7 @@ html[data-kreonix-home4='active'] header { display: none; }
   border-radius: 20px;
   padding: 22px;
   overflow: hidden;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
 }
 
 .h4-panel h3 {
@@ -718,10 +800,19 @@ html[data-kreonix-home4='active'] header { display: none; }
   font-weight: 900;
 }
 
-.h4-showcase-tabs span:first-child {
+.h4-showcase-tabs button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0 0 9px;
+  color: #dce6ff;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.h4-showcase-tabs button.is-active {
   color: #fff;
   border-bottom: 2px solid #a754ff;
-  padding-bottom: 9px;
 }
 
 .h4-project {
@@ -743,7 +834,7 @@ html[data-kreonix-home4='active'] header { display: none; }
 }
 
 .h4-laptop::before {
-  content: 'Smart Inventory Management System';
+  content: '';
   display: grid;
   height: 100%;
   place-items: center;
@@ -751,6 +842,30 @@ html[data-kreonix-home4='active'] header { display: none; }
   text-align: center;
   font-size: 15px;
   font-weight: 950;
+}
+
+.h4-project-copy {
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  width: min(260px, 58%);
+  transform: translateY(-50%);
+  color: #fff;
+  text-align: center;
+}
+
+.h4-project-copy strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.h4-project-copy span {
+  display: block;
+  margin-top: 8px;
+  color: #dce6ff;
+  font-size: 11px;
+  line-height: 1.4;
 }
 
 .h4-mobile-mock {
@@ -852,20 +967,7 @@ html[data-kreonix-home4='active'] header { display: none; }
 
 .h4-cta-copy {
   position: relative;
-  padding: 24px 28px 24px 290px;
-}
-
-.h4-cta-bot {
-  position: absolute;
-  left: 18px;
-  bottom: -34px;
-  width: 240px;
-  height: 220px;
-  background-image: url('/babu-ram-ai-chat-boot.png');
-  background-size: cover;
-  background-position: center;
-  border-radius: 26px;
-  filter: drop-shadow(0 0 18px rgba(52, 196, 255, 0.5));
+  padding: 30px 42px;
 }
 
 .h4-cta h2 {
@@ -931,14 +1033,15 @@ html[data-kreonix-home4='active'] header { display: none; }
 
 .h4-footer {
   display: grid;
-  grid-template-columns: 1.35fr 0.72fr 0.72fr 0.72fr 0.9fr 1.5fr;
-  gap: 28px;
+  grid-template-columns: minmax(260px, 1.25fr) repeat(3, minmax(150px, 0.72fr)) minmax(210px, 0.9fr) minmax(300px, 1.35fr);
+  gap: 34px;
   margin-top: 22px;
   border-width: 1px 0 0;
   border-radius: 0;
-  padding: 30px 20px 18px;
+  padding: 32px 22px 20px;
   background: rgba(2, 8, 25, 0.7);
   box-shadow: none;
+  align-items: start;
 }
 
 .h4-footer p,
@@ -953,6 +1056,13 @@ html[data-kreonix-home4='active'] header { display: none; }
   margin-bottom: 12px;
   font-size: 14px;
   font-weight: 950;
+}
+
+.h4-footer a {
+  display: block;
+  width: fit-content;
+  margin-top: 6px;
+  white-space: normal;
 }
 
 .h4-footer-logo {
@@ -976,6 +1086,16 @@ html[data-kreonix-home4='active'] header { display: none; }
   border-radius: 50%;
 }
 
+.h4-socials a {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #ccd7ee;
+}
+
 .h4-contact-line {
   display: grid;
   grid-template-columns: 22px 1fr;
@@ -989,6 +1109,7 @@ html[data-kreonix-home4='active'] header { display: none; }
 .h4-newsletter {
   border-radius: 20px;
   padding: 22px;
+  min-width: 0;
 }
 
 .h4-newsletter input {
@@ -1011,6 +1132,13 @@ html[data-kreonix-home4='active'] header { display: none; }
   border: 0;
 }
 
+.h4-news-status {
+  margin-top: 10px;
+  color: #2ff3d3;
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .h4-legal {
   position: relative;
   z-index: 2;
@@ -1027,57 +1155,6 @@ html[data-kreonix-home4='active'] header { display: none; }
   gap: 30px;
 }
 
-.h4-chat {
-  position: fixed;
-  z-index: 6;
-  right: 28px;
-  bottom: 104px;
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  align-items: center;
-  gap: 14px;
-  width: 332px;
-  border: 1px solid rgba(180, 90, 255, 0.68);
-  border-radius: 24px;
-  padding: 13px 18px;
-  background: linear-gradient(180deg, rgba(12, 18, 47, 0.96), rgba(22, 8, 48, 0.94));
-  box-shadow: 0 0 34px rgba(136, 72, 255, 0.58);
-}
-
-.h4-chat img {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.h4-chat strong {
-  display: block;
-  font-size: 14px;
-}
-
-.h4-chat span,
-.h4-chat p {
-  color: #edf5ff;
-  font-size: 13px;
-  line-height: 1.35;
-}
-
-.h4-chat-heart {
-  position: fixed;
-  right: 36px;
-  bottom: 190px;
-  z-index: 7;
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  border-radius: 50%;
-  color: #15344e;
-  background: #fff;
-  box-shadow: 0 0 22px rgba(45, 255, 204, 0.7);
-}
-
 .h4-top {
   position: fixed;
   right: 42px;
@@ -1091,6 +1168,37 @@ html[data-kreonix-home4='active'] header { display: none; }
   color: #fff;
   background: linear-gradient(135deg, #8742ff, #19cbff);
   box-shadow: 0 0 28px rgba(42, 185, 255, 0.68);
+  animation: h4Pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes h4FadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes h4SlideDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes h4FadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes h4OrbFloat {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-16px); }
+}
+
+@keyframes h4BadgeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes h4Pulse {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 24px rgba(42, 185, 255, 0.58); }
+  50% { transform: translateY(-5px); box-shadow: 0 0 38px rgba(137, 66, 255, 0.78); }
 }
 
 @media (max-width: 1250px) {
@@ -1104,15 +1212,14 @@ html[data-kreonix-home4='active'] header { display: none; }
 
   .h4-menu { justify-content: flex-start; overflow-x: auto; }
   .h4-services { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .h4-cta-copy { padding-left: 240px; }
+  .h4-cta-copy { padding: 30px; }
 }
 
 @media (max-width: 760px) {
   .h4-wrap { width: min(100% - 28px, 1810px); }
   .h4-nav { gap: 14px; }
-  .h4-menu { display: none; }
+  .h4-menu { grid-column: 1 / -1; justify-content: flex-start; gap: 22px; padding-bottom: 8px; }
   .h4-call { min-width: 128px; min-height: 46px; }
-  .h4-menu-btn { width: 54px; height: 46px; }
   .h4-hero { min-height: auto; padding-top: 24px; }
   .h4-hero h1 { font-size: 3rem; }
   .h4-visual { min-height: 520px; transform: scale(0.86); transform-origin: top center; }
@@ -1122,21 +1229,27 @@ html[data-kreonix-home4='active'] header { display: none; }
     grid-template-columns: 1fr;
   }
   .h4-process-body { grid-template-columns: 1fr; }
-  .h4-cta-copy { padding: 180px 20px 22px; }
-  .h4-cta-bot { width: 180px; height: 170px; bottom: auto; top: -6px; }
-  .h4-chat { position: static; width: auto; margin: 18px auto; }
-  .h4-chat-heart,
   .h4-top { display: none; }
 }
 `;
 
 function Home4() {
+  const [openMenu, setOpenMenu] = useState(null);
+  const [activeWork, setActiveWork] = useState(featuredWorks[0]);
+  const [email, setEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState('');
+
   useEffect(() => {
     document.documentElement.dataset.kreonixHome4 = 'active';
     return () => {
       delete document.documentElement.dataset.kreonixHome4;
     };
   }, []);
+
+  const submitNewsletter = (event) => {
+    event.preventDefault();
+    setNewsletterStatus(email.trim() ? 'Thanks, we will keep you updated.' : 'Please enter your email address.');
+  };
 
   return (
     <main className="home4" id="top">
@@ -1148,17 +1261,38 @@ function Home4() {
         </Link>
         <div className="h4-menu">
           <Link to="/home4">Home</Link>
-          <span>Services <ChevronDown size={14} /></span>
-          <span>Solutions <ChevronDown size={14} /></span>
+          <div className="h4-menu-item">
+            <button type="button" onClick={() => setOpenMenu(openMenu === 'services' ? null : 'services')}>
+              Services <ChevronDown size={14} />
+            </button>
+            <div className={`h4-dropdown ${openMenu === 'services' ? 'is-open' : ''}`}>
+              {services.map((item) => (
+                <Link to={item.href} key={item.title} onClick={() => setOpenMenu(null)}>
+                  {item.title}
+                  <ArrowRight size={13} />
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="h4-menu-item">
+            <button type="button" onClick={() => setOpenMenu(openMenu === 'solutions' ? null : 'solutions')}>
+              Solutions <ChevronDown size={14} />
+            </button>
+            <div className={`h4-dropdown ${openMenu === 'solutions' ? 'is-open' : ''}`}>
+              {solutionLinks.map((item) => (
+                <Link to={item.href} key={item.label} onClick={() => setOpenMenu(null)}>
+                  {item.label}
+                  <ArrowRight size={13} />
+                </Link>
+              ))}
+            </div>
+          </div>
           <Link to="/portfolio">Portfolio</Link>
           <Link to="/about">About Us</Link>
           <Link to="/blog">Blog</Link>
         </div>
         <div className="h4-nav-actions">
           <Link className="h4-call" to="/contact">Book a Call</Link>
-          <button className="h4-menu-btn" type="button" aria-label="Open menu">
-            <Menu size={32} />
-          </button>
         </div>
       </nav>
 
@@ -1218,12 +1352,12 @@ function Home4() {
           <h2>Complete <span>Technology Solutions</span> Under One Roof</h2>
         </div>
         <div className="h4-services">
-          {services.map(({ title, copy, icon: Icon }) => (
+          {services.map(({ title, copy, icon: Icon, href }) => (
             <article className="h4-card" key={title}>
               <div className="h4-card-icon"><Icon size={42} /></div>
               <h3>{title}</h3>
               <p>{copy}</p>
-              <Link to="/services">Explore <ArrowRight size={14} /></Link>
+              <Link to={href}>Explore <ArrowRight size={14} /></Link>
             </article>
           ))}
         </div>
@@ -1252,12 +1386,27 @@ function Home4() {
 
           <article className="h4-panel">
             <h3>Featured Work</h3>
-            <div className="h4-showcase-tabs"><span>Websites</span><span>Apps</span><span>Dashboards</span><span>Automation</span></div>
+            <div className="h4-showcase-tabs">
+              {featuredWorks.map((item) => (
+                <button
+                  className={activeWork.tab === item.tab ? 'is-active' : ''}
+                  key={item.tab}
+                  type="button"
+                  onClick={() => setActiveWork(item)}
+                >
+                  {item.tab}
+                </button>
+              ))}
+            </div>
             <div className="h4-project">
               <div className="h4-laptop" />
+              <div className="h4-project-copy">
+                <strong>{activeWork.title}</strong>
+                <span>{activeWork.copy}</span>
+              </div>
               <div className="h4-mobile-mock" />
             </div>
-            <Link className="h4-view-all" to="/portfolio">View All Projects <ArrowRight size={16} /></Link>
+            <Link className="h4-view-all" to={activeWork.href}>View All Projects <ArrowRight size={16} /></Link>
           </article>
 
           <article className="h4-panel">
@@ -1280,19 +1429,18 @@ function Home4() {
       <section className="h4-section h4-wrap">
         <div className="h4-cta">
           <div className="h4-cta-copy">
-            <div className="h4-cta-bot" />
             <h2>Ready to Transform Your Business?</h2>
             <p>Let's build something intelligent together.</p>
             <div className="h4-actions">
               <Link className="h4-primary" to="/contact">Book Free Call <ArrowRight size={18} /></Link>
-              <Link className="h4-secondary" to="/contact">Chat with Babu Ram <ArrowRight size={18} /></Link>
+              <Link className="h4-secondary" to="/contact">Start a Project <ArrowRight size={18} /></Link>
             </div>
           </div>
           <div className="h4-journey">
-            <div className="h4-journey-step"><span className="h4-journey-icon"><MapPin size={34} /></span>Share Idea</div>
-            <div className="h4-journey-step"><span className="h4-journey-icon"><Cloud size={34} /></span>Get Plan</div>
-            <div className="h4-journey-step"><span className="h4-journey-icon"><Code2 size={34} /></span>We Build</div>
-            <div className="h4-journey-step"><span className="h4-journey-icon"><TrendingUp size={34} /></span>You Grow</div>
+            <Link className="h4-journey-step" to="/contact"><span className="h4-journey-icon"><MapPin size={34} /></span>Share Idea</Link>
+            <Link className="h4-journey-step" to="/services"><span className="h4-journey-icon"><Cloud size={34} /></span>Get Plan</Link>
+            <Link className="h4-journey-step" to="/portfolio"><span className="h4-journey-icon"><Code2 size={34} /></span>We Build</Link>
+            <Link className="h4-journey-step" to="/contact"><span className="h4-journey-icon"><TrendingUp size={34} /></span>You Grow</Link>
           </div>
         </div>
       </section>
@@ -1301,26 +1449,32 @@ function Home4() {
         <div>
           <KreonixLogo className="h4-footer-logo" />
           <p>We build intelligent software, AI agents and automation systems that help businesses grow faster.</p>
-          <div className="h4-socials"><span><Linkedin size={16} /></span><span><X size={16} /></span><span><Instagram size={16} /></span><span><Youtube size={16} /></span></div>
+          <div className="h4-socials">
+            <a href="https://www.linkedin.com" aria-label="LinkedIn"><Linkedin size={16} /></a>
+            <a href="https://x.com" aria-label="X"><X size={16} /></a>
+            <a href="https://www.instagram.com" aria-label="Instagram"><Instagram size={16} /></a>
+            <a href="https://www.youtube.com" aria-label="YouTube"><Youtube size={16} /></a>
+          </div>
         </div>
         {footerGroups.map(([title, links]) => (
           <div key={title}>
             <h3>{title}</h3>
-            {links.map((link) => <Link to="/" key={link}>{link}</Link>)}
+            {links.map((link) => <Link to={link.href} key={link.label}>{link.label}</Link>)}
           </div>
         ))}
         <div>
           <h3>Let's Connect</h3>
-          <div className="h4-contact-line"><Mail size={17} /><span>hello@kreonix.io</span></div>
-          <div className="h4-contact-line"><Send size={17} /><span>+91 7984936675</span></div>
-          <div className="h4-contact-line"><MapPin size={17} /><span>India</span></div>
+          <a className="h4-contact-line" href="mailto:hello@kreonix.io"><Mail size={17} /><span>hello@kreonix.io</span></a>
+          <a className="h4-contact-line" href="tel:+917984936675"><Send size={17} /><span>+91 7984936675</span></a>
+          <Link className="h4-contact-line" to="/contact"><MapPin size={17} /><span>India</span></Link>
         </div>
-        <div className="h4-newsletter">
+        <form className="h4-newsletter" onSubmit={submitNewsletter}>
           <h3>Stay Updated</h3>
           <p>Get latest updates and offers</p>
-          <input aria-label="Email address" placeholder="Your email address" />
-          <button className="h4-subscribe" type="button">Subscribe</button>
-        </div>
+          <input aria-label="Email address" placeholder="Your email address" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <button className="h4-subscribe" type="submit">Subscribe</button>
+          {newsletterStatus && <p className="h4-news-status">{newsletterStatus}</p>}
+        </form>
       </footer>
 
       <div className="h4-legal h4-wrap">
@@ -1328,15 +1482,6 @@ function Home4() {
         <div className="h4-legal-links"><span>Privacy Policy</span><span>Terms & Conditions</span></div>
       </div>
 
-      <div className="h4-chat-heart"><Heart size={24} /></div>
-      <aside className="h4-chat">
-        <img src="/babu-ram-ai-chat-boot.png" alt="" />
-        <div>
-          <strong>Babu Ram</strong>
-          <span>AI Assistant</span>
-          <p>How can I help you today?</p>
-        </div>
-      </aside>
       <a className="h4-top" href="#top" aria-label="Back to top">↑</a>
     </main>
   );
