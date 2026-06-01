@@ -12,7 +12,7 @@ export default function About() {
   const team = [
     {
       name: 'Vansh Bhushan Vats',
-      role: 'Founder & MD',
+      role: 'Founder & Tech Lead',
       bio: 'Visionary technologist and entrepreneur who founded kreonix.io with a mission to deliver world-class digital innovation.',
       gradient: 'from-blue-600 to-cyan-500',
       initials: 'VB',
@@ -43,6 +43,7 @@ export default function About() {
       gradient: 'from-emerald-600 to-teal-500',
       initials: 'AA',
       photo: '/team/ashish-sarswat.jpeg',
+      photoPosition: 'object-[center_18%]',
       social: {
         linkedin: 'https://www.linkedin.com/in/ashish-sarswat-a5b522255/',
         github: '#',
@@ -130,7 +131,7 @@ export default function About() {
                     <img
                       src={member.photo}
                       alt={`${member.name} profile`}
-                      className="w-full h-full object-cover object-top"
+                      className={`w-full h-full object-cover ${member.photoPosition || 'object-top'}`}
                     />
                   ) : (
                     <span className="text-white font-black text-2xl">{member.initials}</span>
