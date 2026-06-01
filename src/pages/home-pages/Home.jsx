@@ -96,7 +96,7 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
   font-size: 1.05rem;
   line-height: 1.55;
 }
-.home-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
+.home-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 30px; }
 .home-primary-btn,
 .home-secondary-btn {
   display: inline-flex;
@@ -275,22 +275,45 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
   backdrop-filter: blur(18px);
 }
 .home-feature-strip {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
-  width: min(650px, 100%);
-  margin-top: -12px;
+  gap: 10px;
+  width: 100%;
+  margin-top: 34px;
   border-radius: 12px;
-  padding: 11px 18px;
+  padding: 14px 20px;
+  overflow: hidden;
+}
+.home-feature-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 38%;
+  background: linear-gradient(105deg, rgba(14, 165, 233, 0.26), rgba(124, 58, 237, 0.16));
+  clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+.home-feature-strip::after {
+  content: '';
+  position: absolute;
+  inset: auto 18px 0 auto;
+  width: 120px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #8b5cf6);
+  pointer-events: none;
 }
 .home-feature-chip {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 0;
   gap: 10px;
   color: #f8fafc;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -545,6 +568,9 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
     margin-left: auto;
     margin-right: auto;
   }
+  .home-feature-strip {
+    margin-top: 26px;
+  }
   .home-feature-strip,
   .home-metrics,
   .home-service-grid,
@@ -571,7 +597,15 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
   .home-service-grid,
   .home-values-grid,
   .home-testimonial-grid { grid-template-columns: 1fr; }
-  .home-feature-strip { width: 100%; }
+  .home-feature-strip {
+    width: 100%;
+    gap: 8px;
+    padding: 14px;
+  }
+  .home-feature-chip {
+    justify-content: flex-start;
+    white-space: normal;
+  }
   .home-metric-card,
   .home-value-item { border-right: 0; }
   .home-cta-card { padding: 24px; }
