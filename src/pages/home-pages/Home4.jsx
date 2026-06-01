@@ -669,6 +669,13 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   gap: 12px;
 }
 
+.h4-process-summary {
+  margin-top: 12px;
+  color: #b9c8e8;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
 .h4-step {
   display: grid;
   grid-template-columns: 44px 1fr;
@@ -1211,6 +1218,9 @@ function Home4() {
         <div className="h4-main-grid">
           <article className="h4-panel">
             <h3>Our Process</h3>
+            <p className="h4-process-summary">
+              A simple build path from idea to launch, without extra visual clutter.
+            </p>
             <div className="h4-process-body">
               <div className="h4-steps">
                 {process.map(([title, copy], index) => (
