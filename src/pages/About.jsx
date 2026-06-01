@@ -17,6 +17,7 @@ export default function About() {
       gradient: 'from-blue-600 to-cyan-500',
       initials: 'VB',
       photo: '/team/vansh-bhushan-vats.jpeg',
+      photoPosition: 'object-[center_22%]',
       social: {
         linkedin: 'https://www.linkedin.com/in/vansh-bhushan-vats-b5bb94250/',
         github: 'https://github.com/Bhushanvatsji',
