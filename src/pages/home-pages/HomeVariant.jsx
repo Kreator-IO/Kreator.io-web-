@@ -57,12 +57,19 @@ const iconMap = {
 };
 
 const navItems = [
-  { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Portals', href: '/portals' },
   { label: 'Contact', href: '/contact' },
+];
+
+const homeItems = [
+  { label: 'Home 1', href: '/home1' },
+  { label: 'Home 2', href: '/home2' },
+  { label: 'Home 3', href: '/home3' },
+  { label: 'Home 4', href: '/home4' },
+  { label: 'Home 5', href: '/home5' },
 ];
 
 const variantStyles = `
@@ -144,6 +151,52 @@ html[data-kreonix-home-variant='active'] header { display: none; }
 .hpv-menu a:first-child {
   color: #38bdf8;
   text-shadow: 0 0 18px rgba(59, 130, 246, 0.8);
+}
+
+.hpv-home-menu {
+  position: relative;
+}
+
+.hpv-home-trigger {
+  color: #38bdf8;
+  text-shadow: 0 0 18px rgba(59, 130, 246, 0.8);
+}
+
+.hpv-home-list {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 14px);
+  display: grid;
+  min-width: 128px;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.94);
+  box-shadow: 0 22px 44px rgba(2, 6, 23, 0.38);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.hpv-home-menu:hover .hpv-home-list,
+.hpv-home-menu:focus-within .hpv-home-list {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.hpv-home-list a {
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: #e2e8f0;
+  text-shadow: none;
+}
+
+.hpv-home-list a:hover {
+  background: rgba(56, 189, 248, 0.12);
+  color: #67e8f9;
 }
 
 .hpv-nav-action {
@@ -1054,6 +1107,14 @@ html[data-kreonix-home-variant='active'] header { display: none; }
     padding: 12px 14px;
   }
 
+  .hpv-home-list {
+    position: static;
+    margin-top: 8px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
   .hpv-hero {
     min-height: auto;
   }
@@ -1267,6 +1328,18 @@ export default function HomeVariant({ config }) {
       <nav className="hpv-nav hpv-shell">
         <KreonixLogo className="hpv-logo" />
         <div className={`hpv-menu ${isMenuOpen ? 'is-open' : ''}`}>
+          <div className="hpv-home-menu">
+            <Link className="hpv-home-trigger" to="/" onClick={() => setIsMenuOpen(false)}>
+              Home
+            </Link>
+            <div className="hpv-home-list">
+              {homeItems.map((item) => (
+                <Link key={item.label} to={item.href} onClick={() => setIsMenuOpen(false)}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
           {navItems.map((item) => (
             <Link key={item.label} to={item.href} onClick={() => setIsMenuOpen(false)}>
               {item.label}

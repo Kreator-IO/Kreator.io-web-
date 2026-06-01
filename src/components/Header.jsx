@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { ChevronDown, Menu, Moon, Sun, X } from 'lucide-react';
 import { useState, useContext } from 'react';
 import { signOut } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
@@ -12,12 +12,19 @@ export default function Header() {
   const { isDark, toggleTheme } = useTheme();
 
   const navItems = [
-    { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
     { label: 'About', href: '/about' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Portals', href: '/portals' },
     { label: 'Contact', href: '/contact' },
+  ];
+
+  const homeItems = [
+    { label: 'Home 1', href: '/home1' },
+    { label: 'Home 2', href: '/home2' },
+    { label: 'Home 3', href: '/home3' },
+    { label: 'Home 4', href: '/home4' },
+    { label: 'Home 5', href: '/home5' },
   ];
 
   const { user, updateUser } = useContext(UserContext);
@@ -46,6 +53,26 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-slate-700 dark:text-slate-100">
+          <div className="group relative">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1 hover:text-cyan-400 transition-all font-medium"
+            >
+              Home
+              <ChevronDown size={16} />
+            </Link>
+            <div className="invisible absolute left-0 top-full z-50 mt-3 w-36 rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-xl shadow-slate-950/10 transition group-hover:visible group-hover:opacity-100 dark:border-white/10 dark:bg-slate-900">
+              {homeItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-cyan-500 dark:text-slate-100 dark:hover:bg-white/10"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
           {navItems.map((item) => (
             <Link key={item.label} to={item.href} className="hover:text-cyan-400 transition-all font-medium">
               {item.label}
@@ -96,6 +123,25 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden bg-white/95 border-t border-slate-200 dark:bg-slate-900/95 dark:border-slate-800">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
+            <Link
+              to="/"
+              className="py-2 px-3 rounded-md text-slate-700 hover:bg-slate-100 transition dark:text-slate-100 dark:hover:bg-slate-800"
+              onClick={() => setIsOpen(false)}
+            >
+              Home
+            </Link>
+            <div className="grid grid-cols-2 gap-2 px-3">
+              {homeItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className="rounded-lg bg-slate-100 px-3 py-2 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-200 dark:bg-white/10 dark:text-slate-100"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
             {navItems.map((item) => (
               <Link 
                 key={item.label} 
