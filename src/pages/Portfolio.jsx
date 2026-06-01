@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, ExternalLink, Star } from 'lucide-react';
+import { fallbackPortfolioProjects, normalizeProject } from '../config/portfolioProjects';
 
 export default function Portfolio() {
-  const [projects, setProjects] = useState([
-    { title: 'Nexus AI Engine', category: 'AI/ML', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800', desc: 'Enterprise-grade neural processing engine for predictive supply chain analytics.' },
-    { title: 'Quantum Pay', category: 'Web App', image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800', desc: 'Decentralized payment gateway with sub-second finality and multi-chain support.' },
-    { title: 'SkyNet OS', category: 'Cloud', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800', desc: 'Distributed operating system for edge computing and low-latency IoT networks.' },
-    { title: 'BioTrace App', category: 'Android', image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800', desc: 'Native health monitoring application utilizing advanced biometric sensor data.' },
-    { title: 'Titan ERP', category: 'Web App', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800', desc: 'Modular enterprise resource planning system for manufacturing automation.' },
-    { title: 'Neural Vision', category: 'AI/ML', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800', desc: 'Real-time computer vision system for autonomous industrial quality control.' },
-  ]);
+  const [projects, setProjects] = useState(fallbackPortfolioProjects.map(normalizeProject));
 
   useEffect(() => {
     const fetchPortfolio = async () => {
@@ -19,11 +14,7 @@ export default function Portfolio() {
         if (response.ok) {
           const result = await response.json();
           if (result.success && result.data) {
-            const mapped = result.data.map(p => ({
-              ...p,
-              image: p.image.includes('[') ? 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800' : p.image,
-              desc: p.description,
-            }));
+            const mapped = result.data.map(normalizeProject);
             setProjects(mapped);
           }
         }
@@ -55,13 +46,13 @@ export default function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {projects.map((p, i) => (
-            <motion.div
-              key={i}
+            <motion.article
+              key={p.slug || p.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative h-[500px] rounded-[40px] overflow-hidden border border-white/5 cursor-pointer"
+              className="group relative h-[500px] overflow-hidden rounded-[28px] border border-slate-200/70 shadow-xl shadow-slate-950/10 transition dark:border-white/5"
             >
               <img
                 src={p.image}
@@ -70,20 +61,28 @@ export default function Portfolio() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
 
-              <div className="absolute bottom-0 left-0 p-10 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <div className="flex justify-between items-end">
+              <div className="absolute bottom-0 left-0 w-full p-8 transition-transform duration-500 group-hover:translate-y-0 md:translate-y-4">
+                <div className="flex items-end justify-between gap-5">
                   <div>
                     <span className="text-blue-400 font-bold tracking-widest uppercase text-xs mb-3 flex items-center gap-1">
                       <Star size={12} fill="currentColor" /> {p.category}
                     </span>
                     <h3 className="text-3xl font-bold text-white group-hover:text-blue-500 transition-colors uppercase tracking-tight">{p.title}</h3>
+                    <p className="mt-4 line-clamp-2 text-sm leading-6 text-slate-300">{p.desc}</p>
                   </div>
-                  <div className="w-16 h-16 glass rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity translate-y-10 group-hover:translate-y-0 duration-700">
+                  <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/10 text-white opacity-0 backdrop-blur transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100 md:flex md:translate-y-8">
                     <ExternalLink className="text-white" size={24} />
                   </div>
                 </div>
+                <Link
+                  to={`/portfolio/${p.slug}`}
+                  className="mt-7 inline-flex h-12 items-center gap-2 rounded-full bg-blue-600 px-6 text-sm font-bold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-700"
+                >
+                  View Project
+                  <ArrowRight size={17} />
+                </Link>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 

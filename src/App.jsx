@@ -15,6 +15,7 @@ import Home5 from './pages/home-pages/Home5';
 import About from './pages/About';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
+import ProjectPortal from './pages/ProjectPortal';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 import SlopScanner from './pages/SlopScanner';
@@ -154,6 +155,14 @@ function App() {
                 <Portfolio />
               </PageLayout>
             } 
+          />
+          <Route
+            path="/portfolio/:projectSlug"
+            element={
+              <PageLayout>
+                <ProjectPortal />
+              </PageLayout>
+            }
           />
           <Route 
             path="/login" 
