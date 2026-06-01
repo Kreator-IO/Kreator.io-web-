@@ -1,8 +1,20 @@
 import { Link } from 'react-router-dom';
-import { Code2, Brain, Smartphone, Cloud, ArrowRight, CheckCircle, Users, Rocket, Shield, Code, Globe } from 'lucide-react';
-import ServiceCard from '../components/ServiceCard';
+import {
+  ArrowRight,
+  Brain,
+  CheckCircle,
+  Cloud,
+  Code,
+  Code2,
+  Globe,
+  Rocket,
+  Shield,
+  Smartphone,
+  Users,
+} from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
+import { Layout, Fit, Alignment, useRive } from '@rive-app/react-canvas';
+import ServiceCard from '../../components/ServiceCard';
 
 function RiveOverlay() {
   const { RiveComponent } = useRive({
@@ -15,11 +27,11 @@ function RiveOverlay() {
   });
 
   return (
-    <RiveComponent className="absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-screen" />
+    <RiveComponent className="absolute inset-0 h-full w-full pointer-events-none opacity-40 mix-blend-screen" />
   );
 }
 
-export default function Home() {
+export default function ClassicHome() {
   const stats = [
     { number: '', label: 'Fast Growth', icon: Rocket },
     { number: '', label: 'Secure Systems', icon: Shield },
@@ -50,32 +62,21 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden">
-      {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden bg-black">
-        {/* Cinematic Video Background */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
+        <video autoPlay loop muted playsInline className="absolute inset-0 z-0 h-full w-full object-cover">
           <source
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4"
             type="video/mp4"
           />
         </video>
 
-        {/* Subtle flowing Rive animation overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none">
           <RiveOverlay />
         </div>
 
         <div className="container relative z-20 mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Hero tagline removed as requested */}
-
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -87,7 +88,7 @@ export default function Home() {
               </span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -96,21 +97,21 @@ export default function Home() {
               We deliver world-class AI/ML, Web, Android, and Cloud solutions that drive real results.
             </motion.p>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex gap-8 justify-center flex-wrap items-center"
             >
-              <Link 
-                to="/services" 
+              <Link
+                to="/services"
                 className="group relative px-8 py-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] flex items-center gap-2"
               >
                 Our Services
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="group relative px-8 py-4 rounded-xl font-bold text-white bg-white/5 hover:bg-white/20 transition-all duration-300 border border-white/10 flex flex-col items-center shadow-[0_4px_20px_rgba(2,6,23,0.6)]"
               >
                 <span className="text-base md:text-lg">Book a Call</span>
@@ -119,24 +120,16 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-
-        {/* Floating Elements */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-          <div className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-slate-500 rounded-full mt-2"></div>
-          </div>
-        </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-20 border-y border-slate-200 bg-white/70 backdrop-blur-sm transition-colors dark:border-slate-800 dark:bg-[#020617]/50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-16">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <motion.div 
-                  key={index}
+                <motion.div
+                  key={stat.label}
                   whileInView={{ opacity: 1, scale: 1 }}
                   initial={{ opacity: 0, scale: 0.9 }}
                   viewport={{ once: true }}
@@ -146,8 +139,12 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/10 rounded-2xl mb-6 group-hover:scale-110 transition-transform">
                     <Icon className="text-blue-400" size={32} />
                   </div>
-                  <div className="text-4xl md:text-6xl font-bold text-slate-950 mb-4 dark:text-white">{stat.number}</div>
-                  <p className="text-slate-600 font-medium tracking-wide uppercase text-sm mt-2 dark:text-slate-400">{stat.label}</p>
+                  <div className="text-4xl md:text-6xl font-bold text-slate-950 mb-4 dark:text-white">
+                    {stat.number}
+                  </div>
+                  <p className="text-slate-600 font-medium tracking-wide uppercase text-sm mt-2 dark:text-slate-400">
+                    {stat.label}
+                  </p>
                 </motion.div>
               );
             })}
@@ -155,11 +152,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
       <section className="py-32 relative bg-slate-50 transition-colors dark:bg-[#020617]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -167,7 +163,7 @@ export default function Home() {
             >
               Expertise
             </motion.span>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -175,7 +171,7 @@ export default function Home() {
             >
               Enterprise-Grade Solutions
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -213,7 +209,7 @@ export default function Home() {
               },
             ].map((service, index) => (
               <motion.div
-                key={index}
+                key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -226,12 +222,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
       <section className="py-32 border-t border-slate-200 bg-white transition-colors dark:border-slate-900 dark:bg-[#020617]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <span className="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-4 inline-block">Values</span>
+              <span className="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-4 inline-block">
+                Values
+              </span>
               <h2 className="text-4xl md:text-6xl font-bold text-slate-950 mb-8 dark:text-white">
                 Why Industry Leaders <br />
                 <span className="text-blue-500">Trust kretor.Io</span>
@@ -239,12 +236,18 @@ export default function Home() {
 
               <div className="space-y-8">
                 {[
-                  { title: 'Technical Excellence', desc: 'Our team comprises experts with deep knowledge in distributed systems and AI.' },
-                  { title: 'Agile Delivery', desc: 'We value transparency and rapid iteration to ensure your product hits the market faster.' },
+                  {
+                    title: 'Technical Excellence',
+                    desc: 'Our team comprises experts with deep knowledge in distributed systems and AI.',
+                  },
+                  {
+                    title: 'Agile Delivery',
+                    desc: 'We value transparency and rapid iteration to ensure your product hits the market faster.',
+                  },
                   { title: 'Scalable Design', desc: 'Architecture built to handle millions of users from day one.' },
                 ].map((item, index) => (
-                  <motion.div 
-                    key={index}
+                  <motion.div
+                    key={item.title}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -282,7 +285,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section className="py-32 bg-slate-50 border-t border-slate-200 transition-colors dark:bg-[#020617] dark:border-slate-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
@@ -300,21 +302,25 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((t, index) => (
               <motion.div
-                key={index}
+                key={t.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 className="p-10 rounded-[32px] glass border-white/5 hover:border-blue-500/20 transition-all"
               >
-                <p className="text-slate-700 text-lg leading-relaxed mb-8 italic dark:text-slate-300">&quot;{t.text}&quot;</p>
+                <p className="text-slate-700 text-lg leading-relaxed mb-8 italic dark:text-slate-300">
+                  &quot;{t.text}&quot;
+                </p>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center font-bold text-white text-lg">
                     {t.name[0]}
                   </div>
                   <div>
                     <p className="text-slate-950 font-bold dark:text-white">{t.name}</p>
-                    <p className="text-slate-500 text-sm">{t.role} · {t.company}</p>
+                    <p className="text-slate-500 text-sm">
+                      {t.role} - {t.company}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -323,29 +329,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-32">
         <div className="container mx-auto px-4">
           <div className="relative rounded-[40px] overflow-hidden p-12 md:p-24 text-center">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-900"></div>
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay"></div>
-            
             <div className="relative z-10 max-w-3xl mx-auto">
-              <h2 className="text-4xl md:text-7xl font-bold text-white mb-8">
-                Ready to Build the Future?
-              </h2>
+              <h2 className="text-4xl md:text-7xl font-bold text-white mb-8">Ready to Build the Future?</h2>
               <p className="text-xl text-blue-100 mb-12 leading-relaxed">
                 Let&apos;s collaborate to build software that defines the next generation of your industry.
               </p>
               <div className="flex gap-6 justify-center flex-wrap">
-                <Link 
-                  to="/contact" 
+                <Link
+                  to="/contact"
                   className="px-10 py-5 rounded-2xl font-bold text-blue-900 bg-white hover:bg-blue-50 transition-all shadow-xl"
                 >
                   Start Your Project
                 </Link>
-                <Link 
-                  to="/services" 
+                <Link
+                  to="/services"
                   className="px-10 py-5 rounded-2xl font-bold text-white border-2 border-white/30 hover:bg-white/10 transition-all"
                 >
                   Learn More

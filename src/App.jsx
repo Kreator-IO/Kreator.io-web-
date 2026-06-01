@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { UserProvider } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import AIAssistantWidget from './components/AIAssistantWidget';
-import Home from './pages/Home';
+import Home from './pages/home-pages/Home';
+import ClassicHome from './pages/home-pages/ClassicHome';
+import Home3 from './pages/home-pages/Home3';
+import Home4 from './pages/home-pages/Home4';
+import Home5 from './pages/home-pages/Home5';
 import About from './pages/About';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
@@ -46,6 +50,10 @@ function ScrollToTop() {
   return null;
 }
 
+function HomeRedirect() {
+  return <Navigate to="/home3" replace />;
+}
+
 function PageLayout({ children }) {
   return (
     <div className="relative isolate flex min-h-screen flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white transition-colors duration-300 dark:bg-[#020617] dark:text-slate-100">
@@ -73,11 +81,55 @@ function App() {
           <Routes>
           <Route 
             path="/" 
+            element={<HomeRedirect />}
+          />
+          <Route
+            path="/home1"
             element={
               <PageLayout>
                 <Home />
               </PageLayout>
-            } 
+            }
+          />
+          <Route
+            path="/home2"
+            element={
+              <PageLayout>
+                <ClassicHome />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/classic-home"
+            element={
+              <PageLayout>
+                <ClassicHome />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/home3"
+            element={
+              <PageLayout>
+                <Home3 />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/home4"
+            element={
+              <PageLayout>
+                <Home4 />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/home5"
+            element={
+              <PageLayout>
+                <Home5 />
+              </PageLayout>
+            }
           />
           <Route 
             path="/about" 

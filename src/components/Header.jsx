@@ -70,8 +70,8 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Link to="/login" className="px-4 py-2 rounded-full bg-slate-100 text-slate-900 font-semibold hover:bg-slate-200 transition dark:bg-white/5 dark:text-white dark:hover:bg-white/10">Login</Link>
-              <Link to="/register" className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-slate-900 font-semibold shadow-lg hover:shadow-xl transition">Sign Up</Link>
+              <Link to="/login" className="inline-flex h-12 items-center rounded-full bg-slate-800/90 px-6 text-lg font-bold text-white shadow-lg shadow-slate-950/15 transition hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700">Login</Link>
+              <Link to="/register" className="inline-flex h-12 items-center rounded-full bg-sky-400 px-7 text-lg font-bold text-slate-950 shadow-lg shadow-sky-500/25 transition hover:bg-sky-300">Sign Up</Link>
             </>
           )}
         </div>
@@ -113,6 +113,35 @@ export default function Header() {
             >
               Get Started
             </Link>
+            {user ? (
+              <button
+                type="button"
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }}
+                className="py-2 px-3 rounded-md bg-red-600 text-white text-center font-semibold"
+              >
+                Logout
+              </button>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  to="/login"
+                  className="rounded-full bg-slate-800 px-5 py-3 text-center text-base font-bold text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="rounded-full bg-sky-400 px-5 py-3 text-center text-base font-bold text-slate-950"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}
