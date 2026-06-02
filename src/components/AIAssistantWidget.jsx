@@ -116,11 +116,10 @@ export default function AIAssistantWidget() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-[70] sm:bottom-7 sm:right-7">
+    <div className="fixed bottom-5 right-5 z-[70] flex items-end gap-4 sm:bottom-7 sm:right-7">
       <div
-        className={`chat-panel mb-4 w-[calc(100vw-2.5rem)] max-w-sm overflow-hidden rounded-2xl border border-sky-300/30 bg-white/95 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl transition-all duration-300 dark:border-cyan-300/20 dark:bg-slate-950/95 ${
-          isOpen ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-5 scale-95 opacity-0'
-        }`}
+        className={`chat-panel w-80 max-w-[calc(100vw-7.5rem)] overflow-hidden rounded-2xl border border-sky-300/30 bg-white/95 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl transition-all duration-300 dark:border-cyan-300/20 dark:bg-slate-950/95 ${isOpen ? 'translate-x-0 scale-100 opacity-100' : 'pointer-events-none translate-x-5 scale-95 opacity-0'
+          }`}
         aria-hidden={!isOpen}
       >
         <div className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-5 py-4 text-white dark:border-white/10">
@@ -150,11 +149,10 @@ export default function AIAssistantWidget() {
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`max-w-[88%] rounded-2xl border px-4 py-3 text-sm leading-relaxed shadow-sm ${
-                  message.role === 'user'
+                className={`max-w-[88%] rounded-2xl border px-4 py-3 text-sm leading-relaxed shadow-sm ${message.role === 'user'
                     ? 'ml-auto rounded-tr-md border-cyan-300/30 bg-cyan-500 text-white'
                     : 'rounded-tl-md border-slate-200 bg-slate-100 text-slate-700 dark:border-white/10 dark:bg-white/10 dark:text-slate-100'
-                }`}
+                  }`}
               >
                 <p>{message.text}</p>
                 {message.path && (

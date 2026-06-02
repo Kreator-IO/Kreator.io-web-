@@ -66,7 +66,8 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
   min-height: 410px;
   gap: 20px;
 }
-.home-hero-copy { max-width: 500px; }
+
+.home-hero-copy { max-width: 600px; }
 .home-kicker {
   margin-bottom: 8px;
   color: #e5e7eb;
@@ -441,6 +442,7 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
   width: min(880px, 100%);
   border-radius: 14px;
   padding: 22px 16px 12px;
+  margin: 0 auto;
 }
 .home-testimonial-panel .home-section-title { margin-bottom: 14px; }
 .home-testimonial-grid {
