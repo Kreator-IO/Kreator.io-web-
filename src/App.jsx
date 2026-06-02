@@ -16,6 +16,8 @@ import Portfolio from './pages/Portfolio';
 import ProjectPortal from './pages/ProjectPortal';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 import SlopScanner from './pages/SlopScanner';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -201,8 +203,24 @@ function App() {
               </PageLayout>
             } 
           />
-          <Route 
-            path="/slop-scanner" 
+          <Route
+            path="/privacy-policy"
+            element={
+              <PageLayout>
+                <PrivacyPolicy />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/terms-of-service"
+            element={
+              <PageLayout>
+                <TermsOfService />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/slop-scanner"
             element={
               <PageLayout>
                 <SlopScanner />
