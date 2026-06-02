@@ -8,16 +8,21 @@ export const fallbackPortfolioProjects = [
     solution: 'We built a learning pipeline with live anomaly detection, model monitoring, and operator dashboards.',
     impact: ['41% faster planning cycles', '28% fewer stockout events', 'Live model health visibility'],
     stack: ['Python', 'TensorFlow', 'FastAPI', 'PostgreSQL'],
+    demoTitle: 'AI/ML Forecasting Demo',
+    demoDesc: 'Sample repository with model training flow, anomaly scoring, and API-ready inference structure.',
+    githubUrl: 'https://github.com/Kreator-IO/ai-ml-forecasting-demo',
+    liveDemoUrl: 'https://kreator-io.github.io/nexus-ai-engine-demo',
   },
   {
-    title: 'Quantum Pay',
+    title: 'Website',
     category: 'Web App',
     image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1200',
-    desc: 'Decentralized payment gateway with sub-second finality and multi-chain support.',
-    challenge: 'The client needed a secure payment layer that could handle high-volume digital transactions.',
-    solution: 'We designed a responsive merchant console, transaction risk scoring, and settlement workflows.',
-    impact: ['Sub-second checkout feedback', 'Multi-currency reporting', 'Role-based finance controls'],
-    stack: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+    desc: 'Responsive food ordering website with menu browsing, cart flow, checkout, and polished restaurant UX.',
+    challenge: 'The restaurant needed a fast web ordering experience that made menu discovery and checkout simple for customers.',
+    solution: 'We built a responsive ordering flow with category browsing, cart management, payment-ready checkout, and clean admin-friendly structure.',
+    impact: ['Smoother online ordering', 'Mobile-friendly menu flow', 'Checkout-ready customer journey'],
+    stack: ['HTML', 'CSS', 'JavaScript', 'React', 'Vite', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB', 'Stripe'],
+    liveDemoUrl: 'https://food-order-website-seven.vercel.app',
   },
   {
     title: 'SkyNet OS',
@@ -28,6 +33,7 @@ export const fallbackPortfolioProjects = [
     solution: 'We shipped cloud control planes, edge telemetry, and automated failover routines.',
     impact: ['99.95% service uptime', 'Edge-first monitoring', 'Automated incident routing'],
     stack: ['AWS', 'Docker', 'Kubernetes', 'Go'],
+    liveDemoUrl: 'https://kreator-io.github.io/skynet-os-demo',
   },
   {
     title: 'BioTrace App',
@@ -38,26 +44,29 @@ export const fallbackPortfolioProjects = [
     solution: 'We created a secure Android app with sensor sync, patient timelines, and clinical alerts.',
     impact: ['Real-time biometric tracking', 'Encrypted patient sessions', 'Cleaner clinician handoffs'],
     stack: ['Android', 'Kotlin', 'Firebase', 'FHIR'],
+    liveDemoUrl: 'https://kreator-io.github.io/biotrace-app-demo',
   },
   {
-    title: 'Titan ERP',
-    category: 'Web App',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
-    desc: 'Modular enterprise resource planning system for manufacturing automation.',
-    challenge: 'Manufacturing operations were split across spreadsheets, legacy systems, and manual approvals.',
-    solution: 'We delivered modules for inventory, procurement, production planning, and executive reporting.',
-    impact: ['Unified operations view', '37% faster approvals', 'Audit-ready process logs'],
-    stack: ['React', 'Express', 'MongoDB', 'Tailwind CSS'],
+    title: 'Big Data Processing',
+    category: 'Data Engineering',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200',
+    desc: 'Scalable data pipeline for ingesting, transforming, and analyzing high-volume business events.',
+    challenge: 'Teams needed clean, reliable insights from fast-growing data spread across apps, logs, and operations tools.',
+    solution: 'We built a batch and streaming pipeline with automated validation, warehouse modeling, and analytics-ready APIs.',
+    impact: ['3.2x faster data processing', 'Unified reporting layer', 'Cleaner operational intelligence'],
+    stack: ['Python', 'Apache Spark', 'Kafka', 'BigQuery'],
+    liveDemoUrl: 'https://kreator-io.github.io/big-data-processing-demo',
   },
   {
-    title: 'Neural Vision',
-    category: 'AI/ML',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200',
-    desc: 'Real-time computer vision system for autonomous industrial quality control.',
-    challenge: 'Manual inspection was slow, inconsistent, and hard to scale across production lines.',
-    solution: 'We trained vision models, built review queues, and connected alerts to factory dashboards.',
-    impact: ['Real-time defect detection', 'Lower inspection overhead', 'Traceable quality decisions'],
-    stack: ['OpenCV', 'PyTorch', 'React', 'WebSockets'],
+    title: 'UX/UI Design System',
+    category: 'Product Design',
+    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&q=80&w=1200',
+    desc: 'Reusable interface system with polished components, design tokens, and production-ready UX patterns.',
+    challenge: 'Product teams needed consistent screens, faster handoff, and a shared visual language across web and mobile experiences.',
+    solution: 'We created a tokenized component library, interaction states, responsive layouts, and documentation for designers and developers.',
+    impact: ['Reusable component library', '45% faster screen delivery', 'Consistent cross-platform UX'],
+    stack: ['Figma', 'React', 'Tailwind CSS', 'Storybook'],
+    liveDemoUrl: 'https://kreator-io.github.io/ux-ui-design-system-demo',
   },
 ];
 
@@ -81,6 +90,53 @@ export function normalizeProject(project) {
   };
 }
 
+export function getCategoryGithubProjects(category) {
+  const categoryName = category || 'Web App';
+  const categorySlug = projectSlug(categoryName);
+  const projectTypes = [
+    {
+      title: `${categoryName} Starter Kit`,
+      desc: 'Clean starter implementation with core layout, routing, and reusable project structure.',
+      repo: `${categorySlug}-starter-kit`,
+    },
+    {
+      title: `${categoryName} Dashboard`,
+      desc: 'Interactive dashboard demo with metrics, filters, data states, and responsive screens.',
+      repo: `${categorySlug}-dashboard-demo`,
+    },
+    {
+      title: `${categoryName} Automation Flow`,
+      desc: 'Workflow-focused demo showing task triggers, status updates, and business logic patterns.',
+      repo: `${categorySlug}-automation-flow`,
+    },
+    {
+      title: `${categoryName} API Backend`,
+      desc: 'Backend reference with REST endpoints, validation, auth-ready structure, and database models.',
+      repo: `${categorySlug}-api-backend`,
+    },
+    {
+      title: `${categoryName} Admin Portal`,
+      desc: 'Admin console demo with tables, detail views, permissions, and operational controls.',
+      repo: `${categorySlug}-admin-portal`,
+    },
+  ];
+
+  return projectTypes.map((item) => ({
+    ...item,
+    githubUrl: `https://github.com/Kreator-IO/${item.repo}`,
+  }));
+}
+
 export function getProjectBySlug(slug) {
-  return fallbackPortfolioProjects.map(normalizeProject).find((project) => project.slug === slug);
+  const projectAliases = {
+    cloud: 'skynet-os',
+    'cloud-project': 'skynet-os',
+    'ux-ui': 'ux-ui-design-system',
+    uiux: 'ux-ui-design-system',
+    'ui-ux': 'ux-ui-design-system',
+    'product-design': 'ux-ui-design-system',
+  };
+  const resolvedSlug = projectAliases[slug] || slug;
+
+  return fallbackPortfolioProjects.map(normalizeProject).find((project) => project.slug === resolvedSlug);
 }

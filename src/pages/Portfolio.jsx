@@ -97,7 +97,7 @@ export default function Portfolio() {
             href="/contact"
             className="px-16 py-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all text-xl shadow-2xl"
           >
-            Initialize Consultation
+            Start Your Project
           </a>
         </motion.div>
       </div>
