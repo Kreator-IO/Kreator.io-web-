@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  BarChart3,
   Bot,
   CalendarDays,
   CheckCircle2,
@@ -22,16 +21,14 @@ const services = [
   { title: 'Web & Mobile Development', copy: 'Modern, responsive websites and powerful mobile applications', icon: Smartphone, href: '/services' },
   { title: 'CRM & ERP Solutions', copy: 'Custom CRM & ERP systems to manage your entire business', icon: Database, href: '/services' },
   { title: 'Cloud & DevOps Solutions', copy: 'Scalable cloud infrastructure & DevOps for high performance', icon: Cloud, href: '/services' },
-  { title: 'Analytics & Dashboards', copy: 'Real-time analytics, reports and business intelligence dashboards', icon: BarChart3, href: '/services' },
 ];
 
 const heroBadges = [
-  { label: 'AI Agents', icon: Bot, className: 'badge-ai' },
-  { label: 'Web & App Development', icon: Code2, className: 'badge-web' },
-  { label: 'CRM & ERP Systems', icon: Database, className: 'badge-crm' },
-  { label: 'Cloud Solutions', icon: Cloud, className: 'badge-cloud' },
-  { label: 'Analytics & Dashboards', icon: BarChart3, className: 'badge-analytics' },
-  { label: 'Automation Workflows', icon: Workflow, className: 'badge-auto' },
+  { label: 'AI/ML Solutions', icon: Bot, className: 'node-ai' },
+  { label: 'Web Engineering', icon: Code2, className: 'node-web' },
+  { label: 'Mobile Ecosystems', icon: Smartphone, className: 'node-mobile' },
+  { label: 'Cloud & DevOps', icon: Cloud, className: 'node-cloud' },
+  { label: 'Automation', icon: Workflow, className: 'node-auto' },
 ];
 
 const process = [
@@ -53,7 +50,6 @@ const why = [
 const featuredWorks = [
   { tab: 'Websites', title: 'Smart Inventory Management System', copy: 'Responsive business portal with live stock views and reporting.', href: '/portfolio' },
   { tab: 'Apps', title: 'Field Service Mobile App', copy: 'Mobile workflows for teams, tasks, photos, and client updates.', href: '/portfolio' },
-  { tab: 'Dashboards', title: 'Executive Analytics Dashboard', copy: 'KPIs, charts, and business intelligence in one command center.', href: '/portfolio' },
   { tab: 'Automation', title: 'AI Workflow Automation Suite', copy: 'Automated handoffs, reminders, approvals, and customer responses.', href: '/portfolio' },
 ];
 
@@ -66,9 +62,9 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   min-height: 100vh;
   overflow: hidden;
   background:
-    radial-gradient(circle at 64% 15%, rgba(32, 120, 255, 0.32), transparent 24%),
-    radial-gradient(circle at 90% 42%, rgba(138, 43, 226, 0.18), transparent 22%),
-    linear-gradient(180deg, #020613 0%, #050b1d 40%, #03112a 100%);
+    radial-gradient(circle at 64% 15%, rgba(32, 120, 255, 0.2), transparent 24%),
+    radial-gradient(circle at 90% 42%, rgba(20, 184, 166, 0.14), transparent 22%),
+    linear-gradient(180deg, #020613 0%, #061123 46%, #061123 100%);
   color: #fff;
 }
 
@@ -97,7 +93,7 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 .h4-wrap {
   position: relative;
   z-index: 2;
-  width: min(1810px, calc(100vw - 72px));
+  width: min(1180px, calc(100vw - 72px));
   margin: 0 auto;
 }
 
@@ -228,14 +224,16 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 
 .h4-hero {
   display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 0.82fr);
   align-items: center;
-  min-height: 690px;
-  gap: 18px;
-  padding-top: 120px;
+  min-height: 650px;
+  gap: 8px;
+  padding-top: 88px;
 }
 
 .h4-hero > div:first-child {
+  max-width: 620px;
+  justify-self: end;
   animation: h4FadeUp 850ms ease both;
 }
 
@@ -243,7 +241,7 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
   border: 1px solid rgba(55, 200, 255, 0.7);
   border-radius: 999px;
   padding: 9px 20px;
@@ -257,10 +255,10 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 }
 
 .h4-hero h1 {
-  max-width: 700px;
-  font-size: clamp(3.2rem, 5.3vw, 5.75rem);
+  max-width: 620px;
+  font-size: clamp(2.8rem, 3.55vw, 4rem);
   font-weight: 950;
-  line-height: 1.03;
+  line-height: 1.05;
   letter-spacing: 0;
 }
 
@@ -273,11 +271,11 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 }
 
 .h4-lede {
-  max-width: 600px;
-  margin-top: 18px;
+  max-width: 540px;
+  margin-top: 20px;
   color: #e4ebff;
-  font-size: 19px;
-  line-height: 1.45;
+  font-size: 18px;
+  line-height: 1.55;
 }
 
 .h4-stats,
@@ -318,7 +316,7 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 
 .h4-actions {
   gap: 28px;
-  margin-top: 38px;
+  margin-top: 30px;
 }
 
 .h4-primary,
@@ -336,7 +334,7 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 }
 
 .h4-trust {
-  margin-top: 52px;
+  margin-top: 30px;
 }
 
 .h4-trust p {
@@ -366,17 +364,48 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 
 .h4-visual {
   position: relative;
-  min-height: 650px;
+  width: min(100%, 500px);
+  min-height: 430px;
+  margin-top: 0;
+  justify-self: start;
   isolation: isolate;
   animation: h4FadeIn 1s ease 160ms both;
+}
+
+.h4-visual::before,
+.h4-visual::after {
+  content: '';
+  position: absolute;
+  inset: 24px 0 18px;
+  border-radius: 42% 58% 46% 54%;
+  pointer-events: none;
+}
+
+.h4-visual::before {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(71, 197, 255, 0.2), transparent 30%),
+    radial-gradient(circle at 35% 26%, rgba(255, 136, 42, 0.18), transparent 18%),
+    radial-gradient(circle at 78% 60%, rgba(154, 86, 255, 0.2), transparent 24%);
+  filter: blur(10px);
+  animation: h4VisualBreath 5.8s ease-in-out infinite;
+}
+
+.h4-visual::after {
+  opacity: 0.52;
+  background-image:
+    linear-gradient(rgba(53, 197, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 197, 255, 0.14) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: radial-gradient(ellipse at center, black 0 46%, transparent 72%);
+  animation: h4GridDrift 18s linear infinite;
 }
 
 .h4-orb {
   position: absolute;
   left: 50%;
-  top: 48%;
+  top: 50%;
   display: grid;
-  width: min(470px, 48vw);
+  width: min(280px, 30vw);
   aspect-ratio: 1;
   place-items: center;
   border: 2px solid rgba(49, 174, 255, 0.78);
@@ -387,91 +416,81 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
     linear-gradient(135deg, rgba(35, 86, 255, 0.44), rgba(107, 43, 255, 0.28) 52%, rgba(3, 7, 24, 0.96));
   box-shadow: 0 0 90px rgba(0, 136, 255, 0.86), inset 0 0 80px rgba(40, 198, 255, 0.32);
   transform: translate(-50%, -50%);
-  animation: h4OrbFloat 7s ease-in-out infinite;
+  animation: h4CoreBreathe 4.8s ease-in-out infinite;
 }
 
 .h4-orb::before,
 .h4-orb::after,
-.h4-k::before,
-.h4-k::after {
+.h4-robot-core::before {
   content: '';
   position: absolute;
   border-radius: 50%;
 }
 
 .h4-orb::before {
-  inset: -46px;
+  inset: -34px;
   border: 4px solid rgba(31, 163, 255, 0.34);
   border-left-color: rgba(255, 127, 30, 0.92);
   border-right-color: rgba(160, 84, 255, 0.78);
   transform: rotate(-12deg) skewY(-14deg);
   box-shadow: 0 0 32px rgba(81, 179, 255, 0.55);
+  animation: h4RingSpin 10s linear infinite;
 }
 
 .h4-orb::after {
-  inset: -78px;
+  inset: -58px;
   border: 2px solid rgba(108, 90, 255, 0.38);
   transform: rotateX(72deg) rotateZ(12deg);
+  animation: h4HaloTilt 8s ease-in-out infinite;
 }
 
-.h4-k {
+.h4-robot-core {
   position: relative;
   z-index: 2;
-  color: #fff;
-  font-size: clamp(8rem, 11vw, 14rem);
-  font-weight: 950;
-  line-height: 0.8;
-  text-shadow: 0 0 24px #38d8ff, 0 0 58px rgba(58, 127, 255, 0.85);
+  display: grid;
+  width: min(175px, 56%);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.22), rgba(33, 150, 255, 0.08) 42%, transparent 70%);
+  animation: h4KGlow 3.4s ease-in-out infinite;
 }
 
-.h4-k::before {
-  left: -86px;
-  top: 42%;
-  width: 640px;
-  height: 28px;
+.h4-robot-core::before {
+  left: 50%;
+  top: 52%;
+  width: 310px;
+  height: 22px;
   border: 4px solid #ff8930;
   border-left-color: transparent;
   border-right-color: transparent;
-  transform: translateY(-50%) rotate(-13deg);
+  transform: translate(-50%, -50%) rotate(-13deg);
   filter: drop-shadow(0 0 18px rgba(255, 106, 35, 0.9));
+  animation: h4SlashSweep 2.8s ease-in-out infinite;
+}
+
+.h4-robot-core img {
+  position: relative;
+  z-index: 2;
+  width: 150%;
+  height: 150%;
+  object-fit: contain;
+  border-radius: 0;
+  filter: drop-shadow(0 0 18px rgba(74, 202, 255, 0.9));
 }
 
 .h4-platform {
   position: absolute;
   left: 50%;
-  bottom: 44px;
-  width: min(720px, 78%);
-  height: 160px;
+  bottom: 8px;
+  width: min(430px, 78%);
+  height: 108px;
   border: 2px solid rgba(46, 181, 255, 0.52);
   border-radius: 50%;
   background: radial-gradient(ellipse at center, rgba(50, 196, 255, 0.36), rgba(20, 72, 220, 0.2) 52%, transparent 72%);
   box-shadow: 0 0 64px rgba(46, 181, 255, 0.72), inset 0 0 34px rgba(147, 73, 255, 0.46);
   transform: translateX(-50%);
-}
-
-.h4-desk {
-  position: absolute;
-  bottom: 38px;
-  width: 120px;
-  height: 54px;
-  border-radius: 8px;
-  background: linear-gradient(180deg, #14244d, #09112b);
-  box-shadow: 0 0 28px rgba(37, 156, 255, 0.48);
-}
-
-.desk-left { left: 27%; }
-.desk-right { right: 22%; }
-
-.h4-desk::before {
-  content: '';
-  position: absolute;
-  left: 22px;
-  top: -34px;
-  width: 58px;
-  height: 34px;
-  border: 3px solid #2ecbff;
-  border-radius: 6px;
-  background: linear-gradient(135deg, rgba(32, 129, 255, 0.8), rgba(5, 9, 28, 0.94));
+  animation: h4PlatformScan 4s ease-in-out infinite;
 }
 
 .h4-wire {
@@ -484,6 +503,8 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   transform: rotate(var(--r));
   transform-origin: left center;
   box-shadow: 0 0 10px rgba(31, 199, 255, 0.9);
+  animation: h4WirePulse 2.6s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }
 
 .h4-dot {
@@ -493,6 +514,7 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   border-radius: 50%;
   background: #1fd4ff;
   box-shadow: 0 0 17px #1fd4ff;
+  animation: h4DotPing 3.5s ease-in-out infinite;
 }
 
 .dot-1 { left: 21%; top: 17%; background: #ff7b20; box-shadow: 0 0 18px #ff7b20; }
@@ -504,18 +526,47 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   position: absolute;
   z-index: 3;
   display: grid;
-  width: 132px;
-  min-height: 120px;
+  width: 104px;
+  min-height: 96px;
   place-items: center;
   gap: 8px;
   border: 1px solid rgba(66, 199, 255, 0.78);
   border-radius: 18px;
-  padding: 14px 10px;
+  padding: 12px 8px;
   color: #fff;
   text-align: center;
   background: linear-gradient(180deg, rgba(17, 58, 145, 0.88), rgba(6, 13, 35, 0.82));
   box-shadow: 0 0 30px rgba(34, 151, 255, 0.62), inset 0 0 18px rgba(129, 68, 255, 0.24);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.h4-badge::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.28), transparent 58%);
+  opacity: 0;
+  transform: translateX(-45%);
+  animation: h4CardShine 4.2s ease-in-out infinite;
+  animation-delay: inherit;
+}
+
+.h4-badge:hover {
+  border-color: rgba(255, 137, 48, 0.9);
+  box-shadow: 0 0 42px rgba(255, 137, 48, 0.36), 0 0 34px rgba(34, 151, 255, 0.5), inset 0 0 18px rgba(129, 68, 255, 0.24);
+}
+
+.h4-badge-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  gap: 8px;
   animation: h4BadgeFloat 5.5s ease-in-out infinite;
+  animation-delay: var(--float-delay);
 }
 
 .h4-badge svg {
@@ -524,22 +575,79 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 }
 
 .h4-badge span {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 950;
   line-height: 1.08;
 }
 
-.badge-ai { left: 22%; top: 3%; }
-.badge-web { right: 16%; top: 2%; animation-delay: -0.8s; }
-.badge-crm { left: 12%; top: 35%; animation-delay: -1.5s; }
-.badge-cloud { right: 1%; top: 32%; animation-delay: -2.1s; }
-.badge-analytics { left: 21%; bottom: 9%; animation-delay: -2.8s; }
-.badge-auto { right: 11%; bottom: 11%; animation-delay: -3.4s; }
+.h4-orbit-ring {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 48%;
+  width: min(430px, 58vw);
+  aspect-ratio: 1;
+  border: 1px solid rgba(55, 200, 255, 0.28);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotateX(66deg) rotateZ(var(--tilt));
+  box-shadow: 0 0 28px rgba(31, 199, 255, 0.2);
+  animation: h4OrbitSpin var(--speed) linear infinite;
+}
+
+.orbit-2 {
+  width: min(500px, 66vw);
+  border-color: rgba(255, 137, 48, 0.36);
+  animation-direction: reverse;
+}
+
+.h4-comet {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 48%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #ff8b2a;
+  box-shadow: 0 0 16px #ff8b2a, 0 0 38px rgba(255, 139, 42, 0.72);
+  transform-origin: 0 0;
+  animation: h4CometOrbit var(--speed) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.h4-comet::before {
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  width: 130px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 139, 42, 0.92));
+  transform: translateY(-50%);
+}
+
+.h4-service-node {
+  position: absolute;
+  z-index: 4;
+  animation: h4BadgeFloat 5.8s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.h4-service-node .h4-badge {
+  position: static;
+}
+
+.node-ai { left: 14%; top: 5%; }
+.node-web { right: 7%; top: 7%; }
+.node-mobile { left: 4%; top: 39%; }
+.node-cloud { right: 1%; top: 39%; }
+.node-auto { left: 15%; bottom: 2%; }
 
 .h4-section {
   position: relative;
   z-index: 2;
-  padding: 14px 0;
+  padding: 48px 0;
   animation: h4FadeUp 900ms ease both;
 }
 
@@ -572,7 +680,7 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 
 .h4-services {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
 }
 
@@ -1072,7 +1180,6 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   color: #fff;
   background: linear-gradient(135deg, #8742ff, #19cbff);
   box-shadow: 0 0 28px rgba(42, 185, 255, 0.68);
-  animation: h4Pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes h4FadeUp {
@@ -1090,19 +1197,95 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes h4OrbFloat {
-  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-  50% { transform: translate(-50%, -50%) translateY(-16px); }
+@keyframes h4VisualBreath {
+  0%, 100% { opacity: 0.74; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+@keyframes h4GridDrift {
+  to { background-position: 58px 58px, 58px 58px; }
+}
+
+@keyframes h4CoreBreathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); filter: saturate(1); }
+  50% { transform: translate(-50%, -50%) scale(1.035); filter: saturate(1.35); }
+}
+
+@keyframes h4RingSpin {
+  to { rotate: 360deg; }
+}
+
+@keyframes h4HaloTilt {
+  0%, 100% { transform: rotateX(72deg) rotateZ(12deg) scale(1); opacity: 0.74; }
+  50% { transform: rotateX(66deg) rotateZ(34deg) scale(1.04); opacity: 1; }
+}
+
+@keyframes h4KGlow {
+  0%, 100% { transform: translateY(0) scale(1); filter: saturate(1); }
+  50% { transform: translateY(-4px) scale(1.04); filter: saturate(1.28) brightness(1.08); }
+}
+
+@keyframes h4SlashSweep {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-13deg) translateX(-8px); opacity: 0.82; }
+  50% { transform: translate(-50%, -50%) rotate(-13deg) translateX(12px); opacity: 1; }
+}
+
+@keyframes h4PlatformScan {
+  0%, 100% { opacity: 0.78; filter: hue-rotate(0deg); }
+  50% { opacity: 1; filter: hue-rotate(28deg) brightness(1.16); }
+}
+
+@keyframes h4WirePulse {
+  0%, 100% { opacity: 0.26; transform: rotate(var(--r)) scaleX(0.72); }
+  50% { opacity: 1; transform: rotate(var(--r)) scaleX(1); }
+}
+
+@keyframes h4DotPing {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.6); opacity: 1; }
 }
 
 @keyframes h4BadgeFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
 }
 
-@keyframes h4Pulse {
-  0%, 100% { transform: translateY(0); box-shadow: 0 0 24px rgba(42, 185, 255, 0.58); }
-  50% { transform: translateY(-5px); box-shadow: 0 0 38px rgba(137, 66, 255, 0.78); }
+@keyframes h4CardShine {
+  0%, 55% { opacity: 0; transform: translateX(-55%); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(55%); }
+}
+
+@keyframes h4OrbitSpin {
+  to { transform: translate(-50%, -50%) rotateX(66deg) rotateZ(calc(var(--tilt) + 360deg)); }
+}
+
+@keyframes h4CometOrbit {
+  from { transform: rotate(var(--start)) translateX(var(--radius)) rotate(0deg); }
+  to { transform: rotate(calc(var(--start) + 360deg)) translateX(var(--radius)) rotate(-360deg); }
+}
+
+@keyframes h4NodeOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes h4NodeCounterSpin {
+  from {
+    transform: rotate(var(--node-angle)) translateX(var(--node-radius)) rotate(calc(var(--node-angle) * -1)) rotate(0deg) translate(-50%, -50%);
+  }
+  to {
+    transform: rotate(var(--node-angle)) translateX(var(--node-radius)) rotate(calc(var(--node-angle) * -1)) rotate(-360deg) translate(-50%, -50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h4-visual *,
+  .h4-visual::before,
+  .h4-visual::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 @media (max-width: 1250px) {
@@ -1115,22 +1298,238 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
   }
 
   .h4-menu { justify-content: flex-start; overflow-x: auto; }
-  .h4-services { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .h4-hero { justify-items: center; text-align: center; }
+  .h4-actions,
+  .h4-brand-row { justify-content: center; }
+  .h4-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .h4-cta-copy { padding: 30px; }
 }
 
+@media (min-width: 761px) and (max-width: 1250px) {
+  .h4-hero {
+    gap: 28px;
+    padding-top: 104px;
+  }
+
+  .h4-visual {
+    width: min(100%, 520px);
+    min-height: 440px;
+  }
+
+  .h4-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .h4-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .h4-journey {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .h4-journey-step:not(:last-child)::after {
+    display: none;
+  }
+}
+
+@media (min-width: 1500px) {
+  .h4-wrap {
+    width: min(1260px, calc(100vw - 90px));
+  }
+
+  .h4-hero {
+    grid-template-columns: minmax(650px, 0.95fr) minmax(460px, 0.82fr);
+    gap: 10px;
+  }
+
+  .h4-hero h1 {
+    font-size: 4rem;
+  }
+
+  .h4-visual {
+    width: 500px;
+    min-height: 430px;
+  }
+}
+
 @media (max-width: 760px) {
-  .h4-wrap { width: min(100% - 28px, 1810px); }
+  .h4-wrap { width: min(100% - 28px, 1280px); }
   .h4-nav { gap: 14px; }
   .h4-menu { grid-column: 1 / -1; justify-content: flex-start; gap: 22px; padding-bottom: 8px; }
   .h4-call { min-width: 128px; min-height: 46px; }
-  .h4-hero { min-height: auto; padding-top: 24px; }
-  .h4-hero h1 { font-size: 3rem; }
-  .h4-visual { min-height: 520px; transform: scale(0.86); transform-origin: top center; }
+  .h4-hero {
+    min-height: auto;
+    gap: 22px;
+    padding-top: 86px;
+    text-align: center;
+  }
+  .h4-eyebrow {
+    max-width: 100%;
+    justify-content: center;
+    padding: 8px 14px;
+    font-size: 11px;
+    white-space: normal;
+  }
+  .h4-hero h1 {
+    font-size: clamp(2.25rem, 12vw, 3rem);
+    line-height: 1.08;
+  }
+  .h4-lede {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .h4-actions {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+  .h4-primary,
+  .h4-secondary {
+    min-height: 52px;
+    flex: 1 1 100%;
+    max-width: 320px;
+    padding: 0 18px;
+  }
+  .h4-trust {
+    margin-top: 24px;
+  }
+  .h4-brand-row {
+    justify-content: center;
+    gap: 14px 18px;
+    font-size: 12px;
+  }
+  .h4-visual {
+    width: min(100%, 360px);
+    min-height: 360px;
+    margin: 4px auto 0;
+    transform: none;
+  }
+  .h4-visual::before,
+  .h4-visual::after {
+    inset: 34px 4px 28px;
+  }
+  .h4-orb {
+    top: 50%;
+    width: 200px;
+  }
+  .h4-orb::before { inset: -24px; }
+  .h4-orb::after { inset: -38px; }
+  .h4-robot-core {
+    width: 128px;
+  }
+  .h4-robot-core::before {
+    width: 230px;
+    height: 18px;
+  }
+  .h4-platform {
+    bottom: 18px;
+    width: 300px;
+    height: 78px;
+  }
+  .h4-orbit-ring {
+    width: 300px;
+  }
+  .orbit-2 {
+    width: 340px;
+  }
+  .h4-wire {
+    width: calc(var(--w) * 0.62);
+  }
+  .h4-badge {
+    width: 82px;
+    min-height: 78px;
+    border-radius: 14px;
+    padding: 9px 6px;
+  }
+  .h4-badge-inner {
+    gap: 5px;
+  }
+  .h4-badge svg {
+    width: 24px;
+    height: 24px;
+  }
+  .h4-badge span {
+    font-size: 9px;
+  }
+  .node-ai { left: 9%; top: 5%; }
+  .node-web { right: 8%; top: 6%; }
+  .node-mobile { left: 0; top: 40%; }
+  .node-cloud { right: 0; top: 40%; }
+  .node-auto { left: 50%; bottom: 0; transform: translateX(-50%); }
   .h4-services,
   .h4-mini-metrics,
   .h4-journey {
     grid-template-columns: 1fr;
+  }
+  .h4-section {
+    padding: 34px 0;
+  }
+  .h4-section-head {
+    margin-bottom: 18px;
+  }
+  .h4-section-head h2 {
+    font-size: 1.8rem;
+  }
+  .h4-card,
+  .h4-panel {
+    min-height: auto;
+    padding: 18px;
+  }
+  .h4-main-grid {
+    gap: 14px;
+  }
+  .h4-showcase-tabs {
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .h4-project {
+    min-height: 260px;
+  }
+  .h4-laptop {
+    width: 100%;
+    max-width: 100%;
+    height: 170px;
+  }
+  .h4-project-copy {
+    left: 18px;
+    width: min(220px, 62%);
+  }
+  .h4-mobile-mock {
+    right: 8px;
+    width: 76px;
+    height: 142px;
+  }
+  .h4-cta {
+    min-height: auto;
+  }
+  .h4-cta-copy {
+    padding: 24px 18px;
+    text-align: center;
+  }
+  .h4-cta h2 {
+    font-size: 1.8rem;
+  }
+  .h4-cta .h4-actions {
+    justify-content: center;
+  }
+  .h4-journey {
+    gap: 16px;
+    padding: 18px;
+  }
+  .h4-journey-step {
+    font-size: 16px;
+  }
+  .h4-journey-step:not(:last-child)::after {
+    display: none;
+  }
+  .h4-journey-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
   }
   .h4-process-body { grid-template-columns: 1fr; }
   .h4-top { display: none; }
@@ -1155,15 +1554,14 @@ function Home4() {
         <div>
           <div className="h4-eyebrow">AI <span>*</span> Software <span>*</span> Automation</div>
           <h1>
-            We Build
-            <span>Intelligent Solutions</span>
-            That Grow Businesses
+            Empowering Businesses with
+            <span>Intelligence &amp; Innovation</span>
           </h1>
-          <p className="h4-lede">AI Agents, Automations, Web & Mobile Apps, Cloud Solutions & More.</p>
+          <p className="h4-lede">We deliver world-class AI/ML, Web, Android, and Cloud solutions that drive real results.</p>
 
           <div className="h4-actions">
-            <Link className="h4-primary" to="/services">View Services <ArrowRight size={20} /></Link>
-            <Link className="h4-secondary" to="/contact">Book Free Consultation <CalendarDays size={19} /></Link>
+            <Link className="h4-primary" to="/contact">Book a Call <ArrowRight size={20} /></Link>
+            <Link className="h4-secondary" to="/contact">Free Consultation <CalendarDays size={19} /></Link>
           </div>
 
           <div className="h4-trust">
@@ -1175,21 +1573,45 @@ function Home4() {
         </div>
 
         <div className="h4-visual" aria-hidden="true">
+          <span className="h4-orbit-ring orbit-1" style={{ '--tilt': '-16deg', '--speed': '16s' }} />
+          <span className="h4-orbit-ring orbit-2" style={{ '--tilt': '28deg', '--speed': '22s' }} />
+          {[0, 1, 2].map((i) => (
+            <span
+              key={`comet-${i}`}
+              className="h4-comet"
+              style={{
+                '--start': `${[18, 142, 256][i]}deg`,
+                '--radius': `${[248, 315, 280][i]}px`,
+                '--speed': `${[7, 11, 9][i]}s`,
+                '--delay': `${i * -1.4}s`,
+              }}
+            />
+          ))}
           {[0, 1, 2, 3, 4, 5].map((i) => (
-            <span key={i} className="h4-wire" style={{ '--r': `${[-18, 22, 67, 132, 195, 248][i]}deg`, '--w': `${250 + i * 36}px` }} />
+            <span key={i} className="h4-wire" style={{ '--r': `${[-18, 22, 67, 132, 195, 248][i]}deg`, '--w': `${250 + i * 36}px`, '--delay': `${i * -0.22}s` }} />
           ))}
           <span className="h4-dot dot-1" />
           <span className="h4-dot dot-2" />
           <span className="h4-dot dot-3" />
           <span className="h4-dot dot-4" />
-          <div className="h4-orb"><div className="h4-k">K</div></div>
+          <div className="h4-orb">
+            <div className="h4-robot-core">
+              <img src="/home4-robot.png" alt="" />
+            </div>
+          </div>
           <div className="h4-platform" />
-          <div className="h4-desk desk-left" />
-          <div className="h4-desk desk-right" />
-          {heroBadges.map(({ label, icon: Icon, className }) => (
-            <div className={`h4-badge ${className}`} key={label}>
-              <Icon size={38} />
-              <span>{label}</span>
+          {heroBadges.map(({ label, icon: Icon, className }, index) => (
+            <div
+              className={`h4-service-node ${className}`}
+              key={label}
+              style={{ '--float-delay': `${index * -0.7}s` }}
+            >
+              <div className="h4-badge">
+                <div className="h4-badge-inner">
+                  <Icon size={34} />
+                  <span>{label}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>

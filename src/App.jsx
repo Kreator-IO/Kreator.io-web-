@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { UserProvider } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
@@ -8,8 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import AIAssistantWidget from './components/AIAssistantWidget';
 import Home from './pages/home-pages/Home';
-import ClassicHome from './pages/home-pages/ClassicHome';
-import Home4 from './pages/home-pages/Home4';
 import About from './pages/About';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
@@ -41,6 +39,9 @@ import SecurityPortal from './pages/portals/SecurityPortal';
 import SystemMonitorPortal from './pages/portals/SystemMonitorPortal';
 import LearningPortal from './pages/portals/LearningPortal';
 
+const ClassicHome = lazy(() => import('./pages/home-pages/ClassicHome'));
+const Home4 = lazy(() => import('./pages/home-pages/Home4'));
+
 // Helper to scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -53,7 +54,7 @@ function ScrollToTop() {
 }
 
 function HomeRedirect() {
-  return <Navigate to="/home2" replace />;
+  return <Navigate to="/home1" replace />;
 }
 
 const autoSwitchHomeRoutes = ['/home2', '/home1', '/home4'];
@@ -69,7 +70,7 @@ function AutoSwitchHome() {
     const timer = window.setTimeout(() => {
       const nextRoute = autoSwitchHomeRoutes[(currentIndex + 1) % autoSwitchHomeRoutes.length];
       navigate(nextRoute);
-    }, 60000);
+    }, 15000);
 
     return () => window.clearTimeout(timer);
   }, [navigate, pathname]);
@@ -102,6 +103,7 @@ function App() {
         <Router>
           <ScrollToTop />
           <AutoSwitchHome />
+          <Suspense fallback={<div className="min-h-screen bg-slate-50 dark:bg-[#020617]" />}>
           <Routes>
           <Route 
             path="/" 
@@ -212,7 +214,23 @@ function App() {
             }
           />
           <Route
+            path="/privacy"
+            element={
+              <PageLayout>
+                <PrivacyPolicy />
+              </PageLayout>
+            }
+          />
+          <Route
             path="/terms-of-service"
+            element={
+              <PageLayout>
+                <TermsOfService />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/terms"
             element={
               <PageLayout>
                 <TermsOfService />
@@ -382,6 +400,7 @@ function App() {
             } 
           />
           </Routes>
+          </Suspense>
         </Router>
       </UserProvider>
     </ThemeProvider>

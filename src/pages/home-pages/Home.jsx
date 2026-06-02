@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  BarChart3,
   Brain,
   Briefcase,
   CheckCircle,
@@ -263,7 +262,6 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
 .badge-mobile { left: 8%; top: 36%; }
 .badge-cloud { right: 2%; top: 37%; }
 .badge-auto { left: 19%; bottom: 6%; }
-.badge-analytics { right: 11%; bottom: 4%; }
 
 .home-feature-strip,
 .home-metrics,
@@ -712,7 +710,6 @@ const heroBadges = [
   { label: 'Mobile Ecosystems', icon: Smartphone, className: 'badge-mobile' },
   { label: 'Cloud & DevOps', icon: Cloud, className: 'badge-cloud' },
   { label: 'Automation', icon: Zap, className: 'badge-auto' },
-  { label: 'Analytics', icon: BarChart3, className: 'badge-analytics' },
 ];
 
 const featureChips = [
