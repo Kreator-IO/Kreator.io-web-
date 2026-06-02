@@ -1,11 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, CheckCircle, Layers, ShieldCheck, Sparkles } from 'lucide-react';
-import { getProjectBySlug } from '../config/portfolioProjects';
+import { ArrowLeft, ArrowRight, ExternalLink, Github, Layers, Sparkles } from 'lucide-react';
+import { getCategoryGithubProjects, getProjectBySlug } from '../config/portfolioProjects';
 
 export default function ProjectPortal() {
   const { projectSlug } = useParams();
   const project = getProjectBySlug(projectSlug);
+  const githubProjects = project ? getCategoryGithubProjects(project.category) : [];
 
   if (!project) {
     return (
@@ -47,12 +48,23 @@ export default function ProjectPortal() {
             </p>
             <h1 className="text-5xl font-black uppercase tracking-tight text-white md:text-8xl">{project.title}</h1>
             <p className="mt-7 max-w-2xl text-xl leading-8 text-slate-200">{project.desc}</p>
+            {project.liveDemoUrl && (
+              <a
+                href={project.liveDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 inline-flex h-14 items-center gap-2 rounded-full bg-white px-8 font-bold text-blue-700 shadow-xl shadow-blue-950/20 transition hover:bg-slate-100"
+              >
+                Live Demo
+                <ExternalLink size={18} />
+              </a>
+            )}
           </motion.div>
         </div>
       </section>
 
       <section className="container mx-auto px-4 py-24">
-        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="grid gap-8">
           <motion.div
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -75,26 +87,6 @@ export default function ProjectPortal() {
               </div>
             </div>
           </motion.div>
-
-          <motion.aside
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="rounded-[28px] border border-slate-200 bg-slate-950 p-8 text-white shadow-xl shadow-slate-950/10 dark:border-white/10"
-          >
-            <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-400 text-slate-950">
-              <ShieldCheck size={26} />
-            </div>
-            <h2 className="text-3xl font-black">Impact</h2>
-            <div className="mt-7 space-y-4">
-              {project.impact.map((item) => (
-                <div key={item} className="flex gap-3 rounded-2xl bg-white/7 p-4">
-                  <CheckCircle className="mt-0.5 shrink-0 text-cyan-300" size={20} />
-                  <span className="font-semibold text-slate-100">{item}</span>
-                </div>
-              ))}
-            </div>
-          </motion.aside>
         </div>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -109,20 +101,71 @@ export default function ProjectPortal() {
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-blue-500/20 bg-blue-600 p-8 text-white shadow-xl shadow-blue-950/20">
-            <h2 className="text-3xl font-black">Want a portal like {project.title}?</h2>
-            <p className="mt-4 max-w-2xl text-blue-50">
-              We can turn this kind of project into a working client portal, dashboard, app, or automation flow for your business.
+          <div className="rounded-[28px] border border-slate-200 bg-slate-950 p-8 text-center text-white shadow-xl shadow-slate-950/10 dark:border-white/10">
+            <h2 className="text-3xl font-black md:text-5xl">Want a portal like {project.title}?</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-400">
+              We treat every project as a flagship. Let&apos;s make yours next.
             </p>
             <Link
               to="/contact"
-              className="mt-8 inline-flex h-14 items-center gap-2 rounded-full bg-white px-8 font-bold text-blue-700 transition hover:bg-slate-100"
+              className="mt-8 inline-flex h-14 items-center gap-2 rounded-full bg-blue-600 px-10 font-bold text-white transition hover:bg-blue-700"
             >
-              Start a Project
+              Start Project
               <ArrowRight size={18} />
             </Link>
+            {project.liveDemoUrl && (
+              <a
+                href={project.liveDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-0 mt-4 inline-flex h-14 items-center gap-2 rounded-full border border-white/20 px-8 font-bold text-white transition hover:bg-white/10 sm:ml-4 sm:mt-8"
+              >
+                Live Demo
+                <ExternalLink size={18} />
+              </a>
+            )}
           </div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-10 rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-950/5 dark:border-white/10 dark:bg-white/5"
+        >
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white dark:bg-white dark:text-slate-950">
+                <Github size={24} />
+              </div>
+              <p className="text-sm font-bold uppercase tracking-[0.22em] text-blue-500">GitHub Projects</p>
+              <h2 className="mt-3 text-3xl font-black text-slate-950 dark:text-white">{project.category} Demo Projects</h2>
+            </div>
+            <p className="max-w-xl leading-7 text-slate-600 dark:text-slate-400">
+              Explore five project demos related to this category, including frontend, backend, automation, and admin portal examples.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            {githubProjects.map((item) => (
+              <a
+                key={item.githubUrl}
+                href={item.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex min-h-[230px] flex-col rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-1 hover:border-blue-500/50 hover:bg-white hover:shadow-lg hover:shadow-blue-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+              >
+                <Github className="text-slate-500 transition group-hover:text-blue-500 dark:text-slate-300" size={22} />
+                <h3 className="mt-5 text-lg font-black text-slate-950 dark:text-white">{item.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-400">{item.desc}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-300">
+                  View GitHub
+                  <ArrowRight size={16} />
+                </span>
+              </a>
+            ))}
+          </div>
+        </motion.div>
       </section>
     </div>
   );

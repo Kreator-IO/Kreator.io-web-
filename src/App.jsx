@@ -19,6 +19,7 @@ import Contact from './pages/Contact';
 import SlopScanner from './pages/SlopScanner';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import NotFound from './pages/NotFound';
 import PortalDashboard from './pages/portals/PortalDashboard';
 import AdminPortal from './pages/portals/AdminPortal';
 import ClientPortal from './pages/portals/ClientPortal/index.jsx';
@@ -358,12 +359,7 @@ function App() {
             path="*" 
             element={
               <PageLayout>
-                <div className="pt-60 pb-80 text-center">
-                  <h1 className="text-9xl font-black text-slate-900/5 absolute left-1/2 -top-20 -translate-x-1/2 select-none pointer-events-none dark:text-white/5">404</h1>
-                  <h2 className="text-6xl font-bold text-slate-950 mb-6 relative z-10 dark:text-white">Lost in the Matrix?</h2>
-                  <p className="text-slate-600 text-xl mb-12 relative z-10 dark:text-slate-400">The digital coordinate you&apos;re looking for doesn&apos;t exist.</p>
-                  <a href="/" className="px-12 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-xl relative z-10">Back to Origin</a>
-                </div>
+                <NotFound />
               </PageLayout>
             } 
           />

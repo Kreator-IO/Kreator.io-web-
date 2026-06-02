@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ExternalLink, Star } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 import { fallbackPortfolioProjects, normalizeProject } from '../config/portfolioProjects';
 
 export default function Portfolio() {
@@ -70,9 +70,6 @@ export default function Portfolio() {
                     <h3 className="text-3xl font-bold text-white group-hover:text-blue-500 transition-colors uppercase tracking-tight">{p.title}</h3>
                     <p className="mt-4 line-clamp-2 text-sm leading-6 text-slate-300">{p.desc}</p>
                   </div>
-                  <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/10 text-white opacity-0 backdrop-blur transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100 md:flex md:translate-y-8">
-                    <ExternalLink className="text-white" size={24} />
-                  </div>
                 </div>
                 <Link
                   to={`/portfolio/${p.slug}`}
@@ -100,7 +97,7 @@ export default function Portfolio() {
             href="/contact"
             className="px-16 py-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all text-xl shadow-2xl"
           >
-            Initialize Consultation
+            Start Your Project
           </a>
         </motion.div>
       </div>
