@@ -59,15 +59,6 @@ export default function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-700 transition hover:bg-slate-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:bg-white/10"
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
           {user ? (
             <>
               <span className="text-slate-700 dark:text-slate-200">{user.name}</span>
@@ -109,17 +100,17 @@ export default function Header() {
               Home
             </Link>
             {navItems.map((item) => (
-              <Link 
-                key={item.label} 
-                to={item.href} 
-                className="py-2 px-3 rounded-md text-slate-700 hover:bg-slate-100 transition dark:text-slate-100 dark:hover:bg-slate-800" 
+              <Link
+                key={item.label}
+                to={item.href}
+                className="py-2 px-3 rounded-md text-slate-700 hover:bg-slate-100 transition dark:text-slate-100 dark:hover:bg-slate-800"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className="py-2 px-3 rounded-md bg-gradient-to-r from-blue-500 to-cyan-400 text-slate-900 text-center font-semibold"
               onClick={() => setIsOpen(false)}
             >

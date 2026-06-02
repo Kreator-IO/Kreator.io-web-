@@ -11,7 +11,6 @@ import {
   Cpu,
   Database,
   MapPin,
-  Rocket,
   Smartphone,
   TrendingUp,
   Users,
@@ -24,7 +23,6 @@ const services = [
   { title: 'CRM & ERP Solutions', copy: 'Custom CRM & ERP systems to manage your entire business', icon: Database, href: '/services' },
   { title: 'Cloud & DevOps Solutions', copy: 'Scalable cloud infrastructure & DevOps for high performance', icon: Cloud, href: '/services' },
   { title: 'Analytics & Dashboards', copy: 'Real-time analytics, reports and business intelligence dashboards', icon: BarChart3, href: '/services' },
-  { title: 'Digital Marketing', copy: 'SEO, Social Media, Paid Ads & Growth Marketing', icon: Rocket, href: '/services' },
 ];
 
 const heroBadges = [
@@ -574,7 +572,7 @@ html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
 
 .h4-services {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 22px;
 }
 

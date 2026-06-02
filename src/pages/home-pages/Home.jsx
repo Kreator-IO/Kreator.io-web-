@@ -479,20 +479,6 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
 }
 .home-testimonial-card h3 { margin-top: 8px; font-size: 0.98rem; }
 .home-testimonial-card span { color: #94a3b8; font-size: 0.78rem; }
-.home-dots {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding-top: 14px;
-}
-.home-dots span {
-  width: 9px;
-  height: 9px;
-  border: 1px solid rgba(96, 165, 250, 0.7);
-  border-radius: 50%;
-}
-.home-dots .active { background: #2563eb; }
-
 .home-cta-section { padding: 0 0 24px; }
 .home-cta-card {
   position: relative;
@@ -1006,11 +992,6 @@ export default function Home() {
                   <span>{company}</span>
                 </article>
               ))}
-            </div>
-            <div className="home-dots" aria-hidden="true">
-              <span className="active"></span>
-              <span></span>
-              <span></span>
             </div>
           </div>
         </div>
