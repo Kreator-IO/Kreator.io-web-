@@ -216,6 +216,20 @@ export default function HRPortal() {
       </aside>
 
       <main className="min-w-0 flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_right,rgba(88,28,135,0.32),transparent_35%),linear-gradient(135deg,#160c22,#100819_45%,#0b0611)] p-4 sm:p-6">
+        <div className="-mx-4 mb-4 overflow-x-auto border-b border-violet-400/10 bg-[#10091a]/85 px-4 py-3 lg:hidden">
+          <div className="flex min-w-max gap-2">
+            {navItems.map(({ label, icon: Icon }) => (
+              <button
+                key={label}
+                onClick={() => { setActiveNav(label); setPanelMessage(`${label} section selected.`); }}
+                className={`flex h-10 items-center gap-2 rounded-lg px-3 text-xs font-semibold transition ${activeNav === label ? 'bg-violet-600 text-white' : 'bg-white/5 text-slate-300'}`}
+              >
+                <Icon size={14} /> {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <header className="mb-6 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white">HR Portal</h1>
@@ -276,7 +290,8 @@ export default function HRPortal() {
 
           <Card className="p-5">
             <Header title="Department Wise Headcount" action="This Month" onAction={() => setPanelMessage('Headcount filtered to this month.')} />
-            <div className="flex h-52 items-end justify-between gap-4 border-b border-violet-400/10 px-3">
+            <div className="overflow-x-auto">
+            <div className="flex h-52 min-w-[560px] items-end justify-between gap-4 border-b border-violet-400/10 px-3">
               {headcount.map(([label, value]) => (
                 <div key={label} className="flex h-full flex-1 flex-col justify-end gap-2 text-center">
                   <span className="text-xs font-semibold text-white">{value}</span>
@@ -284,6 +299,7 @@ export default function HRPortal() {
                   <span className="pb-2 text-[11px] text-slate-400">{label}</span>
                 </div>
               ))}
+            </div>
             </div>
           </Card>
         </div>
@@ -301,10 +317,10 @@ export default function HRPortal() {
             </div>
             <div className="mt-5 space-y-3">
               {filteredRequests.map(([name, date, type, status]) => (
-                <div key={`${name}-${date}`} className="grid grid-cols-[auto_1fr_auto_auto_auto] items-center gap-3 text-xs">
+                <div key={`${name}-${date}`} className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-lg bg-white/5 p-3 text-xs sm:grid-cols-[auto_1fr_auto_auto_auto] sm:bg-transparent sm:p-0">
                   <Avatar name={name} />
                   <span className="font-medium text-white">{name}</span>
-                  <span className="hidden text-slate-400 sm:block">{date} | {type}</span>
+                  <span className="col-span-2 text-slate-400 sm:col-span-1">{date} | {type}</span>
                   <span className={`rounded px-2 py-1 font-semibold ${status === 'Approved' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-amber-500/15 text-amber-300'}`}>{status}</span>
                   <button onClick={() => updateRequestStatus(name, status === 'Approved' ? 'Pending' : 'Approved')} className="rounded bg-violet-500/30 px-2 py-1 font-semibold text-violet-100">{status === 'Approved' ? 'Reopen' : 'Approve'}</button>
                 </div>
@@ -365,10 +381,10 @@ export default function HRPortal() {
             <Header title="HR Announcements" />
             <div className="space-y-4">
               {filteredAnnouncements.map(([title, text, date]) => (
-                <div key={title} className="grid grid-cols-[auto_1fr_auto] gap-3 rounded-lg bg-white/5 p-3">
+                <div key={title} className="grid grid-cols-[auto_1fr] gap-3 rounded-lg bg-white/5 p-3 sm:grid-cols-[auto_1fr_auto]">
                   <Megaphone className="text-fuchsia-300" size={18} />
                   <div><p className="text-sm font-semibold text-white">{title}</p><p className="text-xs text-slate-400">{text}</p></div>
-                  <span className="text-xs text-slate-500">{date}</span>
+                  <span className="col-span-2 text-xs text-slate-500 sm:col-span-1">{date}</span>
                 </div>
               ))}
             </div>
@@ -380,7 +396,7 @@ export default function HRPortal() {
             <h3 className="text-sm font-semibold text-white">Employee Turnover Rate</h3>
             <button onClick={() => setTurnoverRange((current) => current === 'This Year' ? 'This Quarter' : 'This Year')} className="flex items-center gap-1 rounded-md bg-white/5 px-3 py-1.5 text-xs text-slate-300">{turnoverRange} <ChevronDown size={13} /></button>
           </div>
-          <svg viewBox="0 0 473 100" className="h-40 w-full">
+          <svg viewBox="0 0 473 100" className="h-32 w-full sm:h-40">
             {[20, 40, 60, 80].map((line) => <line key={line} x1="0" x2="473" y1={line} y2={line} stroke="#3b224f" strokeWidth="1" />)}
             <path d={`M ${turnoverPoints}`} fill="none" stroke="#a855f7" strokeWidth="2.5" />
             <path d={`M ${turnoverPoints} L 473 100 L 0 100 Z`} fill="#7c3aed" opacity="0.12" />

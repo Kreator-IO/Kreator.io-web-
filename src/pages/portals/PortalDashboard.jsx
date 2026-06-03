@@ -78,7 +78,7 @@ const PortalDashboard = () => {
   };
 
   return (
-    <div className="relative min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden px-4 pb-12 pt-28 sm:px-6 lg:px-8">
 
       {/* ═══════════════════════════════════════════════════════════════
           PREMIUM CINEMATIC BACKGROUND EFFECTS
@@ -194,19 +194,19 @@ const PortalDashboard = () => {
           ═══════════════════════════════════════════════════════════════ */}
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-12 animate-fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4"> Kreonix.io Ecosystem</h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+        <div className="mb-8 text-center animate-fade-in-up sm:mb-12">
+          <h1 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl">Kreonix.io Ecosystem</h1>
+          <p className="mx-auto max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
             Access all company portals from a single unified dashboard. Secure, integrated, and efficient.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {visiblePortals.map((portal, index) => (
             <Link
               key={portal.id}
               to={`/portals/${portal.id}`}
-              className="group relative glass-dark rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:bg-slate-800/40 border border-slate-700/50 hover:border-blue-500/50 animate-fade-in-up"
+              className="group relative glass-dark rounded-2xl border border-slate-700/50 p-5 text-left transition-all duration-300 hover:scale-[1.02] hover:border-blue-500/50 hover:bg-slate-800/40 sm:p-6 sm:hover:scale-105 animate-fade-in-up"
               style={{ animationDelay: `${index * 50}ms` }}
             >
               <div className={`w-12 h-12 rounded-xl ${portal.color} flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform`}>
@@ -227,7 +227,7 @@ const PortalDashboard = () => {
             <button
               key={portal.id}
               onClick={() => openLockedPortal(portal)}
-              className="group relative glass-dark rounded-2xl p-6 text-left transition-all duration-300 hover:scale-105 hover:bg-slate-800/40 border border-slate-700/50 hover:border-blue-500/50 animate-fade-in-up"
+              className="group relative glass-dark rounded-2xl border border-slate-700/50 p-5 text-left transition-all duration-300 hover:scale-[1.02] hover:border-blue-500/50 hover:bg-slate-800/40 sm:p-6 sm:hover:scale-105 animate-fade-in-up"
               style={{ animationDelay: `${(visiblePortals.length + index) * 50}ms` }}
             >
               <div className={`w-12 h-12 rounded-xl ${portal.color} flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform`}>
@@ -250,8 +250,8 @@ const PortalDashboard = () => {
       </div>
 
       {lockedPortal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-md">
-          <form onSubmit={unlockPortal} className="relative w-full max-w-md rounded-2xl border border-slate-700/70 bg-slate-900/95 p-6 shadow-2xl shadow-blue-950/40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/70 px-4 py-6 backdrop-blur-md">
+          <form onSubmit={unlockPortal} className="relative w-full max-w-md rounded-2xl border border-slate-700/70 bg-slate-900/95 p-5 shadow-2xl shadow-blue-950/40 sm:p-6">
             <button
               type="button"
               onClick={() => setLockedPortal(null)}

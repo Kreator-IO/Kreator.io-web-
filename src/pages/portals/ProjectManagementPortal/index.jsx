@@ -261,6 +261,20 @@ export default function ProjectManagementPortal() {
       </aside>
 
       <main className="min-w-0 flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.22),transparent_34%),linear-gradient(135deg,#03172b,#03101e_45%,#020b16)] p-3 sm:p-4">
+        <div className="-mx-3 mb-3 overflow-x-auto border-b border-blue-400/10 bg-[#031324]/80 px-3 py-3 lg:hidden">
+          <div className="flex min-w-max gap-2">
+            {navItems.map(({ label, icon: Icon }) => (
+              <button
+                key={label}
+                onClick={() => { setActiveNav(label); setPanelMessage(`${label} section selected.`); }}
+                className={`flex h-10 items-center gap-2 rounded-lg px-3 text-xs font-semibold transition ${activeNav === label ? 'bg-blue-600 text-white' : 'bg-white/5 text-slate-300'}`}
+              >
+                <Icon size={14} /> {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <header className="mb-3 flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white">Good Morning, John!</h1>
@@ -305,7 +319,7 @@ export default function ProjectManagementPortal() {
             <div className="grid gap-4 xl:grid-cols-3">
               <section>
                 <Header title="CRM Overview" action="" />
-                <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-3">
                   {['Total Deals 156', 'Won Deals 92', 'Conversion Rate 58.9%'].map((item) => <div key={item} className="rounded bg-white/5 p-2 text-white">{item}</div>)}
                 </div>
                 <div className="mt-4 space-y-2">
@@ -315,7 +329,7 @@ export default function ProjectManagementPortal() {
               </section>
               <section>
                 <Header title="Finance Overview" action="" />
-                <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-3">
                   {['Total Income Rs48,75,000', 'Total Expenses Rs21,30,000', 'Net Profit Rs27,45,000'].map((item) => <div key={item} className="rounded bg-white/5 p-2 text-white">{item}</div>)}
                 </div>
                 <TinyBars values={financeBars} />
@@ -323,7 +337,7 @@ export default function ProjectManagementPortal() {
               </section>
               <section>
                 <Header title="Client Overview" action="" />
-                <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-3">
                   {['Total Clients 68', 'Active Clients 46', 'Satisfaction 4.6/5'].map((item) => <div key={item} className="rounded bg-white/5 p-2 text-white">{item}</div>)}
                 </div>
                 <div className="mt-4 flex items-center gap-5">
@@ -369,10 +383,10 @@ export default function ProjectManagementPortal() {
         <div className="mt-3 grid gap-3 xl:grid-cols-[1.1fr_1fr]">
           <Card className="p-4">
             <Header title="Project Timeline (Gantt)" action="View Full Timeline" onAction={() => setPanelMessage(`${filteredProjects.length} timeline rows visible.`)} />
-            <div className="mb-2 grid grid-cols-[1fr_0.9fr_2.5fr_auto] gap-3 text-[10px] font-semibold text-slate-400"><span>Project</span><span>Dates</span><span>May - Sep</span><span /></div>
+            <div className="mb-2 hidden grid-cols-[1fr_0.9fr_2.5fr_auto] gap-3 text-[10px] font-semibold text-slate-400 sm:grid"><span>Project</span><span>Dates</span><span>May - Sep</span><span /></div>
             <div className="space-y-3">
               {filteredProjects.map((project) => (
-                <div key={project.name} className="grid grid-cols-[1fr_0.9fr_2.5fr_auto] items-center gap-3 text-xs">
+                <div key={project.name} className="grid gap-2 rounded-lg bg-white/5 p-3 text-xs sm:grid-cols-[1fr_0.9fr_2.5fr_auto] sm:items-center sm:bg-transparent sm:p-0">
                   <span className="truncate text-white">{project.name}</span><span className="truncate text-slate-400">{project.dates}</span>
                   <div className="relative h-4 rounded bg-slate-900"><div className={`absolute top-0 h-4 rounded bg-gradient-to-r ${project.color}`} style={{ left: `${project.start}%`, width: `${project.width}%` }} /></div>
                   <span className="text-white">{project.progress}</span>
@@ -384,7 +398,7 @@ export default function ProjectManagementPortal() {
             <Header title="Team Allocation" onAction={() => setPanelMessage(`Average team utilization is ${utilization}%.`)} />
             <div className="space-y-4">
               {teamData.map((team) => (
-                <div key={team.name} className="grid grid-cols-[1fr_2fr_auto] items-center gap-3">
+                <div key={team.name} className="grid gap-3 rounded-lg bg-white/5 p-3 sm:grid-cols-[1fr_2fr_auto] sm:items-center sm:bg-transparent sm:p-0">
                   <div className="flex items-center gap-3"><div className="flex -space-x-2"><Avatar name="A B" /><Avatar name="C D" /></div><div><p className="text-sm font-semibold text-white">{team.name}</p><p className="text-xs text-slate-500">{team.members}</p></div></div>
                   <div className="h-2.5 rounded bg-slate-900"><div className={`h-2.5 rounded ${team.color}`} style={{ width: `${team.value}%` }} /></div>
                   <input type="number" min="0" max="100" value={team.value} onChange={(event) => setTeamData((current) => current.map((item) => item.name === team.name ? { ...item, value: Math.min(100, Math.max(0, Number(event.target.value) || 0)) } : item))} className="h-7 w-14 rounded border border-blue-400/15 bg-slate-950 px-2 text-right text-xs text-white outline-none" />
@@ -407,7 +421,7 @@ export default function ProjectManagementPortal() {
           ))}
           <Card className="p-4">
             <Header title="Upcoming Events" action="View Calendar" onAction={() => setPanelMessage('Calendar opened with upcoming project events.')} />
-            <div className="space-y-3">{events.map(([day, month, time, title, project]) => <div key={`${day}-${title}`} className="grid grid-cols-[auto_auto_1fr] gap-3 text-xs"><span className="grid h-10 w-10 place-items-center rounded bg-blue-500/15 text-center"><span className="font-bold text-white">{day}</span><span className="text-[9px] uppercase text-slate-400">{month}</span></span><span className="text-slate-300">{time}</span><span><p className="font-semibold text-white">{title}</p><p className="text-slate-500">{project}</p></span></div>)}</div>
+            <div className="space-y-3">{events.map(([day, month, time, title, project]) => <div key={`${day}-${title}`} className="grid grid-cols-[auto_1fr] gap-3 text-xs sm:grid-cols-[auto_auto_1fr]"><span className="grid h-10 w-10 place-items-center rounded bg-blue-500/15 text-center"><span className="font-bold text-white">{day}</span><span className="text-[9px] uppercase text-slate-400">{month}</span></span><span className="text-slate-300 sm:order-none order-3 col-span-2 sm:col-span-1">{time}</span><span><p className="font-semibold text-white">{title}</p><p className="text-slate-500">{project}</p></span></div>)}</div>
           </Card>
         </div>
 

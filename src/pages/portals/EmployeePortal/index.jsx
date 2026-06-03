@@ -230,6 +230,20 @@ export default function EmployeePortal() {
       </aside>
 
       <main className="min-w-0 flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.22),transparent_34%),linear-gradient(135deg,#03172b,#03101e_45%,#020b16)] p-4 sm:p-6">
+        <div className="-mx-4 mb-4 overflow-x-auto border-b border-blue-400/10 bg-[#031324]/85 px-4 py-3 lg:hidden">
+          <div className="flex min-w-max gap-2">
+            {navItems.map(({ label, icon: Icon }) => (
+              <button
+                key={label}
+                onClick={() => { setActiveNav(label); setPanelMessage(`${label} section selected.`); }}
+                className={`flex h-10 items-center gap-2 rounded-lg px-3 text-xs font-semibold transition ${activeNav === label ? 'bg-blue-600 text-white' : 'bg-white/5 text-slate-300'}`}
+              >
+                <Icon size={14} /> {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <header className="mb-6 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white">IT Employee Portal</h1>
@@ -274,14 +288,14 @@ export default function EmployeePortal() {
             <Header title="My Tasks" onAction={() => setPanelMessage(`${filteredTasks.length} tasks visible.`)} />
             <div className="space-y-4">
               {filteredTasks.map(([title, area, priority, date, done]) => (
-                <div key={title} className="grid grid-cols-[auto_1fr_auto_auto_auto] items-center gap-3 text-xs">
+                <div key={title} className="grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-lg bg-white/5 p-3 text-xs sm:grid-cols-[auto_1fr_auto_auto_auto] sm:bg-transparent sm:p-0">
                   <button onClick={() => completeTask(title)} className={`h-4 w-4 rounded border ${done ? 'border-emerald-300 bg-emerald-400' : 'border-blue-400 bg-blue-500/20'}`} />
                   <div className="min-w-0">
                     <p className={`truncate text-sm font-semibold ${done ? 'text-slate-500 line-through' : 'text-white'}`}>{title}</p>
                     <p className="truncate text-xs text-slate-400">{area}</p>
                   </div>
                   <span className={`font-semibold ${priorityClasses[priority]}`}>{priority}</span>
-                  <span className={date === 'Due Today' ? 'text-red-300' : 'text-slate-300'}>{date}</span>
+                  <span className={`${date === 'Due Today' ? 'text-red-300' : 'text-slate-300'} col-span-2 sm:col-span-1`}>{date}</span>
                   <button onClick={() => completeTask(title)} className="rounded bg-blue-500/20 px-2 py-1 text-blue-100">{done ? 'Reopen' : 'Done'}</button>
                 </div>
               ))}
@@ -318,7 +332,7 @@ export default function EmployeePortal() {
           </Card>
           <Card className="p-5">
             <Header title="Git Activity" action="This Week" onAction={() => setPanelMessage('Git activity filtered to this week.')} />
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               {[
                 ['Commits', 24],
                 ['Pull Requests', 6],
