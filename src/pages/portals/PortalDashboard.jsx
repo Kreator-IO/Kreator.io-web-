@@ -9,10 +9,9 @@ import {
 const portals = [
   { id: 'admin', name: 'Admin Portal', icon: <Settings size={24} />, description: 'Manage users, projects, and analytics', color: 'bg-red-500', roles: ['admin', 'administrator'] },
   { id: 'client', name: 'Client Portal', icon: <User size={24} />, description: 'Track projects, payments, and files', color: 'bg-blue-500', roles: ['client'] },
-  { id: 'project', name: 'Manager Portal', icon: <Briefcase size={24} />, description: 'Manage tasks, Kanban, and project progress', color: 'bg-purple-500', roles: ['manager'] },
 ];
 
-const teamLockedPortals = [
+const lockedPortals = [
   {
     id: 'it',
     name: 'IT Employee Portal',
@@ -22,6 +21,7 @@ const teamLockedPortals = [
     path: '/portals/employee',
     code: '6464',
     storageKey: 'portal-it-unlocked',
+    roles: ['team'],
   },
   {
     id: 'hr',
@@ -32,6 +32,18 @@ const teamLockedPortals = [
     path: '/portals/hr',
     code: '1003',
     storageKey: 'portal-hr-unlocked',
+    roles: ['team'],
+  },
+  {
+    id: 'project',
+    name: 'Manager Portal',
+    icon: <Briefcase size={24} />,
+    description: 'Manage tasks, timelines, teams, finance, and project progress',
+    color: 'bg-purple-500',
+    path: '/portals/project',
+    code: '20034',
+    storageKey: 'portal-manager-unlocked',
+    roles: ['manager'],
   },
 ];
 
@@ -44,7 +56,7 @@ const PortalDashboard = () => {
   const [error, setError] = useState('');
 
   const visiblePortals = portals.filter(portal => portal.roles.includes(userRole));
-  const visibleLockedPortals = userRole === 'team' ? teamLockedPortals : [];
+  const visibleLockedPortals = lockedPortals.filter(portal => portal.roles.includes(userRole));
 
   const openLockedPortal = (portal) => {
     setLockedPortal(portal);
@@ -255,12 +267,12 @@ const PortalDashboard = () => {
             <input
               value={passcode}
               onChange={(event) => {
-                setPasscode(event.target.value.replace(/\D/g, '').slice(0, 4));
+                setPasscode(event.target.value.replace(/\D/g, '').slice(0, lockedPortal.code.length));
                 setError('');
               }}
               autoFocus
               inputMode="numeric"
-              placeholder="Enter 4-digit code"
+              placeholder={`Enter ${lockedPortal.code.length}-digit code`}
               className="mt-6 h-12 w-full rounded-xl border border-slate-700 bg-slate-950/80 px-4 text-center text-xl font-bold tracking-[0.35em] text-white outline-none transition focus:border-blue-400"
             />
             {error && <p className="mt-3 rounded-lg bg-red-500/10 p-3 text-sm text-red-300">{error}</p>}

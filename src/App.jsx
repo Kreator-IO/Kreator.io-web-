@@ -295,7 +295,9 @@ function App() {
             path="/portals/project" 
             element={
               <ProtectedRoute allowedRoles={['Manager']}>
-                <ProjectManagementPortal />
+                <PortalCodeGate storageKey="portal-manager-unlocked">
+                  <ProjectManagementPortal />
+                </PortalCodeGate>
               </ProtectedRoute>
             } 
           />
