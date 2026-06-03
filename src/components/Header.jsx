@@ -1,15 +1,13 @@
 import { Link } from 'react-router-dom';
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useContext } from 'react';
 import { signOut } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
-import { useTheme } from '../context/ThemeContext';
 import { auth } from '../firebase';
 import KreonixLogo from './KreonixLogo';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isDark, toggleTheme } = useTheme();
 
   const navItems = [
     { label: 'Services', href: '/services' },
@@ -33,7 +31,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200 transition-colors dark:bg-slate-900/70 dark:border-slate-800">
+    <header className="fixed w-full z-50 bg-slate-900/70 backdrop-blur-xl border-b border-slate-800 transition-colors">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link
           to="/"
@@ -44,7 +42,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8 text-slate-700 dark:text-slate-100">
+        <nav className="hidden md:flex items-center gap-8 text-slate-100">
           <Link
             to="/"
             className="hover:text-cyan-400 transition-all font-medium"
@@ -61,12 +59,12 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-4">
           {user ? (
             <>
-              <span className="text-slate-700 dark:text-slate-200">{user.name}</span>
+              <span className="text-slate-200">{user.name}</span>
               <button onClick={handleLogout} className="px-4 py-2 rounded-full bg-red-600 text-white">Logout</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="inline-flex h-12 items-center rounded-full bg-slate-800/90 px-6 text-lg font-bold text-white shadow-lg shadow-slate-950/15 transition hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700">Login</Link>
+              <Link to="/login" className="inline-flex h-12 items-center rounded-full bg-slate-800 px-6 text-lg font-bold text-white shadow-lg shadow-slate-950/15 transition hover:bg-slate-700">Login</Link>
               <Link to="/register" className="inline-flex h-12 items-center rounded-full bg-sky-400 px-7 text-lg font-bold text-slate-950 shadow-lg shadow-sky-500/25 transition hover:bg-sky-300">Sign Up</Link>
             </>
           )}
@@ -74,15 +72,7 @@ export default function Header() {
 
         {/* Mobile Toggle */}
         <div className="flex items-center gap-2 md:hidden">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-700 transition dark:border-white/10 dark:bg-white/5 dark:text-white"
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <button className="text-slate-900 dark:text-white" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle navigation">
+          <button className="text-white" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle navigation">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -90,11 +80,11 @@ export default function Header() {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden bg-white/95 border-t border-slate-200 dark:bg-slate-900/95 dark:border-slate-800">
+        <div className="md:hidden bg-slate-900/95 border-t border-slate-800">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
             <Link
               to="/"
-              className="py-2 px-3 rounded-md text-slate-700 hover:bg-slate-100 transition dark:text-slate-100 dark:hover:bg-slate-800"
+              className="py-2 px-3 rounded-md text-slate-100 hover:bg-slate-800 transition"
               onClick={() => setIsOpen(false)}
             >
               Home
@@ -103,7 +93,7 @@ export default function Header() {
               <Link
                 key={item.label}
                 to={item.href}
-                className="py-2 px-3 rounded-md text-slate-700 hover:bg-slate-100 transition dark:text-slate-100 dark:hover:bg-slate-800"
+                className="py-2 px-3 rounded-md text-slate-100 hover:bg-slate-800 transition"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}

@@ -80,7 +80,7 @@ function AutoSwitchHome() {
 
 function PageLayout({ children }) {
   return (
-    <div className="relative isolate flex min-h-screen flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white transition-colors duration-300 dark:bg-[#020617] dark:text-slate-100">
+    <div className="relative isolate flex min-h-screen flex-col bg-[#020617] text-slate-100 selection:bg-blue-600 selection:text-white transition-colors duration-300">
       <BackgroundAnimation />
       <Header />
       <main className="relative z-10 flex-grow">
@@ -113,7 +113,7 @@ function App() {
         <Router>
           <ScrollToTop />
           <AutoSwitchHome />
-          <Suspense fallback={<div className="min-h-screen bg-slate-50 dark:bg-[#020617]" />}>
+          <Suspense fallback={<div className="min-h-screen bg-[#020617]" />}>
           <Routes>
           <Route 
             path="/" 

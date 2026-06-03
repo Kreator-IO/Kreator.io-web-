@@ -3,16 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 const ThemeContext = createContext(null);
 
 function getInitialTheme() {
-  if (typeof window === 'undefined') {
-    return 'dark';
-  }
-
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light' || savedTheme === 'dark') {
-    return savedTheme;
-  }
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'dark';
 }
 
 export function ThemeProvider({ children }) {
@@ -28,7 +19,7 @@ export function ThemeProvider({ children }) {
   const value = useMemo(() => ({
     theme,
     isDark: theme === 'dark',
-    toggleTheme: () => setTheme((current) => (current === 'dark' ? 'light' : 'dark')),
+    toggleTheme: () => setTheme('dark'),
   }), [theme]);
 
   return (
