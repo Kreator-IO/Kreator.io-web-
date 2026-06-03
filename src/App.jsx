@@ -96,6 +96,16 @@ function PageLayout({ children }) {
   );
 }
 
+function PortalCodeGate({ children, storageKey }) {
+  const isUnlocked = typeof window !== 'undefined' && window.sessionStorage.getItem(storageKey) === 'unlocked';
+
+  if (!isUnlocked) {
+    return <Navigate to="/portals" replace />;
+  }
+
+  return children;
+}
+
 function App() {
   return (
     <ThemeProvider>
@@ -275,7 +285,9 @@ function App() {
             path="/portals/employee" 
             element={
               <ProtectedRoute allowedRoles={['Team']}>
-                <EmployeePortal />
+                <PortalCodeGate storageKey="portal-it-unlocked">
+                  <EmployeePortal />
+                </PortalCodeGate>
               </ProtectedRoute>
             } 
           />
@@ -322,8 +334,10 @@ function App() {
           <Route 
             path="/portals/hr" 
             element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <HRPortal />
+              <ProtectedRoute allowedRoles={['Team']}>
+                <PortalCodeGate storageKey="portal-hr-unlocked">
+                  <HRPortal />
+                </PortalCodeGate>
               </ProtectedRoute>
             } 
           />

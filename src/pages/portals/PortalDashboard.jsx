@@ -1,23 +1,69 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import {
   Settings, Users, User, Briefcase,
-  ArrowUpRight
+  ArrowUpRight, Lock, ShieldCheck, X
 } from 'lucide-react';
 
 const portals = [
   { id: 'admin', name: 'Admin Portal', icon: <Settings size={24} />, description: 'Manage users, projects, and analytics', color: 'bg-red-500', roles: ['admin', 'administrator'] },
   { id: 'client', name: 'Client Portal', icon: <User size={24} />, description: 'Track projects, payments, and files', color: 'bg-blue-500', roles: ['client'] },
-  { id: 'employee', name: 'Team Portal', icon: <Users size={24} />, description: 'Tasks, attendance, and team updates', color: 'bg-green-500', roles: ['team'] },
   { id: 'project', name: 'Manager Portal', icon: <Briefcase size={24} />, description: 'Manage tasks, Kanban, and project progress', color: 'bg-purple-500', roles: ['manager'] },
+];
+
+const teamLockedPortals = [
+  {
+    id: 'it',
+    name: 'IT Employee Portal',
+    icon: <Users size={24} />,
+    description: 'Projects, tasks, docs, time tracking, and IT tools',
+    color: 'bg-blue-500',
+    path: '/portals/employee',
+    code: '6464',
+    storageKey: 'portal-it-unlocked',
+  },
+  {
+    id: 'hr',
+    name: 'HR Portal',
+    icon: <ShieldCheck size={24} />,
+    description: 'Employees, leave requests, payroll, and HR updates',
+    color: 'bg-violet-500',
+    path: '/portals/hr',
+    code: '1003',
+    storageKey: 'portal-hr-unlocked',
+  },
 ];
 
 const PortalDashboard = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const userRole = user?.role?.toLowerCase();
+  const [lockedPortal, setLockedPortal] = useState(null);
+  const [passcode, setPasscode] = useState('');
+  const [error, setError] = useState('');
 
   const visiblePortals = portals.filter(portal => portal.roles.includes(userRole));
+  const visibleLockedPortals = userRole === 'team' ? teamLockedPortals : [];
+
+  const openLockedPortal = (portal) => {
+    setLockedPortal(portal);
+    setPasscode('');
+    setError('');
+  };
+
+  const unlockPortal = (event) => {
+    event.preventDefault();
+    if (!lockedPortal) return;
+
+    if (passcode === lockedPortal.code) {
+      window.sessionStorage.setItem(lockedPortal.storageKey, 'unlocked');
+      navigate(lockedPortal.path);
+      return;
+    }
+
+    setError('Incorrect code. Please try again.');
+  };
 
   return (
     <div className="relative min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -164,8 +210,66 @@ const PortalDashboard = () => {
               </div>
             </Link>
           ))}
+
+          {visibleLockedPortals.map((portal, index) => (
+            <button
+              key={portal.id}
+              onClick={() => openLockedPortal(portal)}
+              className="group relative glass-dark rounded-2xl p-6 text-left transition-all duration-300 hover:scale-105 hover:bg-slate-800/40 border border-slate-700/50 hover:border-blue-500/50 animate-fade-in-up"
+              style={{ animationDelay: `${(visiblePortals.length + index) * 50}ms` }}
+            >
+              <div className={`w-12 h-12 rounded-xl ${portal.color} flex items-center justify-center text-white text-2xl mb-4 group-hover:scale-110 transition-transform`}>
+                {portal.icon}
+              </div>
+              <div className="mb-2 flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-white">{portal.name}</h3>
+                <Lock size={16} className="text-blue-300" />
+              </div>
+              <p className="text-slate-400 text-sm">{portal.description}</p>
+
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="w-8 h-8 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-400">
+                  <Lock size={16} />
+                </div>
+              </div>
+            </button>
+          ))}
         </div>
       </div>
+
+      {lockedPortal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-md">
+          <form onSubmit={unlockPortal} className="relative w-full max-w-md rounded-2xl border border-slate-700/70 bg-slate-900/95 p-6 shadow-2xl shadow-blue-950/40">
+            <button
+              type="button"
+              onClick={() => setLockedPortal(null)}
+              className="absolute right-4 top-4 rounded-lg p-2 text-slate-400 transition hover:bg-white/10 hover:text-white"
+            >
+              <X size={18} />
+            </button>
+            <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-xl ${lockedPortal.color} text-white`}>
+              <Lock size={24} />
+            </div>
+            <h2 className="text-2xl font-bold text-white">{lockedPortal.name} Locked</h2>
+            <p className="mt-2 text-sm text-slate-400">Enter the portal access code to continue.</p>
+            <input
+              value={passcode}
+              onChange={(event) => {
+                setPasscode(event.target.value.replace(/\D/g, '').slice(0, 4));
+                setError('');
+              }}
+              autoFocus
+              inputMode="numeric"
+              placeholder="Enter 4-digit code"
+              className="mt-6 h-12 w-full rounded-xl border border-slate-700 bg-slate-950/80 px-4 text-center text-xl font-bold tracking-[0.35em] text-white outline-none transition focus:border-blue-400"
+            />
+            {error && <p className="mt-3 rounded-lg bg-red-500/10 p-3 text-sm text-red-300">{error}</p>}
+            <button type="submit" className="mt-5 w-full rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-500">
+              Unlock Portal
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Inline keyframe animations for floating orbs */}
       <style>{`
