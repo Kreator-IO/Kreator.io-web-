@@ -3,9 +3,31 @@
 > vite --host 127.0.0.1
 
 
-  [32m[1mVITE[22m v5.4.19[39m  [2mready in [0m[1m508[22m[2m[0m ms[22m
+  [32m[1mVITE[22m v5.4.19[39m  [2mready in [0m[1m601[22m[2m[0m ms[22m
 
   [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
-[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
-[2m2:13:13 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Portfolio.jsx, /src/index.css[22m
-[2m2:14:10 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m3:07:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/ProjectManagementPortal/index.jsx, /src/index.css[22m
+[2m3:10:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/HRPortal.jsx, /src/index.css[22m
+[2m3:10:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/HRPortal.jsx, /src/index.css[22m
+[2m3:12:35 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/EmployeePortal/index.jsx, /src/index.css[22m
+[2m3:12:35 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/EmployeePortal/index.jsx, /src/index.css[22m
+[2m3:19:42 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/ProjectManagementPortal/index.jsx, /src/index.css[22m
+[2m3:19:42 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/ProjectManagementPortal/index.jsx, /src/index.css[22m
+[2m3:22:52 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/HRPortal.jsx, /src/index.css[22m
+[2m3:23:51 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/EmployeePortal/index.jsx, /src/index.css[22m
+[2m3:25:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/ProjectManagementPortal/index.jsx, /src/index.css[22m
+[2m3:26:06 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/HRPortal.jsx, /src/index.css[22m
+[2m3:26:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/EmployeePortal/index.jsx, /src/index.css[22m
+[2m3:38:43 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/PortalDashboard.jsx, /src/index.css[22m
+[2m3:39:02 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m3:49:10 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/context/ThemeContext.jsx, /src/index.css[22m
+[2m3:49:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m3:49:51 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:50:25 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Header.jsx, /src/index.css[22m
+[2m3:55:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/PortalDashboard.jsx, /src/index.css[22m
+[2m3:56:13 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m3:56:55 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/PortalDashboard.jsx, /src/index.css[22m
+[2m4:05:05 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/ProjectManagementPortal/index.jsx, /src/index.css[22m
+[2m4:05:55 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/HRPortal.jsx, /src/index.css[22m
+[2m4:06:51 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/EmployeePortal/index.jsx, /src/index.css[22m
+[2m4:07:23 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/portals/PortalDashboard.jsx, /src/index.css[22m
