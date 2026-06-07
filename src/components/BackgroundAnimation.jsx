@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const VISIT_KEY = 'kreonix-visit-count';
+const VISIT_KEY = 'vexquorai-visit-count';
 const modes = ['genesis', 'aurora', 'neural', 'cosmos', 'holographic'];
 
 function getNextMode() {
@@ -11,10 +11,10 @@ function getNextMode() {
   const storedVisit = Number.parseInt(localStorage.getItem(VISIT_KEY) || '0', 10);
   let visit = Number.isFinite(storedVisit) ? storedVisit : 0;
 
-  if (!window.__kreonixVisitCounted) {
+  if (!window.__vexquoraiVisitCounted) {
     visit = (visit % modes.length) + 1;
     localStorage.setItem(VISIT_KEY, String(visit));
-    window.__kreonixVisitCounted = true;
+    window.__vexquoraiVisitCounted = true;
   } else if (visit < 1) {
     visit = 1;
   }
@@ -222,7 +222,7 @@ function AmbientCanvas({ mode }) {
     };
   }, [mode, pointer]);
 
-  return <canvas ref={canvasRef} className="kreonix-evolution-canvas" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="vexquorai-evolution-canvas" aria-hidden="true" />;
 }
 
 function clampCanvas(value, min, max) {
@@ -238,7 +238,7 @@ function GenesisMode() {
       <div className="bg-obj obj-4" aria-hidden="true"></div>
       <div className="bg-obj obj-5" aria-hidden="true"></div>
       <div className="bg-obj obj-6" aria-hidden="true"></div>
-      <div className="kreonix-genesis-grid" aria-hidden="true"></div>
+      <div className="vexquorai-genesis-grid" aria-hidden="true"></div>
     </>
   );
 }
@@ -246,11 +246,11 @@ function GenesisMode() {
 function AuroraMode() {
   return (
     <>
-      <div className="kreonix-aurora-ribbon ribbon-a" aria-hidden="true"></div>
-      <div className="kreonix-aurora-ribbon ribbon-b" aria-hidden="true"></div>
-      <div className="kreonix-aurora-ribbon ribbon-c" aria-hidden="true"></div>
-      <div className="kreonix-light-ray ray-a" aria-hidden="true"></div>
-      <div className="kreonix-light-ray ray-b" aria-hidden="true"></div>
+      <div className="vexquorai-aurora-ribbon ribbon-a" aria-hidden="true"></div>
+      <div className="vexquorai-aurora-ribbon ribbon-b" aria-hidden="true"></div>
+      <div className="vexquorai-aurora-ribbon ribbon-c" aria-hidden="true"></div>
+      <div className="vexquorai-light-ray ray-a" aria-hidden="true"></div>
+      <div className="vexquorai-light-ray ray-b" aria-hidden="true"></div>
     </>
   );
 }
@@ -258,10 +258,10 @@ function AuroraMode() {
 function HolographicMode() {
   return (
     <>
-      <div className="kreonix-holo-sphere sphere-a" aria-hidden="true"></div>
-      <div className="kreonix-holo-sphere sphere-b" aria-hidden="true"></div>
-      <div className="kreonix-holo-ring ring-a" aria-hidden="true"></div>
-      <div className="kreonix-holo-ring ring-b" aria-hidden="true"></div>
+      <div className="vexquorai-holo-sphere sphere-a" aria-hidden="true"></div>
+      <div className="vexquorai-holo-sphere sphere-b" aria-hidden="true"></div>
+      <div className="vexquorai-holo-ring ring-a" aria-hidden="true"></div>
+      <div className="vexquorai-holo-ring ring-b" aria-hidden="true"></div>
       <AmbientCanvas mode="holographic" />
     </>
   );
@@ -273,21 +273,21 @@ export default function BackgroundAnimation() {
   useEffect(() => {
     const nextMode = getNextMode();
     setMode(nextMode);
-    document.documentElement.dataset.kreonixMode = nextMode;
+    document.documentElement.dataset.vexquoraiMode = nextMode;
   }, []);
 
   return (
-    <div className={`bg-animation-wrapper kreonix-mode-${mode}`} aria-hidden="true">
-      <div className="kreonix-environment-layer">
+    <div className={`bg-animation-wrapper vexquorai-mode-${mode}`} aria-hidden="true">
+      <div className="vexquorai-environment-layer">
         {mode === 'genesis' && <GenesisMode />}
         {mode === 'aurora' && <AuroraMode />}
         {mode === 'neural' && <AmbientCanvas mode="neural" />}
         {mode === 'cosmos' && <AmbientCanvas mode="cosmos" />}
         {mode === 'holographic' && <HolographicMode />}
       </div>
-      <div className="kreonix-lighting-layer" aria-hidden="true"></div>
-      <div className="kreonix-particle-layer" aria-hidden="true"></div>
-      <div className="kreonix-readability-layer" aria-hidden="true"></div>
+      <div className="vexquorai-lighting-layer" aria-hidden="true"></div>
+      <div className="vexquorai-particle-layer" aria-hidden="true"></div>
+      <div className="vexquorai-readability-layer" aria-hidden="true"></div>
     </div>
   );
 }

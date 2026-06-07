@@ -24,7 +24,7 @@ const terms = [
   },
   {
     title: 'Limitation of Liability',
-    body: 'To the maximum extent permitted by law, kreonix.io is not liable for indirect, incidental, special, consequential, or punitive damages arising from website or service use.',
+    body: 'To the maximum extent permitted by law, VexquorAI is not liable for indirect, incidental, special, consequential, or punitive damages arising from website or service use.',
   },
 ];
 
@@ -47,7 +47,7 @@ export default function TermsOfService() {
             Terms of Service
           </h1>
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-            These Terms of Service outline the general rules for using the kreonix.io website, services, and portals.
+            These Terms of Service outline the general rules for using the VexquorAI website, services, and portals.
           </p>
           <p className="mt-4 text-sm text-slate-500 dark:text-slate-500">
             Last updated: June 2, 2026
@@ -82,11 +82,11 @@ export default function TermsOfService() {
             Contact us if you have questions about these terms or a specific project agreement.
           </p>
           <a
-            href="mailto:Kreator_IO@proton.me"
+            href="mailto:VexquorAI@proton.me"
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700"
           >
             <Mail size={18} />
-            Kreator_IO@proton.me
+            VexquorAI@proton.me
           </a>
         </div>
       </div>

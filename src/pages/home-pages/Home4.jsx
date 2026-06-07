@@ -54,8 +54,8 @@ const featuredWorks = [
 ];
 
 const styles = `
-html[data-kreonix-home4='active'] body { background: #010716; }
-html[data-kreonix-home4='active'] .bg-animation-wrapper { display: none; }
+html[data-vexquorai-home4='active'] body { background: #010716; }
+html[data-vexquorai-home4='active'] .bg-animation-wrapper { display: none; }
 
 .home4 {
   position: relative;
@@ -1540,9 +1540,9 @@ function Home4() {
   const [activeWork, setActiveWork] = useState(featuredWorks[0]);
 
   useEffect(() => {
-    document.documentElement.dataset.kreonixHome4 = 'active';
+    document.documentElement.dataset.vexquoraiHome4 = 'active';
     return () => {
-      delete document.documentElement.dataset.kreonixHome4;
+      delete document.documentElement.dataset.vexquoraiHome4;
     };
   }, []);
 
@@ -1679,7 +1679,7 @@ function Home4() {
           </article>
 
           <article className="h4-panel">
-            <h3>Why Choose Kreonix?</h3>
+            <h3>Why Choose VexquorAI?</h3>
             <div className="h4-why-list">
               {why.map(([label, Icon]) => (
                 <div className="h4-why-item" key={label}><Icon size={21} /><span>{label}</span></div>

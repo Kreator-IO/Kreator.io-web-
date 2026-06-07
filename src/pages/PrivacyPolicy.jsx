@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
             Privacy Policy
           </h1>
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-            This Privacy Policy explains how kreonix.io collects, uses, and protects information when you use our website, services, and portals.
+            This Privacy Policy explains how VexquorAI collects, uses, and protects information when you use our website, services, and portals.
           </p>
           <p className="mt-4 text-sm text-slate-500 dark:text-slate-500">
             Last updated: June 2, 2026
@@ -79,14 +79,14 @@ export default function PrivacyPolicy() {
             Contact Us
           </h2>
           <p className="mb-5 leading-relaxed text-slate-600 dark:text-slate-400">
-            For privacy questions or requests, contact the kreonix.io team.
+            For privacy questions or requests, contact the VexquorAI team.
           </p>
           <a
-            href="mailto:Kreator_IO@proton.me"
+            href="mailto:VexquorAI@proton.me"
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700"
           >
             <Mail size={18} />
-            Kreator_IO@proton.me
+            VexquorAI@proton.me
           </a>
         </div>
       </div>

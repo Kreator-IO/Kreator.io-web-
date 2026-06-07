@@ -10,8 +10,8 @@ export const fallbackPortfolioProjects = [
     stack: ['Python', 'TensorFlow', 'FastAPI', 'PostgreSQL'],
     demoTitle: 'AI/ML Forecasting Demo',
     demoDesc: 'Sample repository with model training flow, anomaly scoring, and API-ready inference structure.',
-    githubUrl: 'https://github.com/Kreator-IO/ai-ml-forecasting-demo',
-    liveDemoUrl: 'https://kreator-io.github.io/nexus-ai-engine-demo',
+    githubUrl: 'https://github.com/VexquorAI/ai-ml-forecasting-demo',
+    liveDemoUrl: 'https://vexquorai.github.io/nexus-ai-engine-demo',
   },
   {
     title: 'Website',
@@ -33,7 +33,7 @@ export const fallbackPortfolioProjects = [
     solution: 'We shipped cloud control planes, edge telemetry, and automated failover routines.',
     impact: ['99.95% service uptime', 'Edge-first monitoring', 'Automated incident routing'],
     stack: ['AWS', 'Docker', 'Kubernetes', 'Go'],
-    liveDemoUrl: 'https://kreator-io.github.io/skynet-os-demo',
+    liveDemoUrl: 'https://vexquorai.github.io/skynet-os-demo',
   },
   {
     title: 'BioTrace App',
@@ -44,7 +44,7 @@ export const fallbackPortfolioProjects = [
     solution: 'We created a secure Android app with sensor sync, patient timelines, and clinical alerts.',
     impact: ['Real-time biometric tracking', 'Encrypted patient sessions', 'Cleaner clinician handoffs'],
     stack: ['Android', 'Kotlin', 'Firebase', 'FHIR'],
-    liveDemoUrl: 'https://kreator-io.github.io/biotrace-app-demo',
+    liveDemoUrl: 'https://vexquorai.github.io/biotrace-app-demo',
   },
   {
     title: 'Big Data Processing',
@@ -55,7 +55,7 @@ export const fallbackPortfolioProjects = [
     solution: 'We built a batch and streaming pipeline with automated validation, warehouse modeling, and analytics-ready APIs.',
     impact: ['3.2x faster data processing', 'Unified reporting layer', 'Cleaner operational intelligence'],
     stack: ['Python', 'Apache Spark', 'Kafka', 'BigQuery'],
-    liveDemoUrl: 'https://kreator-io.github.io/big-data-processing-demo',
+    liveDemoUrl: 'https://vexquorai.github.io/big-data-processing-demo',
   },
   {
     title: 'UX/UI Design System',
@@ -66,7 +66,7 @@ export const fallbackPortfolioProjects = [
     solution: 'We created a tokenized component library, interaction states, responsive layouts, and documentation for designers and developers.',
     impact: ['Reusable component library', '45% faster screen delivery', 'Consistent cross-platform UX'],
     stack: ['Figma', 'React', 'Tailwind CSS', 'Storybook'],
-    liveDemoUrl: 'https://kreator-io.github.io/ux-ui-design-system-demo',
+    liveDemoUrl: 'https://vexquorai.github.io/ux-ui-design-system-demo',
   },
 ];
 
@@ -123,7 +123,7 @@ export function getCategoryGithubProjects(category) {
 
   return projectTypes.map((item) => ({
     ...item,
-    githubUrl: `https://github.com/Kreator-IO/${item.repo}`,
+    githubUrl: `https://github.com/VexquorAI/${item.repo}`,
   }));
 }
 

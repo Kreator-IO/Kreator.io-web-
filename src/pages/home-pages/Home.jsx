@@ -17,10 +17,10 @@ import {
 } from 'lucide-react';
 
 const homeShowcaseStyles = `
-html[data-kreonix-home='showcase'] body { background: #020617; }
-html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
+html[data-vexquorai-home='showcase'] body { background: #020617; }
+html[data-vexquorai-home='showcase'] .bg-animation-wrapper { opacity: 0; }
 
-.kreonix-home-showcase {
+.vexquorai-home-showcase {
   position: relative;
   z-index: 1;
   min-height: 100vh;
@@ -31,14 +31,14 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
     linear-gradient(180deg, #010512 0%, #020817 39%, #03091a 100%);
   color: #f8fafc;
 }
-.kreonix-home-showcase::before,
-.kreonix-home-showcase::after {
+.vexquorai-home-showcase::before,
+.vexquorai-home-showcase::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
-.kreonix-home-showcase::before {
+.vexquorai-home-showcase::before {
   opacity: 0.2;
   background-image:
     linear-gradient(rgba(59, 130, 246, 0.16) 1px, transparent 1px),
@@ -46,7 +46,7 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
   background-size: 88px 88px;
   mask-image: linear-gradient(180deg, black, transparent 62%);
 }
-.kreonix-home-showcase::after {
+.vexquorai-home-showcase::after {
   background:
     radial-gradient(circle at 50% 7%, transparent, rgba(0, 0, 0, 0.36) 70%),
     linear-gradient(90deg, rgba(2, 6, 23, 0.76), transparent 20%, transparent 78%, rgba(2, 6, 23, 0.76));
@@ -597,8 +597,8 @@ html[data-kreonix-home='showcase'] .bg-animation-wrapper { opacity: 0; }
   .home-cta-card { padding: 24px; }
 }
 
-html[data-kreonix-home='showcase'] { scroll-behavior: smooth; }
-.kreonix-home-showcase::before { animation: homeGridDrift 24s linear infinite; }
+html[data-vexquorai-home='showcase'] { scroll-behavior: smooth; }
+.vexquorai-home-showcase::before { animation: homeGridDrift 24s linear infinite; }
 .orb-grid { animation: homeParticleDrift 18s linear infinite; }
 .home-hero h1,
 .home-hero h1 span { animation: homeHeadlineReveal 900ms cubic-bezier(0.16, 1, 0.3, 1) both; }
@@ -628,8 +628,8 @@ html[data-kreonix-home='showcase'] { scroll-behavior: smooth; }
   animation: homeCtaLights 9s ease-in-out infinite;
 }
 .home-city-visual span { animation: homeLogoGlow 3.6s ease-in-out infinite; }
-html[data-kreonix-home='showcase'] .fixed.bottom-5.right-5 > button,
-html[data-kreonix-home='showcase'] .fixed.bottom-7.right-7 > button { animation: homeBotPulse 2.7s ease-in-out infinite; }
+html[data-vexquorai-home='showcase'] .fixed.bottom-5.right-5 > button,
+html[data-vexquorai-home='showcase'] .fixed.bottom-7.right-7 > button { animation: homeBotPulse 2.7s ease-in-out infinite; }
 .home-particle {
   position: absolute;
   left: var(--x);
@@ -769,7 +769,7 @@ const testimonials = [
   {
     name: 'Rahul Singh',
     company: 'TechStart India',
-    text: 'Kreonix transformed our vision into a world-class platform. Highly professional and results-driven!',
+    text: 'VexquorAI transformed our vision into a world-class platform. Highly professional and results-driven!',
     initial: 'R',
   },
   {
@@ -869,7 +869,7 @@ function HeroGraphic() {
         <span className="ring orbit-c"></span>
       </div>
       <div className="orb-core">
-        <span className="orb-k">K</span>
+        <span className="orb-k">V</span>
       </div>
       <div className="orb-pedestal"></div>
       <div className="orb-platform"></div>
@@ -885,14 +885,14 @@ function HeroGraphic() {
 
 export default function Home() {
   useEffect(() => {
-    document.documentElement.dataset.kreonixHome = 'showcase';
+    document.documentElement.dataset.vexquoraiHome = 'showcase';
     return () => {
-      delete document.documentElement.dataset.kreonixHome;
+      delete document.documentElement.dataset.vexquoraiHome;
     };
   }, []);
 
   return (
-    <div className="kreonix-home-showcase">
+    <div className="vexquorai-home-showcase">
       <style>{homeShowcaseStyles}</style>
       <section className="home-hero">
         <div className="home-shell home-hero-grid">
@@ -959,7 +959,7 @@ export default function Home() {
 
       <section className="home-section slim">
         <div className="home-shell">
-          <SectionTitle eyebrow="Why Industry Leaders" title="Trust Kreonix.io" />
+          <SectionTitle eyebrow="Why Industry Leaders" title="Trust VexquorAI" />
           <div className="home-values-grid">
             {values.map(({ title, description, icon: Icon }) => (
               <article key={title} className="home-value-item">
@@ -1012,7 +1012,7 @@ export default function Home() {
             </div>
             <div className="home-city-visual" aria-hidden="true">
               <Sparkles size={28} />
-              <span>K</span>
+              <span>V</span>
             </div>
           </div>
         </div>

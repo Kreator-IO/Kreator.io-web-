@@ -52,9 +52,9 @@ const iconMap = {
 };
 
 const variantStyles = `
-html[data-kreonix-home-variant='active'] body { background: #020617; }
-html[data-kreonix-home-variant='active'] { scroll-behavior: smooth; }
-html[data-kreonix-home-variant='active'] .bg-animation-wrapper { opacity: 0; }
+html[data-vexquorai-home-variant='active'] body { background: #020617; }
+html[data-vexquorai-home-variant='active'] { scroll-behavior: smooth; }
+html[data-vexquorai-home-variant='active'] .bg-animation-wrapper { opacity: 0; }
 
 .hpv-page {
   position: relative;
@@ -1207,9 +1207,9 @@ function SectionHead({ kicker, title, copy }) {
 
 export default function HomeVariant({ config }) {
   useEffect(() => {
-    document.documentElement.dataset.kreonixHomeVariant = 'active';
+    document.documentElement.dataset.vexquoraiHomeVariant = 'active';
     return () => {
-      delete document.documentElement.dataset.kreonixHomeVariant;
+      delete document.documentElement.dataset.vexquoraiHomeVariant;
     };
   }, []);
 

@@ -4,7 +4,7 @@ import { useState, useContext } from 'react';
 import { signOut } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
 import { auth } from '../firebase';
-import KreonixLogo from './KreonixLogo';
+import VexquorAILogo from './VexquorAILogo';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function Header() {
     { label: 'Contact', href: '/contact' },
   ];
 
-  const { user, updateUser } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
 
   const handleLogout = async () => {
     try {
@@ -26,8 +26,7 @@ export default function Header() {
       // Local/demo sessions do not always have a Firebase user to sign out.
     }
 
-    updateUser(null);
-    localStorage.removeItem('token');
+    await logout();
   };
 
   return (
@@ -36,9 +35,9 @@ export default function Header() {
         <Link
           to="/"
           className="inline-flex items-center text-lg transition duration-300 hover:drop-shadow-[0_0_18px_rgba(34,211,238,0.35)] sm:text-xl"
-          aria-label="kreonix.io home"
+          aria-label="VexquorAI home"
         >
-          <KreonixLogo />
+          <VexquorAILogo />
         </Link>
 
         {/* Desktop Nav */}

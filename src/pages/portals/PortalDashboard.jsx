@@ -195,7 +195,7 @@ const PortalDashboard = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-8 text-center animate-fade-in-up sm:mb-12">
-          <h1 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl">Kreonix.io Ecosystem</h1>
+          <h1 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl">VexquorAI Ecosystem</h1>
           <p className="mx-auto max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
             Access all company portals from a single unified dashboard. Secure, integrated, and efficient.
           </p>

@@ -1,14 +1,40 @@
-import jwt from 'jsonwebtoken';
+import { verifyToken } from '../utils/jwt.js';
+import User from '../models/User.js';
 
-export default (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) return res.status(401).json({ message: 'Access denied' });
+const authMiddleware = async (req, res, next) => {
+  let token;
+
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  if (!token) {
+    return res.status(401).json({ success: false, error: 'Not authorized to access this route' });
+  }
 
   try {
-    const verified = jwt.verify(token, 'secret');
-    req.user = verified;
+    const decoded = verifyToken(token);
+    
+    if (!decoded || decoded.type === 'refresh') {
+      return res.status(401).json({ success: false, error: 'Invalid token' });
+    }
+
+    const user = await User.findById(decoded.id).select('-password -refreshToken -resetPasswordToken');
+
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'User not found' });
+    }
+
+    if (!user.isActive) {
+      return res.status(401).json({ success: false, error: 'User account is deactivated' });
+    }
+
+    req.user = user;
     next();
-  } catch (error) {
-    res.status(400).json({ message: 'Invalid token' });
+  } catch (err) {
+    const error = err.name === 'TokenExpiredError' ? 'Token expired' : 'Not authorized to access this route';
+    return res.status(401).json({ success: false, error });
   }
 };
+
+export default authMiddleware;

@@ -1,57 +1,35 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
-import { User, Mail, Lock, ShieldCheck } from 'lucide-react';
-import { addData, auth } from '../firebase';
+import { User, Mail, Lock } from 'lucide-react';
 
-const ROLE_OPTIONS = [
-  { id: 'admin', label: 'Admin', role: 'Admin', path: '/portals/admin' },
-  { id: 'client', label: 'Client', role: 'Client', path: '/portals/client' },
-  { id: 'manager', label: 'Manager', role: 'Manager', path: '/portals/project' },
-  { id: 'team', label: 'Team', role: 'Team', path: '/portals/employee' },
-];
+const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
 
 export default function Register() {
-  const { updateUser } = useContext(UserContext);
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: ROLE_OPTIONS[1].role });
+  const { register } = useContext(UserContext);
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-
-  const loadUsers = () => {
-    try { return JSON.parse(localStorage.getItem('users') || '[]'); } catch { return []; }
-  };
-
-  const saveUsers = (arr) => localStorage.setItem('users', JSON.stringify(arr));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.password || !form.role) { setMessage('Fill all fields'); return; }
+    if (!form.name || !form.email || !form.password) { 
+      setMessage('Fill all fields'); 
+      return; 
+    }
 
-    const selectedRole = ROLE_OPTIONS.find(option => option.role === form.role) || ROLE_OPTIONS[1];
+    setIsSubmitting(true);
+    setMessage('');
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
-      await updateProfile(userCredential.user, { displayName: form.name });
-
-      await addData('users', {
-        uid: userCredential.user.uid,
-        name: form.name,
-        email: form.email,
-        role: selectedRole.role,
-      });
-
-      updateUser({ name: form.name, email: form.email, role: selectedRole.role });
+      await register(form);
       navigate('/portals');
     } catch (error) {
-      const users = loadUsers();
-      if (users.find(u => u.email === form.email)) { setMessage('Email already used'); return; }
-      const newUser = { name: form.name, email: form.email, password: form.password, role: selectedRole.role };
-      users.push(newUser);
-      saveUsers(users);
-      updateUser({ name: newUser.name, email: newUser.email, role: newUser.role });
-      navigate('/portals');
+      setMessage(error.message || 'Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -70,7 +48,7 @@ export default function Register() {
           className="hidden md:flex flex-col justify-center px-8 rounded-2xl bg-gradient-to-br from-green-700 to-teal-500 shadow-xl text-white"
         >
           <h2 className="text-4xl font-extrabold mb-2">Create Account</h2>
-          <p className="text-slate-100/90">Join Kreonix to manage projects, access portals, and start consultations.</p>
+          <p className="text-slate-100/90">Join VexquorAI to manage projects, access portals, and start consultations.</p>
           <div className="mt-6 text-sm text-white/80">Already registered? Login to continue.</div>
         </motion.div>
 
@@ -84,7 +62,7 @@ export default function Register() {
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 font-bold">K</div>
             <div>
               <h1 className="text-2xl font-bold text-slate-950 dark:text-white">Create your account</h1>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Sign up to get started with Kreonix</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Sign up to get started with VexquorAI</p>
             </div>
           </div>
 
@@ -110,36 +88,15 @@ export default function Register() {
               </div>
             </label>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-                <ShieldCheck size={18} className="text-slate-500 dark:text-slate-300" />
-                <span>Select account type</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {ROLE_OPTIONS.map(option => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => setForm({ ...form, role: option.role })}
-                    className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
-                      form.role === option.role
-                        ? 'bg-green-500 text-slate-950'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
-                    }`}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <button className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 rounded text-slate-900 font-semibold">Register & Login</button>
+            <div className="flex items-center justify-between mt-6">
+              <button disabled={isSubmitting} className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 rounded text-slate-900 font-semibold disabled:opacity-50">
+                {isSubmitting ? 'Registering...' : 'Register & Login'}
+              </button>
               <Link to="/login" className="text-sm text-slate-600 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-white">Already have an account?</Link>
             </div>
           </form>
 
-          {message && <p className="mt-4 text-sm text-blue-300">{message}</p>}
+          {message && <p className="mt-4 text-sm text-red-400">{message}</p>}
         </motion.div>
       </motion.div>
     </div>

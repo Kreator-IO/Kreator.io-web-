@@ -6,8 +6,12 @@ import { UserContext } from '../context/UserContext';
 const PORTAL_ROLES = ['administrator', 'admin', 'client', 'manager', 'team'];
 
 export default function ProtectedRoute({ children, allowedRoles }) {
-  const { user } = useContext(UserContext);
+  const { user, isLoading } = useContext(UserContext);
   const roles = (allowedRoles || PORTAL_ROLES).map(role => role.toLowerCase());
+
+  if (isLoading) {
+    return <div className="min-h-screen flex items-center justify-center bg-[#020617] text-white">Loading...</div>;
+  }
 
   if (!user || !roles.includes(user.role?.toLowerCase())) {
     return (

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* About */}
           <div>
-            <h3 className="text-xl font-bold mb-4">kreonix.io</h3>
+            <h3 className="text-xl font-bold mb-4">VexquorAI</h3>
             <p className="text-slate-600 dark:text-slate-300">
               Leading provider of AI/ML, Web, Android, and Cloud Database solutions.
             </p>
@@ -72,26 +72,26 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Connect</h4>
             <div className="flex gap-4 mb-4">
-              <a href="https://www.linkedin.com/in/kreator-io-a97621400/" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
+              <a href="https://www.linkedin.com/in/vexquorai-a97621400/" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
                 <Linkedin size={24} />
               </a>
-              <a href="https://github.com/Kreator-IO" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
+              <a href="https://github.com/VexquorAI" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
                 <Github size={24} />
               </a>
-              <a href="https://x.com/IoKreator26102" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
+              <a href="https://x.com/VexquorAI26102" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
                 <Twitter size={24} />
               </a>
-              <a href="mailto:Kreator_IO@proton.me" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
+              <a href="mailto:VexquorAI@proton.me" className="text-slate-600 hover:text-blue-600 transition dark:text-slate-300 dark:hover:text-cyan-200">
                 <Mail size={24} />
               </a>
             </div>
-            <p className="text-slate-600 dark:text-slate-300">Kreator_IO@proton.me</p>
+            <p className="text-slate-600 dark:text-slate-300">VexquorAI@proton.me</p>
           </div>
         </div>
 
         <div className="border-t border-blue-200 pt-8 dark:border-cyan-400/20">
           <div className="flex flex-col md:flex-row justify-between items-center text-slate-600 dark:text-slate-300">
-            <p>&copy; 2026 kreonix.io. All rights reserved.</p>
+            <p>&copy; 2026 VexquorAI. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <Link to="/privacy-policy" className="hover:text-blue-600 dark:hover:text-cyan-200 transition">
                 Privacy Policy

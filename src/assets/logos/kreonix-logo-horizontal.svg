@@ -1,6 +1,6 @@
 <svg width="1600" height="520" viewBox="0 0 1600 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Kreonix.io chrome orbital cube logo</title>
-  <desc id="desc">A floating metallic cube with a chrome orbit ring, cyan neon base glow, and spaced chrome Kreonix.io lettering.</desc>
+  <title id="title">VexquorAI chrome orbital cube logo</title>
+  <desc id="desc">A floating metallic cube with a chrome orbit ring, cyan neon base glow, and spaced chrome VexquorAI lettering.</desc>
   <defs>
     <radialGradient id="ambient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(358 226) rotate(90) scale(162 288)">
       <stop stop-color="#dff4ff" stop-opacity=".46"/>
@@ -76,7 +76,7 @@
     <path d="M354 101 470 168" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity=".62"/>
   </g>
   <g filter="url(#blueGlow)">
-    <text x="700" y="295" fill="url(#wordChrome)" font-family="Inter, Sora, Orbitron, Arial, sans-serif" font-size="118" font-weight="800" letter-spacing="28">KREONIX</text>
+    <text x="700" y="295" fill="url(#wordChrome)" font-family="Inter, Sora, Orbitron, Arial, sans-serif" font-size="118" font-weight="800" letter-spacing="28">VEXQUORAI</text>
     <text x="1325" y="295" fill="url(#wordChrome)" font-family="Inter, Sora, Orbitron, Arial, sans-serif" font-size="103" font-weight="800" letter-spacing="16">.IO</text>
     <path d="M704 326h540" stroke="#dbeafe" stroke-width="2" stroke-linecap="round" opacity=".36"/>
     <path d="M1282 326h152" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity=".56"/>

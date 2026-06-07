@@ -42,7 +42,7 @@ const planCatalog = [
   },
   {
     id: 'enterprise',
-    name: 'Kreator.io',
+    name: 'VexquorAI',
     price: 199,
     period: 'month',
     description: 'For larger teams that need hands-on account coverage.',
@@ -128,7 +128,7 @@ const BillingPortal = () => {
     cardName: 'Acme Corp',
     cardExpiry: '',
     cardCvc: '',
-    upiId: 'kreator.pay@upi',
+    upiId: 'vexquorai.pay@upi',
     paypalEmail: '',
     bankReference: '',
   });
@@ -169,8 +169,8 @@ const BillingPortal = () => {
     }
 
     const params = new URLSearchParams({
-      pa: gatewayFields.upiId.trim() || 'kreator.pay@upi',
-      pn: 'Kreator.io Payments',
+      pa: gatewayFields.upiId.trim() || 'vexquorai.pay@upi',
+      pn: 'VexquorAI Payments',
       am: checkoutInvoice.amount.toFixed(2),
       cu: 'INR',
       tn: checkoutInvoice.id,
@@ -299,7 +299,7 @@ const BillingPortal = () => {
 
   const downloadInvoice = (invoice) => {
     const receipt = [
-      'Kreator.io Billing Receipt',
+      'VexquorAI Billing Receipt',
       `Invoice: ${invoice.id}`,
       `Service: ${invoice.service}`,
       `Issued: ${invoice.date}`,
@@ -472,7 +472,7 @@ const BillingPortal = () => {
                         value={gatewayFields.upiId}
                         onChange={(event) => updateGatewayField('upiId', event.target.value)}
                         className="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-blue-500"
-                        placeholder="Merchant UPI ID, for example kreator.pay@upi"
+                        placeholder="Merchant UPI ID, for example vexquorai.pay@upi"
                       />
                       <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
                         <p className="text-[10px] font-bold uppercase tracking-widest text-slate-600">UPI payment link</p>

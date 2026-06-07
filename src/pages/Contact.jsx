@@ -114,7 +114,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-slate-500 font-bold text-sm uppercase mb-1 tracking-wider">Email Us</h4>
-                  <p className="text-2xl font-bold text-slate-950 dark:text-white">Kreator_IO@proton.me</p>
+                  <p className="text-2xl font-bold text-slate-950 dark:text-white">VexquorAI@proton.me</p>
                 </div>
               </div>
               <div className="flex gap-6 items-center group">
@@ -138,13 +138,13 @@ export default function Contact() {
 
               {/* Social Links Section */}
               <div className="mt-10 pt-10 border-t border-slate-200 flex gap-6 dark:border-white/5">
-                <a href="https://www.linkedin.com/in/kreator-io-a97621400/" target="_blank" rel="noopener noreferrer" className="w-14 h-14 glass rounded-xl flex items-center justify-center hover:bg-[#0077B5] hover:scale-110 transition-all">
+                <a href="https://www.linkedin.com/in/vexquorai-a97621400/" target="_blank" rel="noopener noreferrer" className="w-14 h-14 glass rounded-xl flex items-center justify-center hover:bg-[#0077B5] hover:scale-110 transition-all">
                   <Linkedin className="text-white" size={24} />
                 </a>
-                <a href="https://x.com/IoKreator26102" target="_blank" rel="noopener noreferrer" className="w-14 h-14 glass rounded-xl flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all">
+                <a href="https://x.com/VexquorAI26102" target="_blank" rel="noopener noreferrer" className="w-14 h-14 glass rounded-xl flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all">
                   <Twitter className="text-white" size={24} />
                 </a>
-                <a href="https://github.com/Kreator-IO" target="_blank" rel="noopener noreferrer" className="w-14 h-14 glass rounded-xl flex items-center justify-center hover:bg-[#24292e] hover:scale-110 transition-all">
+                <a href="https://github.com/VexquorAI" target="_blank" rel="noopener noreferrer" className="w-14 h-14 glass rounded-xl flex items-center justify-center hover:bg-[#24292e] hover:scale-110 transition-all">
                   <Github className="text-white" size={24} />
                 </a>
               </div>

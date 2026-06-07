@@ -13,7 +13,7 @@ export default function About() {
     {
       name: 'Vansh Bhushan Vats',
       role: 'Founder & Tech Lead',
-      bio: 'Visionary technologist and entrepreneur who founded kreonix.io with a mission to deliver world-class digital innovation.',
+      bio: 'Visionary technologist and entrepreneur who founded VexquorAI with a mission to deliver world-class digital innovation.',
       gradient: 'from-blue-600 to-cyan-500',
       initials: 'VB',
       photo: '/team/vansh-bhushan-vats.jpeg',
@@ -27,7 +27,7 @@ export default function About() {
     {
       name: 'Aaryan Sharma',
       role: 'Co-Founder & CEO',
-      bio: 'Full-stack architect and engineering leader driving the technical strategy and product roadmap at kreonix.io.',
+      bio: 'Full-stack architect and engineering leader driving the technical strategy and product roadmap at VexquorAI.',
       gradient: 'from-purple-600 to-indigo-500',
       initials: 'AS',
       photo: '/team/aaryan-sharma.jpeg',
@@ -68,7 +68,7 @@ export default function About() {
             <span className="text-blue-500">Since Day One</span>
           </h1>
           <p className="text-slate-600 text-xl max-w-3xl mx-auto leading-relaxed dark:text-slate-400">
-            Founded with a bold dream, kreonix.io has grown into a powerhouse of digital innovation,
+            Founded with a bold dream, VexquorAI has grown into a powerhouse of digital innovation,
             serving clients across the globe with cutting-edge software engineering.
           </p>
         </motion.div>
@@ -109,7 +109,7 @@ export default function About() {
               Meet the <span className="text-blue-500">Founding Team</span>
             </h2>
             <p className="text-slate-600 text-xl max-w-2xl mx-auto dark:text-slate-400">
-              The passionate leaders who built kreator.io from the ground up.
+              The passionate leaders who built VexquorAI from the ground up.
             </p>
           </motion.div>
 
@@ -205,7 +205,7 @@ export default function About() {
               World-Class Engineers Focused on One Goal: <span className="text-blue-500">Your Success</span>
             </h2>
             <p className="text-slate-600 mb-8 text-lg dark:text-slate-400">
-              At kreonix.io, we believe that the best products are built by people who care.
+              At VexquorAI, we believe that the best products are built by people who care.
               Our team consists of senior architects, talented designers, and strategic thinkers
               who collaborate across time zones to bring your vision to life.
             </p>

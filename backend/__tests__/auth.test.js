@@ -1,66 +1,98 @@
-const request = require('supertest');
-const app = require('../server'); 
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import { jest } from '@jest/globals';
+import request from 'supertest';
 
-// Mock the User model so tests don't require a running MongoDB instance
-jest.mock('../models/User', () => {
-  const mockUserInstance = {
-    save: jest.fn().mockResolvedValue(true),
-    email: 'test@example.com',
-    password: 'hashedpassword',
-    role: 'Client',
-    _id: 'mockuserid'
-  };
-  
-  const mockUserClass = jest.fn().mockImplementation(() => mockUserInstance);
-  mockUserClass.findOne = jest.fn().mockImplementation(async ({ email }) => {
-    if (email === 'test@example.com') {
-      return {
-        _id: 'mockuserid',
-        email: 'test@example.com',
-        password: await require('bcrypt').hash('password123', 10),
-        role: 'Client',
-        save: jest.fn().mockResolvedValue(true)
-      };
-    }
-    return null;
-  });
-  
-  return mockUserClass;
+process.env.NODE_ENV = 'test';
+process.env.JWT_SECRET = 'test-secret-for-auth-suite';
+process.env.CORS_ORIGIN = 'http://localhost:5173';
+
+const mockUsers = new Map();
+
+const makeUser = (overrides = {}) => ({
+  _id: overrides._id || 'mock-user-id',
+  id: overrides._id || 'mock-user-id',
+  name: overrides.name || 'Test User',
+  email: overrides.email || 'test@example.com',
+  role: overrides.role || 'Client',
+  isActive: overrides.isActive ?? true,
+  emailVerified: false,
+  refreshToken: overrides.refreshToken,
+  save: jest.fn(async function save() {
+    mockUsers.set(this.email, this);
+    return this;
+  }),
+  matchPassword: jest.fn(async (password) => password === 'Password123'),
 });
 
-describe('Authentication Tests', () => {
-  test('Register a new user', async () => {
-    const res = await request(app).post('/api/auth/register').send({
-      email: 'test@example.com',
-      password: 'password123',
-      role: 'Client',
-    });
-    expect(res.statusCode).toBe(201);
-    expect(res.body.message).toBe('User registered successfully');
+jest.unstable_mockModule('../models/User.js', () => ({
+  default: {
+    findOne: jest.fn((query) => {
+      const user = mockUsers.get(query.email);
+      return user
+        ? {
+            select: jest.fn(async () => user),
+            ...user,
+          }
+        : null;
+    }),
+    findById: jest.fn((id) => ({
+      select: jest.fn(async () => [...mockUsers.values()].find((user) => user._id === id) || null),
+    })),
+    findByIdAndUpdate: jest.fn(async () => null),
+    create: jest.fn(async (payload) => {
+      const user = makeUser(payload);
+      mockUsers.set(user.email, user);
+      return user;
+    }),
+  },
+}));
+
+const { default: app } = await import('../server.js');
+
+describe('Authentication routes', () => {
+  beforeEach(() => {
+    mockUsers.clear();
   });
 
-  test('Login with valid credentials', async () => {
+  test('registers a new client user', async () => {
+    const res = await request(app).post('/api/auth/register').send({
+      name: 'Test User',
+      email: 'new@example.com',
+      password: 'Password123',
+    });
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.success).toBe(true);
+    expect(res.body.accessToken).toBeDefined();
+    expect(res.body.user.role).toBe('Client');
+  });
+
+  test('logs in with valid credentials', async () => {
+    mockUsers.set('test@example.com', makeUser());
+
     const res = await request(app).post('/api/auth/login').send({
       email: 'test@example.com',
-      password: 'password123',
+      password: 'Password123',
     });
+
     expect(res.statusCode).toBe(200);
-    expect(res.body.token).toBeDefined();
+    expect(res.body.accessToken).toBeDefined();
+    expect(res.body.user.email).toBe('test@example.com');
   });
 
-  test('Access protected route with valid token', async () => {
+  test('verifies a valid access token', async () => {
+    mockUsers.set('test@example.com', makeUser());
+
     const loginRes = await request(app).post('/api/auth/login').send({
       email: 'test@example.com',
-      password: 'password123',
+      password: 'Password123',
     });
-    const token = loginRes.body.token;
 
     const res = await request(app)
-      .get('/api/auth/dashboard')
-      .set('Authorization', token);
+      .get('/api/auth/verify-token')
+      .set('Authorization', `Bearer ${loginRes.body.accessToken}`);
+
     expect(res.statusCode).toBe(200);
-    expect(res.body.message).toContain('Client dashboard');
+    expect(res.body.success).toBe(true);
+    expect(res.body.user.email).toBe('test@example.com');
   });
 });

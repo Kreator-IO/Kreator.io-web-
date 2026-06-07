@@ -6,7 +6,7 @@ const starterPrompts = [
   {
     label: 'Tell me about services',
     reply:
-      'Kreonix helps with AI/ML, web apps, mobile ecosystems, cloud architecture, data platforms, UX systems, DevOps, and AI Slop Scanner audits.',
+      'VexquorAI helps with AI/ML, web apps, mobile ecosystems, cloud architecture, data platforms, UX systems, DevOps, and AI Slop Scanner audits.',
     path: '/services',
   },
   {
@@ -32,36 +32,26 @@ const initialMessages = [
   },
 ];
 
-function getAssistantReply(message) {
+const getAssistantReply = (message) => {
   const normalizedMessage = message.toLowerCase();
 
-  if (normalizedMessage.includes('price') || normalizedMessage.includes('cost') || normalizedMessage.includes('plan')) {
+  if (normalizedMessage.includes('price') || normalizedMessage.includes('cost') || normalizedMessage.includes('pricing')) {
     return {
-      text:
-        'The Starter plan is $499/project, Professional is $1,499/project, and Enterprise is custom. I can take you to pricing.',
+      text: 'You can compare Starter, Professional, and Enterprise options on the pricing page.',
       path: '/pricing',
     };
   }
 
-  if (normalizedMessage.includes('service') || normalizedMessage.includes('build') || normalizedMessage.includes('offer')) {
+  if (normalizedMessage.includes('service') || normalizedMessage.includes('build') || normalizedMessage.includes('website') || normalizedMessage.includes('app')) {
     return {
-      text:
-        'We build AI automations, web apps, mobile products, cloud systems, data pipelines, design systems, and DevOps workflows.',
+      text: 'VexquorAI builds AI systems, websites, apps, cloud platforms, and product experiences. The services page is the best overview.',
       path: '/services',
-    };
-  }
-
-  if (normalizedMessage.includes('contact') || normalizedMessage.includes('start') || normalizedMessage.includes('project') || normalizedMessage.includes('hire')) {
-    return {
-      text:
-        'Let us start with a short project brief. Share your goals, rough timeline, budget range, and any existing links or docs.',
-      path: '/contact',
     };
   }
 
   if (normalizedMessage.includes('email') || normalizedMessage.includes('phone')) {
     return {
-      text: 'You can email Kreator_IO@proton.me or call +91 7535977315. The contact page also has the full brief form.',
+      text: 'You can email VexquorAI@proton.me or call +91 7535977315. The contact page also has the full brief form.',
       path: '/contact',
     };
   }
@@ -132,7 +122,7 @@ export default function AIAssistantWidget() {
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-100">Babu Ram AI</p>
-                <p className="text-xs font-medium text-slate-300">Kreonix.io assistant</p>
+                <p className="text-xs font-medium text-slate-300">VexquorAI assistant</p>
               </div>
               <button
                 type="button"

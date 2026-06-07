@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import AIAssistantWidget from './components/AIAssistantWidget';
+import LeadCaptureWidget from './components/LeadCaptureWidget';
 import Home from './pages/home-pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -91,6 +92,7 @@ function PageLayout({ children }) {
       </div>
       <div className="relative z-20">
         <AIAssistantWidget />
+        <LeadCaptureWidget />
       </div>
     </div>
   );
@@ -115,306 +117,45 @@ function App() {
           <AutoSwitchHome />
           <Suspense fallback={<div className="min-h-screen bg-[#020617]" />}>
           <Routes>
-          <Route 
-            path="/" 
-            element={<HomeRedirect />}
-          />
-          <Route
-            path="/home1"
-            element={
-              <PageLayout>
-                <Home />
-              </PageLayout>
-            }
-          />
-          <Route
-            path="/home2"
-            element={
-              <PageLayout>
-                <ClassicHome />
-              </PageLayout>
-            }
-          />
-          <Route
-            path="/classic-home"
-            element={
-              <PageLayout>
-                <ClassicHome />
-              </PageLayout>
-            }
-          />
-          <Route
-            path="/home4"
-            element={
-              <PageLayout>
-                <Home4 />
-              </PageLayout>
-            }
-          />
-          <Route 
-            path="/about" 
-            element={
-              <PageLayout>
-                <About />
-              </PageLayout>
-            } 
-          />
-          <Route 
-            path="/services" 
-            element={
-              <PageLayout>
-                <Services />
-              </PageLayout>
-            } 
-          />
-          <Route 
-            path="/portfolio" 
-            element={
-              <PageLayout>
-                <Portfolio />
-              </PageLayout>
-            } 
-          />
-          <Route
-            path="/portfolio/:projectSlug"
-            element={
-              <PageLayout>
-                <ProjectPortal />
-              </PageLayout>
-            }
-          />
-          <Route 
-            path="/login" 
-            element={
-              <PageLayout>
-                <Login />
-              </PageLayout>
-            }
-          />
-          <Route 
-            path="/register" 
-            element={
-              <PageLayout>
-                <Register />
-              </PageLayout>
-            }
-          />
-          <Route 
-            path="/pricing" 
-            element={
-              <PageLayout>
-                <Pricing />
-              </PageLayout>
-            } 
-          />
-          <Route 
-            path="/contact" 
-            element={
-              <PageLayout>
-                <Contact />
-              </PageLayout>
-            } 
-          />
-          <Route
-            path="/privacy-policy"
-            element={
-              <PageLayout>
-                <PrivacyPolicy />
-              </PageLayout>
-            }
-          />
-          <Route
-            path="/privacy"
-            element={
-              <PageLayout>
-                <PrivacyPolicy />
-              </PageLayout>
-            }
-          />
-          <Route
-            path="/terms-of-service"
-            element={
-              <PageLayout>
-                <TermsOfService />
-              </PageLayout>
-            }
-          />
-          <Route
-            path="/terms"
-            element={
-              <PageLayout>
-                <TermsOfService />
-              </PageLayout>
-            }
-          />
-          <Route
-            path="/slop-scanner"
-            element={
-              <PageLayout>
-                <SlopScanner />
-              </PageLayout>
-            } 
-          />
-          <Route 
-            path="/portals" 
-            element={
-              <ProtectedRoute allowedRoles={['Admin', 'Administrator', 'Client', 'Manager', 'Team']}>
-                <PageLayout>
-                  <PortalDashboard />
-                </PageLayout>
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/admin" 
-            element={
-              <ProtectedRoute allowedRoles={['Admin', 'Administrator']}>
-                <AdminPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/client" 
-            element={
-              <ProtectedRoute allowedRoles={['Client']}>
-                <ClientPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/employee" 
-            element={
-              <ProtectedRoute allowedRoles={['Team']}>
-                <PortalCodeGate storageKey="portal-it-unlocked">
-                  <EmployeePortal />
-                </PortalCodeGate>
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/project" 
-            element={
-              <ProtectedRoute allowedRoles={['Manager']}>
-                <PortalCodeGate storageKey="portal-manager-unlocked">
-                  <ProjectManagementPortal />
-                </PortalCodeGate>
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/crm" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <CRMPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/support" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <SupportPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/finance" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <FinancePortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/billing" 
-            element={
-              <ProtectedRoute allowedRoles={['Client']}>
-                <BillingPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/hr" 
-            element={
-              <ProtectedRoute allowedRoles={['Team']}>
-                <PortalCodeGate storageKey="portal-hr-unlocked">
-                  <HRPortal />
-                </PortalCodeGate>
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/marketing" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <MarketingPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/partner" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <PartnerPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/security" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <SecurityPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/monitor" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <SystemMonitorPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/learning" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <LearningPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/docs" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <DocumentManagementPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/communication" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <CommunicationPortal />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/portals/analytics" 
-            element={
-              <ProtectedRoute allowedRoles={['__disabled__']}>
-                <AnalyticsDashboard />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="*" 
-            element={
-              <PageLayout>
-                <NotFound />
-              </PageLayout>
-            } 
-          />
+          <Route path="/" element={<HomeRedirect />} />
+          <Route path="/home1" element={<PageLayout><Home /></PageLayout>} />
+          <Route path="/home2" element={<PageLayout><ClassicHome /></PageLayout>} />
+          <Route path="/classic-home" element={<PageLayout><ClassicHome /></PageLayout>} />
+          <Route path="/home4" element={<PageLayout><Home4 /></PageLayout>} />
+          <Route path="/about" element={<PageLayout><About /></PageLayout>} />
+          <Route path="/services" element={<PageLayout><Services /></PageLayout>} />
+          <Route path="/portfolio" element={<PageLayout><Portfolio /></PageLayout>} />
+          <Route path="/portfolio/:projectSlug" element={<PageLayout><ProjectPortal /></PageLayout>} />
+          <Route path="/login" element={<PageLayout><Login /></PageLayout>} />
+          <Route path="/register" element={<PageLayout><Register /></PageLayout>} />
+          <Route path="/pricing" element={<PageLayout><Pricing /></PageLayout>} />
+          <Route path="/contact" element={<PageLayout><Contact /></PageLayout>} />
+          <Route path="/privacy-policy" element={<PageLayout><PrivacyPolicy /></PageLayout>} />
+          <Route path="/privacy" element={<PageLayout><PrivacyPolicy /></PageLayout>} />
+          <Route path="/terms-of-service" element={<PageLayout><TermsOfService /></PageLayout>} />
+          <Route path="/terms" element={<PageLayout><TermsOfService /></PageLayout>} />
+          <Route path="/slop-scanner" element={<PageLayout><SlopScanner /></PageLayout>} />
+          
+          <Route path="/portals" element={<ProtectedRoute allowedRoles={['Admin', 'Administrator', 'Client', 'Manager', 'Team']}><PageLayout><PortalDashboard /></PageLayout></ProtectedRoute>} />
+          <Route path="/portals/admin" element={<ProtectedRoute allowedRoles={['Admin', 'Administrator']}><AdminPortal /></ProtectedRoute>} />
+          <Route path="/portals/client" element={<ProtectedRoute allowedRoles={['Client']}><ClientPortal /></ProtectedRoute>} />
+          <Route path="/portals/employee" element={<ProtectedRoute allowedRoles={['Team']}><PortalCodeGate storageKey="portal-it-unlocked"><EmployeePortal /></PortalCodeGate></ProtectedRoute>} />
+          <Route path="/portals/project" element={<ProtectedRoute allowedRoles={['Manager']}><PortalCodeGate storageKey="portal-manager-unlocked"><ProjectManagementPortal /></PortalCodeGate></ProtectedRoute>} />
+          <Route path="/portals/crm" element={<ProtectedRoute allowedRoles={['Admin', 'Administrator', 'Manager', 'Team']}><CRMPortal /></ProtectedRoute>} />
+          <Route path="/portals/support" element={<ProtectedRoute allowedRoles={['__disabled__']}><SupportPortal /></ProtectedRoute>} />
+          <Route path="/portals/finance" element={<ProtectedRoute allowedRoles={['__disabled__']}><FinancePortal /></ProtectedRoute>} />
+          <Route path="/portals/billing" element={<ProtectedRoute allowedRoles={['Client']}><BillingPortal /></ProtectedRoute>} />
+          <Route path="/portals/hr" element={<ProtectedRoute allowedRoles={['Team']}><PortalCodeGate storageKey="portal-hr-unlocked"><HRPortal /></PortalCodeGate></ProtectedRoute>} />
+          <Route path="/portals/marketing" element={<ProtectedRoute allowedRoles={['__disabled__']}><MarketingPortal /></ProtectedRoute>} />
+          <Route path="/portals/partner" element={<ProtectedRoute allowedRoles={['__disabled__']}><PartnerPortal /></ProtectedRoute>} />
+          <Route path="/portals/security" element={<ProtectedRoute allowedRoles={['__disabled__']}><SecurityPortal /></ProtectedRoute>} />
+          <Route path="/portals/monitor" element={<ProtectedRoute allowedRoles={['__disabled__']}><SystemMonitorPortal /></ProtectedRoute>} />
+          <Route path="/portals/learning" element={<ProtectedRoute allowedRoles={['__disabled__']}><LearningPortal /></ProtectedRoute>} />
+          <Route path="/portals/docs" element={<ProtectedRoute allowedRoles={['__disabled__']}><DocumentManagementPortal /></ProtectedRoute>} />
+          <Route path="/portals/communication" element={<ProtectedRoute allowedRoles={['__disabled__']}><CommunicationPortal /></ProtectedRoute>} />
+          <Route path="/portals/analytics" element={<ProtectedRoute allowedRoles={['__disabled__']}><AnalyticsDashboard /></ProtectedRoute>} />
+          
+          <Route path="*" element={<PageLayout><NotFound /></PageLayout>} />
           </Routes>
           </Suspense>
         </Router>

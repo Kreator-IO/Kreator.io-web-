@@ -184,7 +184,7 @@ export default function HRPortal() {
         <div className="mb-10 flex items-center gap-3">
           <div className="text-5xl font-black text-blue-500">K</div>
           <div>
-            <p className="text-xl font-bold tracking-wide text-white">KREONIX</p>
+            <p className="text-xl font-bold tracking-wide text-white">VEXQUORAI</p>
             <p className="text-[10px] uppercase tracking-[0.35em] text-white">Technologies</p>
           </div>
         </div>

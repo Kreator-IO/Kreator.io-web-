@@ -31,7 +31,7 @@ export default function Home() {
     {
       name: 'Rahul Singh',
       company: 'TechStart India',
-      text: 'kreonix.io transformed our vision into a world-class platform. Highly professional and results-driven!',
+      text: 'VexquorAI transformed our vision into a world-class platform. Highly professional and results-driven!',
       role: 'CEO',
     },
     {
