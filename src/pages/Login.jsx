@@ -5,8 +5,6 @@ import { Lock, Mail } from 'lucide-react';
 import { UserContext } from '../context/UserContext';
 import GoogleLogin from '../components/Login';
 
-const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
-
 export default function Login() {
   const { updateUser, login } = useContext(UserContext);
   const [email, setEmail] = useState('');

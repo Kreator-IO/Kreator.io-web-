@@ -32,7 +32,13 @@ if (config.env !== 'test') {
 // Security Middlewares
 app.use(helmet());
 app.use(cors({
-  origin: config.corsOrigin,
+  origin(origin, callback) {
+    if (!origin || config.corsOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
 

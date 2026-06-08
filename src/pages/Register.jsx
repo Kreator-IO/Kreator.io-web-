@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import { UserContext } from '../context/UserContext';
 import { User, Mail, Lock } from 'lucide-react';
 
-const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
-
 export default function Register() {
   const { register } = useContext(UserContext);
   const [form, setForm] = useState({ name: '', email: '', password: '' });

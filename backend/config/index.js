@@ -3,6 +3,11 @@ dotenv.config();
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isTest = process.env.NODE_ENV === 'test';
+const defaultCorsOrigins = ['http://localhost:5173', 'http://localhost:5174'];
+const corsOrigins = (process.env.CORS_ORIGIN || defaultCorsOrigins.join(','))
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean);
 
 const config = {
   env: process.env.NODE_ENV || 'development',
@@ -13,7 +18,7 @@ const config = {
     expiresIn: process.env.JWT_EXPIRES_IN || '1h',
     refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
   },
-  corsOrigin: process.env.CORS_ORIGIN || '*',
+  corsOrigins,
   email: {
     user: process.env.EMAIL_USER,
     password: process.env.EMAIL_PASSWORD,
