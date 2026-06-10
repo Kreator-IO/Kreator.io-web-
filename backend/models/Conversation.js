@@ -1,15 +1,16 @@
 import mongoose from 'mongoose';
 
 const ConversationSchema = new mongoose.Schema({
-  leadId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lead', required: true },
+  sessionId: { type: String, required: true, index: true },
+  leadId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lead' },
   channel: { 
     type: String, 
     enum: ['email', 'whatsapp', 'sms', 'call', 'chat'],
     required: true
   },
   messages: [{
-    sender: { type: String, enum: ['system', 'user', 'lead', 'ai'] },
-    content: { type: String },
+    sender: { type: String, enum: ['system', 'user', 'lead', 'ai'], required: true },
+    content: { type: String, required: true },
     timestamp: { type: Date, default: Date.now },
     read: { type: Boolean, default: false },
     metadata: { type: mongoose.Schema.Types.Mixed } // For channel-specific IDs, attachments, etc.

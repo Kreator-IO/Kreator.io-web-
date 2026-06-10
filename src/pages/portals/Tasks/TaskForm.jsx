@@ -126,7 +126,7 @@ export default function TaskForm({ task, projectId, onClose, onSave }) {
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
-                <option value="Urgent">Urgent</option>
+                <option value="Critical">Critical</option>
               </select>
             </div>
             <div className="space-y-1">

@@ -19,7 +19,7 @@ export default function TaskBoard({ tasks, onTaskClick, onStatusChange }) {
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 'Urgent': return 'bg-red-500/20 text-red-400 border-red-500/50';
+      case 'Critical': return 'bg-red-500/20 text-red-400 border-red-500/50';
       case 'High': return 'bg-orange-500/20 text-orange-400 border-orange-500/50';
       case 'Medium': return 'bg-blue-500/20 text-blue-400 border-blue-500/50';
       case 'Low': return 'bg-slate-500/20 text-slate-400 border-slate-500/50';

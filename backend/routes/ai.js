@@ -20,13 +20,13 @@ router.post('/chat', validate(chatSchema), async (req, res) => {
     if (!conversation) {
       conversation = await Conversation.create({
         sessionId,
-        platform: 'Website',
+        channel: 'chat',
         messages: []
       });
     }
 
     // Save user message
-    conversation.messages.push({ role: 'user', content: message, timestamp: new Date() });
+    conversation.messages.push({ sender: 'user', content: message, timestamp: new Date() });
     
     // Simulate AI Processing (Normally you'd call OpenAI/Gemini here)
     let aiResponse = '';
@@ -49,7 +49,7 @@ router.post('/chat', validate(chatSchema), async (req, res) => {
     }
 
     // Save AI message
-    conversation.messages.push({ role: 'assistant', content: aiResponse, timestamp: new Date() });
+    conversation.messages.push({ sender: 'ai', content: aiResponse, timestamp: new Date() });
     await conversation.save();
 
     res.json({ success: true, response: aiResponse });

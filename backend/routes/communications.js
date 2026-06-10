@@ -9,7 +9,7 @@ router.use(authMiddleware);
 // GET /api/communications/calls
 router.get('/calls', async (req, res) => {
   try {
-    const calls = await CallLog.find({}).sort({ startTime: -1 });
+    const calls = await CallLog.find({}).sort({ createdAt: -1 });
     res.json({ success: true, data: calls });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Server Error' });
@@ -19,7 +19,7 @@ router.get('/calls', async (req, res) => {
 // GET /api/communications/whatsapp
 router.get('/whatsapp', async (req, res) => {
   try {
-    const conversations = await Conversation.find({ platform: 'WhatsApp' }).sort({ updatedAt: -1 });
+    const conversations = await Conversation.find({ channel: 'whatsapp' }).sort({ updatedAt: -1 });
     res.json({ success: true, data: conversations });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Server Error' });

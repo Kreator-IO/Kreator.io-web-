@@ -15,7 +15,7 @@ const taskSchema = Joi.object({
   project: Joi.string().allow('', null),
   assignedTo: Joi.string().allow('', null),
   status: Joi.string().valid('Todo', 'InProgress', 'Review', 'Done'),
-  priority: Joi.string().valid('Low', 'Medium', 'High', 'Urgent'),
+  priority: Joi.string().valid('Low', 'Medium', 'High', 'Critical'),
   dueDate: Joi.date().allow('', null)
 });
 
