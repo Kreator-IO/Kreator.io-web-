@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 
 const provider = new GoogleAuthProvider();
 
-function Login({ onSuccess, onError }) {
+function Login({ label = 'Login with Google', disabled = false, onSuccess, onError }) {
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -18,9 +18,10 @@ function Login({ onSuccess, onError }) {
     <button
       type="button"
       onClick={login}
-      className="w-full rounded bg-white px-6 py-3 font-semibold text-slate-950 hover:bg-slate-200 transition-colors"
+      disabled={disabled}
+      className="w-full rounded bg-white px-6 py-3 font-semibold text-slate-950 transition-colors hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50"
     >
-      Login with Google
+      {label}
     </button>
   );
 }

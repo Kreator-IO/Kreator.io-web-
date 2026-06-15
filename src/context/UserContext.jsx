@@ -1,10 +1,56 @@
 import React, { createContext, useCallback, useState, useEffect } from 'react';
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from 'firebase/auth';
 import config from '../config';
+import { auth } from '../firebase';
 
 export const UserContext = createContext(null);
 
 const API_BASE = config.apiUrl.replace(/\/$/, '');
 const REFRESH_TOKEN_KEY = 'refreshToken';
+const USER_ROLES_KEY = 'firebaseUserRoles';
+
+const getStoredRoles = () => {
+  try {
+    return JSON.parse(localStorage.getItem(USER_ROLES_KEY) || '{}');
+  } catch {
+    return {};
+  }
+};
+
+const getStoredRole = (email, fallbackRole = 'Client') => {
+  if (!email) return fallbackRole;
+  return getStoredRoles()[email.toLowerCase()] || fallbackRole;
+};
+
+const storeRole = (email, role) => {
+  if (!email || !role) return;
+  const roles = getStoredRoles();
+  roles[email.toLowerCase()] = role;
+  localStorage.setItem(USER_ROLES_KEY, JSON.stringify(roles));
+};
+
+const unlockPortalAccess = (role) => {
+  if (role === 'Team') {
+    sessionStorage.setItem('portal-it-unlocked', 'unlocked');
+    sessionStorage.setItem('portal-hr-unlocked', 'unlocked');
+  }
+
+  if (role === 'Manager') {
+    sessionStorage.setItem('portal-manager-unlocked', 'unlocked');
+  }
+};
+
+const mapFirebaseUser = (firebaseUser, fallbackRole = 'Client') => ({
+  name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'Firebase User',
+  email: firebaseUser.email,
+  role: getStoredRole(firebaseUser.email, fallbackRole),
+});
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -84,7 +130,7 @@ export const UserProvider = ({ children }) => {
     return makeRequest(nextAccessToken);
   }, [accessToken, buildAuthHeaders, refreshSession]);
 
-  // Load persisted data on mount and verify token
+  // Load persisted preferences on mount.
   useEffect(() => {
     const initAuth = async () => {
       const storedSettings = localStorage.getItem('settings');
@@ -92,39 +138,31 @@ export const UserProvider = ({ children }) => {
       
       const storedShared = localStorage.getItem('sharedData');
       if (storedShared) setSharedData(JSON.parse(storedShared));
-
-      const legacyToken = localStorage.getItem('token');
-      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-
-      if (legacyToken) {
-        try {
-          const response = await fetch(`${API_BASE}/auth/verify-token`, {
-            headers: {
-              Authorization: `Bearer ${legacyToken}`
-            },
-            credentials: 'include',
-          });
-          
-          const data = await response.json();
-          if (response.ok && data.user) {
-            persistAuth({ accessToken: legacyToken, user: data.user });
-          } else {
-            clearAuth();
-          }
-        } catch (error) {
-          console.error("Token verification failed", error);
-          clearAuth();
-        }
-      } else if (refreshToken) {
-        await refreshSession();
-      } else {
-        clearAuth();
-      }
-      setIsLoading(false);
     };
 
     initAuth();
-  }, [clearAuth, refreshSession]);
+  }, []);
+
+  // Keep the app session connected to Firebase Auth.
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (!firebaseUser) {
+        clearAuth();
+        setIsLoading(false);
+        return;
+      }
+
+      const token = await firebaseUser.getIdToken();
+      const userData = mapFirebaseUser(firebaseUser);
+
+      setAccessToken(token);
+      setUser(userData);
+      unlockPortalAccess(userData.role);
+      setIsLoading(false);
+    });
+
+    return unsubscribe;
+  }, [clearAuth]);
 
   // Persist changes
   useEffect(() => {
@@ -147,40 +185,43 @@ export const UserProvider = ({ children }) => {
   const updateSettings = (newSettings) => setSettings(newSettings);
   const updateSharedData = (newData) => setSharedData(prev => ({ ...prev, ...newData }));
 
-  const login = async ({ email, password }) => {
-    const response = await fetch(`${API_BASE}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Invalid email or password.');
-    persistAuth(data);
-    return data.user;
+  const setFirebaseSession = async (firebaseUser, role = 'Client') => {
+    storeRole(firebaseUser.email, role);
+    unlockPortalAccess(role);
+
+    const token = await firebaseUser.getIdToken();
+    const userData = {
+      name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'Firebase User',
+      email: firebaseUser.email,
+      role,
+    };
+
+    setAccessToken(token);
+    setUser(userData);
+
+    return userData;
+  };
+
+  const login = async ({ email, password, role = 'Client' }) => {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    return setFirebaseSession(result.user, role);
   };
 
   const register = async (form) => {
-    const response = await fetch(`${API_BASE}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(form),
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      const message = data.error || data.errors?.join(', ') || 'Registration failed';
-      throw new Error(message);
+    const result = await createUserWithEmailAndPassword(auth, form.email, form.password);
+
+    if (form.name) {
+      await updateProfile(result.user, { displayName: form.name });
     }
-    persistAuth(data);
-    return data.user;
+
+    return setFirebaseSession(result.user, form.role || 'Client');
   };
 
   const logout = async () => {
     try {
-      await authFetch('/auth/logout', { method: 'POST' });
+      await signOut(auth);
     } catch {
-      // The local session should still be cleared if the network is unavailable.
+      // The local session should still be cleared if Firebase sign-out is interrupted.
     }
     clearAuth();
   };
@@ -197,6 +238,7 @@ export const UserProvider = ({ children }) => {
         updateSharedData,
         login,
         register,
+        setFirebaseSession,
         logout,
         authFetch,
         isLoading

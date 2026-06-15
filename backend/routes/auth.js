@@ -12,6 +12,9 @@ const router = express.Router();
 const registerSchema = Joi.object({
   name: Joi.string().trim().min(2).max(80).required(),
   email: Joi.string().email().required(),
+  role: Joi.forbidden().messages({
+    'any.unknown': 'Role cannot be set during registration'
+  }),
   password: Joi.string()
     .min(8)
     .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
@@ -19,7 +22,7 @@ const registerSchema = Joi.object({
     .messages({
       'string.pattern.base': 'Password must include uppercase, lowercase, and a number'
     })
-});
+}).unknown(false);
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),

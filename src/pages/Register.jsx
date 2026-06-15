@@ -2,14 +2,48 @@ import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { UserContext } from '../context/UserContext';
-import { User, Mail, Lock } from 'lucide-react';
+import { User, Mail, Lock, Shield, Users } from 'lucide-react';
+import GoogleLogin from '../components/Login';
+import GoogleRecaptchaGate from '../components/GoogleRecaptchaGate';
+import { verifyRecaptchaToken } from '../utils/recaptcha';
+
+const roleOptions = [
+  { label: 'Client', value: 'Client' },
+  { label: 'Admin', value: 'Admin' },
+  { label: 'Team', value: 'Team' },
+];
 
 export default function Register() {
-  const { register } = useContext(UserContext);
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const { register, setFirebaseSession } = useContext(UserContext);
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'Client' });
+  const [recaptchaToken, setRecaptchaToken] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+
+  const getRedirectPath = (role) => {
+    switch (role?.toLowerCase()) {
+      case 'admin': return '/portals/admin';
+      case 'team': return '/portals/employee';
+      case 'client': return '/portals/client';
+      default: return '/portals';
+    }
+  };
+
+  const handleGoogleRegister = async (firebaseUser) => {
+    if (!recaptchaToken) {
+      setMessage('Complete reCAPTCHA before Google sign up.');
+      return;
+    }
+
+    try {
+      await verifyRecaptchaToken(recaptchaToken, 'register');
+      const registeredUser = await setFirebaseSession(firebaseUser, form.role);
+      navigate(getRedirectPath(registeredUser.role));
+    } catch (error) {
+      setMessage(error.message || 'Google sign up failed. Please try again.');
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,12 +52,18 @@ export default function Register() {
       return; 
     }
 
+    if (!recaptchaToken) {
+      setMessage('Complete reCAPTCHA before registration.');
+      return;
+    }
+
     setIsSubmitting(true);
     setMessage('');
 
     try {
-      await register(form);
-      navigate('/portals');
+      await verifyRecaptchaToken(recaptchaToken, 'register');
+      const registeredUser = await register(form);
+      navigate(getRedirectPath(registeredUser.role));
     } catch (error) {
       setMessage(error.message || 'Network error. Please try again.');
     } finally {
@@ -65,6 +105,7 @@ export default function Register() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <input type="hidden" name="g-recaptcha-response" value={recaptchaToken} />
             <label className="block text-sm text-slate-700 dark:text-slate-300">
               <div className="flex items-center gap-2 bg-slate-100 rounded p-2 dark:bg-white/5">
                 <User className="text-slate-500 dark:text-slate-300" size={18} />
@@ -86,13 +127,52 @@ export default function Register() {
               </div>
             </label>
 
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                <Users size={16} />
+                Access
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {roleOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setForm({ ...form, role: option.value })}
+                    className={`rounded border px-3 py-2 text-sm font-semibold transition ${
+                      form.role === option.value
+                        ? 'border-emerald-300 bg-emerald-300 text-slate-950'
+                        : 'border-slate-300 bg-slate-100 text-slate-700 hover:border-emerald-400 dark:border-white/10 dark:bg-white/5 dark:text-slate-300'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <GoogleRecaptchaGate action="register" onToken={setRecaptchaToken} />
+
             <div className="flex items-center justify-between mt-6">
-              <button disabled={isSubmitting} className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 rounded text-slate-900 font-semibold disabled:opacity-50">
+              <button disabled={isSubmitting || !recaptchaToken} className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 rounded text-slate-900 font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
+                <Shield className="mr-2 inline" size={16} />
                 {isSubmitting ? 'Registering...' : 'Register & Login'}
               </button>
               <Link to="/login" className="text-sm text-slate-600 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-white">Already have an account?</Link>
             </div>
           </form>
+
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+            <span className="text-xs uppercase tracking-widest text-slate-500">or</span>
+            <div className="h-px flex-1 bg-slate-200 dark:bg-white/10"></div>
+          </div>
+
+          <GoogleLogin
+            label="Sign up with Google"
+            disabled={!recaptchaToken}
+            onSuccess={handleGoogleRegister}
+            onError={() => setMessage('Google sign up failed. Please try again.')}
+          />
 
           {message && <p className="mt-4 text-sm text-red-400">{message}</p>}
         </motion.div>

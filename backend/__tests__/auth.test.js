@@ -66,6 +66,23 @@ describe('Authentication routes', () => {
     expect(res.body.user.role).toBe('Client');
   });
 
+  test('rejects invalid registration payloads before creating a user', async () => {
+    const res = await request(app).post('/api/auth/register').send({
+      name: 'A',
+      email: '',
+      password: '1',
+      role: 'SuperGod',
+    });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.errors).toEqual(expect.arrayContaining([
+      expect.stringContaining('email'),
+      expect.stringContaining('Password'),
+      'Role cannot be set during registration',
+    ]));
+  });
+
   test('logs in with valid credentials', async () => {
     mockUsers.set('test@example.com', makeUser());
 

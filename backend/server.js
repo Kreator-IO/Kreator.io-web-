@@ -18,6 +18,7 @@ import aiRoutes from './routes/ai.js';
 import appointmentRoutes from './routes/appointments.js';
 import commRoutes from './routes/communications.js';
 import billingRoutes from './routes/billing.js';
+import recaptchaRoutes from './routes/recaptcha.js';
 
 const app = express();
 let server;
@@ -70,6 +71,7 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/communications', commRoutes);
 app.use('/api/billing', billingRoutes);
+app.use('/api/recaptcha', recaptchaRoutes);
 app.use('/api', contactRoutes);
 
 // Global Error Handler

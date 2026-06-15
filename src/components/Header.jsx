@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState, useContext } from 'react';
-import { signOut } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
-import { auth } from '../firebase';
 import VexquorAILogo from './VexquorAILogo';
 
 export default function Header() {
@@ -20,12 +18,6 @@ export default function Header() {
   const { user, logout } = useContext(UserContext);
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch {
-      // Local/demo sessions do not always have a Firebase user to sign out.
-    }
-
     await logout();
   };
 

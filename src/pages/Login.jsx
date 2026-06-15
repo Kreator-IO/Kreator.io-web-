@@ -1,14 +1,24 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail } from 'lucide-react';
+import { Lock, Mail, Shield, Users } from 'lucide-react';
 import { UserContext } from '../context/UserContext';
 import GoogleLogin from '../components/Login';
+import GoogleRecaptchaGate from '../components/GoogleRecaptchaGate';
+import { verifyRecaptchaToken } from '../utils/recaptcha';
+
+const roleOptions = [
+  { label: 'Client', value: 'Client' },
+  { label: 'Admin', value: 'Admin' },
+  { label: 'Team', value: 'Team' },
+];
 
 export default function Login() {
-  const { updateUser, login } = useContext(UserContext);
+  const { login, setFirebaseSession } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('Client');
+  const [recaptchaToken, setRecaptchaToken] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -24,27 +34,40 @@ export default function Login() {
   };
 
   const handleGoogleLogin = async (firebaseUser) => {
-    // In a full implementation, you would send the Firebase ID token to the backend
-    // to exchange for a backend JWT. For now, we simulate success.
-      const mockRole = 'Client';
-      updateUser({
-      name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'Google User',
-      email: firebaseUser.email,
-      role: mockRole,
-    });
-    navigate(getRedirectPath(mockRole));
+    if (!recaptchaToken) {
+      setMessage('Complete reCAPTCHA before Google login.');
+      return;
+    }
+
+    try {
+      await verifyRecaptchaToken(recaptchaToken, 'login');
+      const loggedInUser = await setFirebaseSession(firebaseUser, role);
+      navigate(getRedirectPath(loggedInUser.role));
+    } catch (error) {
+      setMessage(error.message || 'reCAPTCHA verification failed.');
+    }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setMessage('');
+
+    if (!recaptchaToken) {
+      setMessage('Complete reCAPTCHA before login.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const loggedInUser = await login({ email, password });
+      await verifyRecaptchaToken(recaptchaToken, 'login');
+      const loggedInUser = await login({ email, password, role });
       navigate(getRedirectPath(loggedInUser.role));
-    } catch (apiError) {
-      setMessage(apiError.message || 'Network error. Please try again.');
+    } catch (error) {
+      const message = ['auth/invalid-credential', 'auth/user-not-found', 'auth/wrong-password'].includes(error.code)
+        ? 'Invalid email or password.'
+        : error.message || 'Firebase login failed. Please try again.';
+      setMessage(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -83,6 +106,7 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
+            <input type="hidden" name="g-recaptcha-response" value={recaptchaToken} />
             <label className="block text-sm text-slate-700 dark:text-slate-300">
               <div className="flex items-center gap-2 bg-slate-100 rounded p-2 dark:bg-white/5">
                 <Mail className="text-slate-500 dark:text-slate-300" size={18} />
@@ -111,12 +135,38 @@ export default function Login() {
               </div>
             </label>
 
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                <Users size={16} />
+                Access
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {roleOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setRole(option.value)}
+                    className={`rounded border px-3 py-2 text-sm font-semibold transition ${
+                      role === option.value
+                        ? 'border-cyan-300 bg-cyan-300 text-slate-950'
+                        : 'border-slate-300 bg-slate-100 text-slate-700 hover:border-cyan-400 dark:border-white/10 dark:bg-white/5 dark:text-slate-300'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <GoogleRecaptchaGate action="login" onToken={setRecaptchaToken} />
+
             <div className="flex items-center justify-between gap-4">
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !recaptchaToken}
                 className="px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-400 rounded text-slate-950 font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
               >
+                <Shield className="mr-2 inline" size={16} />
                 {isSubmitting ? 'Signing in...' : 'Login'}
               </button>
               <Link to="/register" className="text-sm text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white">Create account</Link>
@@ -130,6 +180,7 @@ export default function Login() {
           </div>
 
           <GoogleLogin
+            disabled={!recaptchaToken}
             onSuccess={handleGoogleLogin}
             onError={() => setMessage('Google login failed. Please try again.')}
           />
