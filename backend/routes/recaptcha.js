@@ -16,6 +16,14 @@ router.post('/verify', async (req, res, next) => {
       });
     }
 
+    if (config.env !== 'production' && token === config.recaptcha.devToken) {
+      return res.json({
+        success: true,
+        score: 1,
+        reasons: ['LOCAL_DEVELOPMENT_BYPASS'],
+      });
+    }
+
     const projectPath = client.projectPath(config.recaptcha.projectId);
     const [assessment] = await client.createAssessment({
       parent: projectPath,

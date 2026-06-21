@@ -1,12 +1,27 @@
 import { useEffect, useState } from 'react';
 import { RefreshCw, ShieldCheck } from 'lucide-react';
+import config from '../config';
 
-const RECAPTCHA_SITE_KEY = '6LdiYyAtAAAAABf10ux3lNcU-rXwIAITKy160RNC';
+const isLocalhost = typeof window !== 'undefined'
+  && ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
 
 export default function GoogleRecaptchaGate({ action = 'submit', onToken }) {
   const [isVerified, setIsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (isLocalhost || window.grecaptcha?.enterprise) return undefined;
+
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/enterprise.js?render=${config.recaptchaSiteKey}`;
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, []);
 
   useEffect(() => {
     const handleToken = (event) => {
@@ -24,6 +39,14 @@ export default function GoogleRecaptchaGate({ action = 'submit', onToken }) {
     setIsVerifying(true);
     setMessage('');
 
+    if (isLocalhost) {
+      setIsVerified(true);
+      setIsVerifying(false);
+      setMessage('Development verification active.');
+      onToken?.(config.recaptchaDevToken);
+      return;
+    }
+
     if (!window.grecaptcha?.enterprise) {
       setIsVerifying(false);
       setMessage('reCAPTCHA is still loading. Try again.');
@@ -32,7 +55,7 @@ export default function GoogleRecaptchaGate({ action = 'submit', onToken }) {
 
     window.grecaptcha.enterprise.ready(async () => {
       try {
-        const token = await window.grecaptcha.enterprise.execute(RECAPTCHA_SITE_KEY, { action });
+        const token = await window.grecaptcha.enterprise.execute(config.recaptchaSiteKey, { action });
         setIsVerified(true);
         setMessage('Human verified.');
         onToken?.(token);
@@ -62,7 +85,7 @@ export default function GoogleRecaptchaGate({ action = 'submit', onToken }) {
               ? 'border-emerald-400/60 bg-emerald-500/10 text-emerald-200'
               : 'border-white/15 bg-slate-950/40 text-slate-200 hover:border-cyan-300/60'
           }`}
-          data-sitekey={RECAPTCHA_SITE_KEY}
+          data-sitekey={config.recaptchaSiteKey}
           data-callback="onSubmit"
           data-action={action}
           onClick={verify}

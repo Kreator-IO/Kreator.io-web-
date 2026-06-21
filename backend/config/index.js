@@ -28,6 +28,7 @@ const config = {
     projectId: process.env.RECAPTCHA_PROJECT_ID || 'vexquorai-97e83',
     siteKey: process.env.RECAPTCHA_SITE_KEY || '6LdiYyAtAAAAABf10ux3lNcU-rXwIAITKy160RNC',
     minScore: Number(process.env.RECAPTCHA_MIN_SCORE || 0.5),
+    devToken: process.env.RECAPTCHA_DEV_TOKEN || 'dev-recaptcha-token',
   }
 };
 

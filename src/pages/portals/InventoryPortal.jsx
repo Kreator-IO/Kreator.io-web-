@@ -1,6 +1,5 @@
-import React from 'react';
 import PortalLayout from '../../components/PortalLayout';
-import { Box, List, CheckCircle, XCircle, Search, Filter, Plus, Truck, Clock, ChevronRight } from 'lucide-react';
+import { MoreHorizontal, Plus, Search } from 'lucide-react';
 
 const inventoryItems = [
   { id: 1, name: 'Laptop Model X', qty: 24, status: 'In Stock' },
