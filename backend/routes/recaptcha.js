@@ -16,6 +16,14 @@ router.post('/verify', async (req, res, next) => {
       });
     }
 
+    if (config.recaptcha.bypass) {
+      return res.json({
+        success: true,
+        score: 1,
+        reasons: ['RECAPTCHA_BYPASS_ENABLED'],
+      });
+    }
+
     if (config.env !== 'production' && token === config.recaptcha.devToken) {
       return res.json({
         success: true,

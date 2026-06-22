@@ -62,8 +62,12 @@ if (config.env === 'development') {
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
+console.log('Environment:', config.env);
+console.log('CORS origins:', config.corsOrigins.join(', '));
+
 // Routes
 app.use('/api/health', healthRoutes);
+console.log('Health route mounted');
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/leads', leadRoutes);
@@ -74,7 +78,17 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/communications', commRoutes);
 app.use('/api/billing', billingRoutes);
 app.use('/api/recaptcha', recaptchaRoutes);
+console.log('Recaptcha route mounted');
 app.use('/api', contactRoutes);
+
+app.get('/debug/routes', (req, res) => {
+  res.json({
+    health: true,
+    recaptcha: true,
+    env: process.env.NODE_ENV,
+    corsOrigins: config.corsOrigins,
+  });
+});
 
 // Global Error Handler
 app.use((err, req, res, next) => {

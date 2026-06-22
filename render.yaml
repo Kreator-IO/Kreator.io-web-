@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: backend
+    name: kreater-backend
     root: backend
     buildCommand: npm install
     startCommand: node server.js
@@ -12,4 +12,6 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: CORS_ORIGIN
-        sync: false
+        value: https://kreator-io-web.vercel.app
+      - key: RECAPTCHA_BYPASS
+        value: false

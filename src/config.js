@@ -4,6 +4,7 @@ const config = {
     : 'https://kreater-backend.onrender.com/api'),
   recaptchaSiteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LdiYyAtAAAAABf10ux3lNcU-rXwIAITKy160RNC',
   recaptchaDevToken: 'dev-recaptcha-token',
+  recaptchaBypass: import.meta.env.VITE_RECAPTCHA_BYPASS === 'true',
 };
 
 export default config;
