@@ -10,7 +10,7 @@ flowchart TD
   Vite --> Router[src/App.jsx routes]
 
   Router --> PublicPages[Public pages]
-  PublicPages --> Home[/home1, /home2, /home4]
+  PublicPages --> Home[/home2]
   PublicPages --> About[/about]
   PublicPages --> Services[/services]
   PublicPages --> Portfolio[/portfolio]

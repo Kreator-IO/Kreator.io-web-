@@ -2,20 +2,25 @@ import { Link } from 'react-router-dom';
 import { Code2, Brain, Smartphone, Cloud, ArrowRight, CheckCircle, Users, Rocket, Shield, Code, Globe } from 'lucide-react';
 import ServiceCard from '../components/ServiceCard';
 import { motion } from 'framer-motion';
-import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 
-function RiveOverlay() {
-  const { RiveComponent } = useRive({
-    src: 'https://public.rive.app/community/runtime-files/2195-4346-mesh-gradient.riv',
-    autoplay: true,
-    layout: new Layout({
-      fit: Fit.Cover,
-      alignment: Alignment.Center,
-    }),
-  });
-
+function MeshOverlay() {
   return (
-    <RiveComponent className="absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-screen" />
+    <div className="absolute inset-0 h-full w-full pointer-events-none opacity-40 mix-blend-screen overflow-hidden">
+      <style>{`
+        @keyframes homeMeshDrift {
+          0%, 100% { transform: translate3d(-4%, -3%, 0) scale(1.06) rotate(0deg); }
+          50% { transform: translate3d(4%, 3%, 0) scale(1.14) rotate(8deg); }
+        }
+      `}</style>
+      <div
+        className="absolute -inset-24 blur-3xl"
+        style={{
+          animation: 'homeMeshDrift 12s ease-in-out infinite',
+          background:
+            'radial-gradient(circle at 22% 28%, rgba(59, 130, 246, 0.75), transparent 28%), radial-gradient(circle at 70% 30%, rgba(34, 211, 238, 0.58), transparent 30%), radial-gradient(circle at 52% 72%, rgba(16, 185, 129, 0.48), transparent 32%)',
+        }}
+      />
+    </div>
   );
 }
 
@@ -66,9 +71,9 @@ export default function Home() {
           />
         </video>
 
-        {/* Subtle flowing Rive animation overlay */}
+        {/* Subtle flowing mesh overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none">
-          <RiveOverlay />
+          <MeshOverlay />
         </div>
 
         <div className="container relative z-20 mx-auto px-4">

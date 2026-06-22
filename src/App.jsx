@@ -1,14 +1,13 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { UserProvider } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import AIAssistantWidget from './components/AIAssistantWidget';
 import LeadCaptureWidget from './components/LeadCaptureWidget';
-import Home from './pages/home-pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
@@ -41,7 +40,6 @@ import SystemMonitorPortal from './pages/portals/SystemMonitorPortal';
 import LearningPortal from './pages/portals/LearningPortal';
 
 const ClassicHome = lazy(() => import('./pages/home-pages/ClassicHome'));
-const Home4 = lazy(() => import('./pages/home-pages/Home4'));
 
 // Helper to scroll to top on route change
 function ScrollToTop() {
@@ -55,28 +53,7 @@ function ScrollToTop() {
 }
 
 function HomeRedirect() {
-  return <Navigate to="/home1" replace />;
-}
-
-const autoSwitchHomeRoutes = ['/home2', '/home1', '/home4'];
-
-function AutoSwitchHome() {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const currentIndex = autoSwitchHomeRoutes.indexOf(pathname);
-    if (currentIndex === -1) return undefined;
-
-    const timer = window.setTimeout(() => {
-      const nextRoute = autoSwitchHomeRoutes[(currentIndex + 1) % autoSwitchHomeRoutes.length];
-      navigate(nextRoute);
-    }, 15000);
-
-    return () => window.clearTimeout(timer);
-  }, [navigate, pathname]);
-
-  return null;
+  return <Navigate to="/home2" replace />;
 }
 
 function PageLayout({ children }) {
@@ -114,14 +91,11 @@ function App() {
       <UserProvider>
         <Router>
           <ScrollToTop />
-          <AutoSwitchHome />
           <Suspense fallback={<div className="min-h-screen bg-[#020617]" />}>
           <Routes>
           <Route path="/" element={<HomeRedirect />} />
-          <Route path="/home1" element={<PageLayout><Home /></PageLayout>} />
           <Route path="/home2" element={<PageLayout><ClassicHome /></PageLayout>} />
           <Route path="/classic-home" element={<PageLayout><ClassicHome /></PageLayout>} />
-          <Route path="/home4" element={<PageLayout><Home4 /></PageLayout>} />
           <Route path="/about" element={<PageLayout><About /></PageLayout>} />
           <Route path="/services" element={<PageLayout><Services /></PageLayout>} />
           <Route path="/portfolio" element={<PageLayout><Portfolio /></PageLayout>} />
