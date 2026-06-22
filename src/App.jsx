@@ -94,7 +94,7 @@ function App() {
           <Suspense fallback={<div className="min-h-screen bg-[#020617]" />}>
           <Routes>
           <Route path="/" element={<HomeRedirect />} />
-          <Route path="*" element={<PageLayout><ClassicHome /></PageLayout>} />
+          <Route path="/home2" element={<PageLayout><ClassicHome /></PageLayout>} />
           <Route path="/classic-home" element={<PageLayout><ClassicHome /></PageLayout>} />
           <Route path="/about" element={<PageLayout><About /></PageLayout>} />
           <Route path="/services" element={<PageLayout><Services /></PageLayout>} />
